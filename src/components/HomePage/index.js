@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import logo from "../../logo.svg";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import logo from '../../logo.svg'
 
 function App() {
   return (
@@ -26,4 +26,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
