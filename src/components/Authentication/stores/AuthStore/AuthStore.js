@@ -8,7 +8,7 @@ import {
     setAccessToken,
     clearUserSession
 }
-from '../../../common/utils/StorageUtils';
+from '../../../../utils/StorageUtils';
 class AuthStore {
     @observable getUserSignInAPIStatus;
     @observable getUserSignInAPIError;

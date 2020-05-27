@@ -3,25 +3,27 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { observable } from 'mobx';
 import { Redirect, withRouter } from 'react-router-dom';
+import LoginPage from '../../components/LoginPage';
+import Strings from '../../i18n/Strings.json';
+import { SIGN_UP_PATH } from '../../constants/PathName'
 
-
-import { PRODUCTS_PAGE_PATH } from '../../../ECommerceApp/constants/PathName';
-import { getAccessToken } from '../../../common/utils/StorageUtils';
-import SignInPage from '../../components/SignInPage';
 @inject('authStore')
 @observer
-class SignInRoute extends React.Component {
+class LoginRoute extends React.Component {
     @observable userName;
     @observable password;
     @observable isLoading;
     @observable errorMessage;
+    @observable userNameError;
+    @observable passwordError;
     signInRef = React.createRef();
     constructor(props) {
         super(props);
         this.userName = '';
         this.isLoading = false;
         this.password = '';
-
+        this.userNameError = null;
+        this.passwordError = null;
     }
 
     componentWillUnmount() {
@@ -36,47 +38,59 @@ class SignInRoute extends React.Component {
 
         this.password = event.target.value;
     }
+    onClickLink = () => {
+        
+        const { history } = this.props;
+        history.replace(SIGN_UP_PATH);
+
+    }
     onClickSignIn = (event) => {
 
         if (this.userName == '') {
-            this.errorMessage = 'Please enter username';
+            this.userNameError = Strings.UserNameError;
+            this.passwordError = null;
             this.signInRef.current.userNameRef.current.focus();
         }
         else if (this.password == '') {
-            this.errorMessage = 'Please enter password';
+            this.userNameError = null;
+            this.passwordError = Strings.PasswordError;
             this.signInRef.current.passwordRef.current.focus();
         }
         else {
             this.isLoading = true;
+            this.userNameError = null;
+            this.passwordError = null;
             this.errorMessage = '';
             event.target.disabled = true;
             const { authStore } = this.props;
             const { userSignIn } = authStore;
             userSignIn({}, this.onSuccess, this.onFailure);
         }
-
     }
 
     onSuccess = () => {
-        const { history } = this.props;
-        history.replace(PRODUCTS_PAGE_PATH);
+
     }
-    onFailure = () => {
-        this.errorMessage = 'network error';
+    onFailure = (error) => {
+        this.errorMessage = 'error';
     }
 
     render() {
-        return (<SignInPage 
+        return (<LoginPage 
         userName={this.userName}
         password={this.password}
-        errorMessage={this.errorMessage}
+        errorField={this.errorField}
         onChangeUserName={this.onChangeUserName}
         onChangePassword={this.onChangePassword}
         onClickSignIn={this.onClickSignIn}
         isLoading={this.isLoading}
         ref = {this.signInRef}
+        userNameError={this.userNameError}
+        passwordError = {this.passwordError}
+        serverError={this.errorMessage}
+        onClickLink={this.onClickLink}
         />);
     }
 
 }
-export default withRouter(SignInRoute);
+export default withRouter(LoginRoute);

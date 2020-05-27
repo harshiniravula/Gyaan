@@ -1,1 +1,2 @@
-export const SIGN_IN_PATH = '/ecommerce-store/sign-in/';
+export const LOGIN_PATH = '/gyaan/log-in';
+export const SIGN_UP_PATH = '/gyaan/sign-up';

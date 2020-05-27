@@ -2,7 +2,7 @@ import Cookie from "js-cookie";
 
 /*global jest,expect*/
 
-import { API_SUCCESS, API_FAILED, API_FETCHING ,API_INITIAL} from "@ib/api-constants";
+import { API_SUCCESS, API_FAILED, API_FETCHING, API_INITIAL } from "@ib/api-constants";
 
 import AuthService from "../../services/AuthService/AuthAPI";
 import getUserSignInResponse from "../../fixtures/getUserSignInResponse.json";
@@ -22,7 +22,7 @@ describe("AuthStore Tests", () => {
   let authStore;
 
   beforeEach(() => {
-     authService= new AuthService();
+    authService = new AuthService();
     authStore = new AuthStore(authService);
   });
 
@@ -40,7 +40,7 @@ describe("AuthStore Tests", () => {
       password: "test-password",
     };
 
-    const mockLoadingPromise = new Promise(function (resolve, reject) {});
+    const mockLoadingPromise = new Promise(function(resolve, reject) {});
     const mockSignInAPI = jest.fn();
     mockSignInAPI.mockReturnValue(mockLoadingPromise);
     authService.signInAPI = mockSignInAPI;
@@ -49,7 +49,7 @@ describe("AuthStore Tests", () => {
     expect(authStore.getUserSignInAPIStatus).toBe(API_FETCHING);
   });
 
-  it("should test userSignInAPI success state", async () => {
+  it("should test userSignInAPI success state", async() => {
     const onSuccess = jest.fn();
     const onFailure = jest.fn();
 
@@ -69,7 +69,7 @@ describe("AuthStore Tests", () => {
     expect(onSuccess).toBeCalled();
   });
 
-  it("should test userSignInAPI failure state", async () => {
+  it("should test userSignInAPI failure state", async() => {
     const onSuccess = jest.fn();
     const onFailure = jest.fn();
     const requestObject = {

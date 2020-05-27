@@ -19,7 +19,8 @@ function App() {
           Learn React
         </a>
         <Link to="/page-1">Page 1</Link>
-        <Link to="/loginPage">login page</Link>
+        <Link to="/gyaan/log-in/">login page</Link>
+        <Link to="/gyaan/sign-up/">login page</Link>
       </header>
     </div>
   );

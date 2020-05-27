@@ -1,9 +1,12 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import SignInRoute from './SignInRoute';
-import { SIGN_IN_PATH } from '../constants/PathName';
+import LoginRoute from './LoginRoute';
+import SignUpRoute from './SignUpRoute';
+import { LOGIN_PATH, SIGN_UP_PATH } from '../constants/PathName';
 
 export const AuthRoutes = [
-    <Route path={SIGN_IN_PATH} key={SIGN_IN_PATH}component={SignInRoute} />
+    <Route path={LOGIN_PATH} key={LOGIN_PATH} component={LoginRoute} />,
+    <Route path={SIGN_UP_PATH} key={SIGN_UP_PATH} component={SignUpRoute} />
+
 ];
 //export default routes;

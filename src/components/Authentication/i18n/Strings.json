@@ -1,0 +1,16 @@
+{
+    "LoginPageTitle": "Hi there, please Login",
+    "SignUpPageTitle": "Hi there, please sign up",
+    "SignInUserNameLabel": "USERNAME",
+    "SignInPasswordLabel": "PASSWORD",
+    "DontHaveAnAccount": "Don't have an account?",
+    "SignUp": "SignUp",
+    "ibHubsLogoSizeInAuthentication": "90px",
+    "UserNameError": "Please enter UserName",
+    "PasswordError": "Please enter Password",
+    "InValidUserName": "Invalid userName",
+    "InValidPassword": "Password is too short",
+    "InValidConfirmPassword": "Invalid confirm password",
+    "ConfirmPassword": "CONFIRM PASSWORD"
+
+}
