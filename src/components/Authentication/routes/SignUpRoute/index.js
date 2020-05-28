@@ -1,2 +1,2 @@
-import SignUpRoute from './SignUpRoute';
-export default SignUpRoute;
+import SignUpRoute from './SignUpRoute'
+export default SignUpRoute

@@ -1,2 +1,2 @@
-import LoginRoute from './LoginRoute';
-export default LoginRoute;
+import LoginRoute from './LoginRoute'
+export default LoginRoute

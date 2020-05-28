@@ -1,2 +1,2 @@
-import IBHubsLogo from './IBHubsLogo';
-export default IBHubsLogo;
+import IBHubsLogo from './IBHubsLogo'
+export default IBHubsLogo

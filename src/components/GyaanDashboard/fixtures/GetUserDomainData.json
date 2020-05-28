@@ -1,0 +1,81 @@
+{
+    "following_domains": [{
+            "id": 0,
+            "domain": "video editing"
+        },
+        {
+            "id": 1,
+            "domain": "3d animation"
+        },
+        {
+            "id": 2,
+            "domain": "React"
+        }
+    ],
+    "not_following_domains": [{
+            "id": 0,
+            "domain": "Javascript"
+        },
+        {
+            "id": 1,
+            "domain": "Jabango"
+        },
+        {
+            "id": 2,
+            "domain": "React"
+        }
+    ],
+    "trending_domains": [{
+            "id": 0,
+            "domain": "video editing"
+        },
+        {
+            "id": 1,
+            "domain": "3d animation"
+        },
+        {
+            "id": 2,
+            "domain": "React"
+        }
+    ],
+    "reviewed_domains": {
+        "total_count": 10,
+        "domains": [{
+                "id": 0,
+                "name": "React",
+                "reviewed_count": 5
+            },
+            {
+                "id": 1,
+                "name": "video editing",
+                "reviewed_count": 3
+            },
+            {
+                "id": 2,
+                "name": "Jabango",
+                "reviewed_count": 2
+            }
+        ]
+    },
+    
+    "unreviewed_domains": {
+        "total_count": 7,
+        "domains": [{
+                "id": 0,
+                "name": "React",
+                "reviewed_count": 2
+            },
+            {
+                "id": 1,
+                "name": "Jabango",
+                "reviewed_count": 3
+            },
+            {
+                "id": 2,
+                "name": "Javascript",
+                "reviewed_count": 2
+            }
+        ]
+    }
+
+}
