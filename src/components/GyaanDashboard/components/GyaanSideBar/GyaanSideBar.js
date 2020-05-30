@@ -1,8 +1,9 @@
 import React from 'react';
 
 import IBHubsLogo from '../../../common/IBHubsLogo';
-import DomainsList from '../../common/DomainsList';
 import Strings from '../../i18n/Strings.json';
+import FollowingDomains from '../FollowingDomains';
+import SuggestedDomains from '../SuggestedDomains';
 import { inject, observer } from "mobx-react";
 
 import {
@@ -17,19 +18,25 @@ from './styledComponents';
 class GyaanSideBar extends React.Component {
     render() {
         const {
-            following_domains,
-            suggest_domains,
-            pending_reviews,
-        } = this.props.gyaanStore;
+            followingDomains,
+            suggestedDomains,
+            onClickFollowingDomain,
+            onCkickAllDomains,
+            onClickSuggestedDomain
+        } = this.props;
 
         return (
             <StyledSideBarWrapper>
                 <IBHubsLogo size={Strings.ibHubsLogoSize}/>
-                <StyledAllDomains>{Strings.AllDomains}</StyledAllDomains>
-                <DomainsList title={Strings.followingDomains}
-                    listOfItems={following_domains} />
-                <DomainsList title={Strings.SuggestDomains}
-                    listOfItems={suggest_domains} />
+                <StyledAllDomains onClick={onCkickAllDomains}>{Strings.AllDomains}</StyledAllDomains>
+                <FollowingDomains
+                    onClickFollowingDomain={onClickFollowingDomain}
+                    title={Strings.followingDomains}
+                    listOfItems={followingDomains} />
+                <SuggestedDomains
+                onClickSuggestedDomain
+                title={Strings.SuggestDomains}
+                    listOfItems={suggestedDomains} />
             </StyledSideBarWrapper>
         );
     }

@@ -7,9 +7,13 @@ from './styledComponents';
 class Avatar extends React.Component {
 
     render() {
-        const { url, height, width, border_radius_type } = this.props;
+        const { url, height, width, border_radius_type, altText } = this.props;
         return (
-            <StyledAvatar border_type={border_radius_type} src={url} height={height} width={width}/>
+            <StyledAvatar border_type={border_radius_type}
+            alt={altText}
+            src={url}
+            height={height}
+            width={width}/>
         );
     }
 }

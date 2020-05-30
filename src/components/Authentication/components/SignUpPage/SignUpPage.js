@@ -49,7 +49,7 @@ class SignUpPage extends React.Component {
       return (
          <StyledSignInWrapper>
             <StyledSignInPage>
-               <div>werstdyguio</div>
+
                <IBHubsLogo size={Strings.ibHubsLogoSizeInAuthentication} />
 
                <StyledHeading>{Strings.SignUpPageTitle}</StyledHeading>
@@ -58,6 +58,7 @@ class SignUpPage extends React.Component {
                   {Strings.SignInUserNameLabel}
                   <StyledBreak />
                   <InputElement
+                     data-testid="username"
                      inputRef={this.userNameRef}
                      defaultValue={userName}
                      onChange={onChangeUserName}
@@ -71,6 +72,7 @@ class SignUpPage extends React.Component {
                   {Strings.SignInPasswordLabel}
                   <StyledBreak />
                   <InputElement
+                     data-testid="password"
                      inputRef={this.passwordRef}
                      defaultValue={password}
                      onChange={onChangePassword}
@@ -86,6 +88,7 @@ class SignUpPage extends React.Component {
                   {Strings.ConfirmPassword}
                   <StyledBreak />
                   <InputElement
+                     data-testid="confirmPassword"
                      inputRef={this.confirmPasswordRef}
                      defaultValue={confirmPassword}
                      onChange={onChangeConfirmPassword}
@@ -103,7 +106,7 @@ class SignUpPage extends React.Component {
                   btnType='primary'
                   type='button'
                   role='button'
-                  data-testid='sign-in-button'
+                  data-testid='sign-up-button'
                   onClick={onClickSignIn}
                >
                   {isLoading ? (
@@ -115,7 +118,7 @@ class SignUpPage extends React.Component {
                         width={'24px'}
                      />
                   ) : (
-                     'LOGIN'
+                     'SIGN UP'
                   )}
                </Button>
                <StyledBottomContent>
@@ -125,7 +128,7 @@ class SignUpPage extends React.Component {
                      {Strings.SignUp}
                   </StyledBottomLink>
 
-                  
+
                </StyledBottomContent>
                <StyledError>{serverError}</StyledError>
             </StyledSignInPage>

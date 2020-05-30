@@ -9,14 +9,17 @@ from '../../../../utils/StorageUtils'
 class AuthStore {
    @observable getUserSignInAPIStatus
    @observable getUserSignInAPIError
+   getRole;
    constructor(authAPIService) {
-      this.authAPIService = authAPIService
-      this.init()
+      this.authAPIService = authAPIService;
+
+      this.init();
+
    }
    @action
    init() {
       this.getUserSignInAPIStatus = API_INITIAL
-      this.getUserSignInAPIError = null
+      this.getUserSignInAPIError = null;
    }
    @action.bound
    clearStore() {
@@ -29,8 +32,10 @@ class AuthStore {
 
    @action.bound
    setUserSignInAPIResponse(Response) {
+
       const { access_token } = Response.access_token;
-      setAccessToken(access_token)
+      setAccessToken(access_token);
+      this.getRole = Response.role;
    }
    @action.bound
    setGetUserSignInAPIStatus(apiStatus) {
@@ -40,6 +45,22 @@ class AuthStore {
    @action.bound
    userSignOut() {
       clearUserSession()
+   }
+
+   @action.bound
+   userSignUp(requestObject, onSuccess, onFailure) {
+
+      const usersPromise = this.authAPIService.postUsersAPI(requestObject)
+      return bindPromiseWithOnSuccess(usersPromise)
+         .to(this.setGetUserSignInAPIStatus, props => {
+            this.setUserSignInAPIResponse(props)
+            return onSuccess()
+         })
+         .catch(props => {
+            this.setGetUserSignInAPIError(props);
+            return onFailure(props);
+         })
+
    }
 
    @action.bound

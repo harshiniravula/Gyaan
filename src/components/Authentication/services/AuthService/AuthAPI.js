@@ -1,5 +1,5 @@
 import { create } from 'apisauce'
-import { networkCallWithApisauce } from '../../utils/APIUtils'
+import { networkCallWithApisauce } from '../../../../utils/APIUtils'
 import { apiMethods } from '../../constants/APIConstants'
 import endPoints from '../endPoints'
 
@@ -9,6 +9,15 @@ class AuthService {
       this.api = create({
          baseURL: 'gyaan'
       })
+   }
+
+   postUsersAPI(requestObject) {
+      return networkCallWithApisauce(
+         this.api,
+         endPoints.signUp,
+         requestObject,
+         apiMethods.post
+      )
    }
 
    getUsersAPI(requestObject) {
@@ -21,4 +30,4 @@ class AuthService {
    }
 }
 
-export default AuthService
+export default AuthService;

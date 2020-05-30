@@ -6,6 +6,7 @@ import {
 from './styledComponents';
 @observer
 class Domain extends React.Component {
+
     render() {
         const {
             domain,

@@ -5,19 +5,20 @@ import { Router, withRouter, Route } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
 import { Provider } from 'mobx-react'
 
-import { SIGN_IN_PATH } from '../../constants/PathName'
-import { PRODUCTS_PATH } from '../../../ECommerceApp/constants/PathName'
+import { SIGN_UP_PATH, LOGIN_PATH } from '../../constants/PathName'
+import { GYAAN_PATH } from '../../../GyaanDashboard/constants/PathName';
+
 import AuthAPI from '../../services/AuthService/AuthAPI'
 import AuthStore from '../../stores/AuthStore'
-import getUserSignInResponse from '../../fixtures/getUserSignInResponse.json'
+import getUserLogInResponse from '../../fixtures/getUserLogInResponse.json'
 
-import SignInRoute from '.'
+import LoginRoute from '.'
 
 const LocationDisplay = withRouter(({ location }) => (
    <div data-testid='location-display'>{location.pathname}</div>
 ))
 
-describe('SignInRoute Tests', () => {
+describe('LoginRoute Tests', () => {
    let authAPI
    let authStore
 
@@ -33,94 +34,93 @@ describe('SignInRoute Tests', () => {
    it('should render username empty error message', () => {
       const { getByText, getByRole } = render(
          <Router history={createMemoryHistory()}>
-            <SignInRoute authStore={authStore} />
+            <LoginRoute authStore={authStore} />
          </Router>
       )
-      const signInButton = getByRole('button', { name: 'Sign in' })
+      const loginButton = getByRole('button', { name: 'LOGIN' })
 
-      fireEvent.click(signInButton)
+      fireEvent.click(loginButton)
 
       getByText(/Please enter username/i)
    })
 
    it('should render password empty error message', () => {
-      const { getByText, getByPlaceholderText, getByRole } = render(
+      const { getByText, getByTestId, getByRole } = render(
          <Router history={createMemoryHistory()}>
-            <SignInRoute authStore={authStore} />
+            <LoginRoute authStore={authStore} />
          </Router>
       )
       const username = 'test-user'
-      const usernameField = getByPlaceholderText('Username')
-      const signInButton = getByRole('button', { name: 'Sign in' })
+      const usernameField = getByTestId('username')
+      const loginButton = getByRole('button', { name: 'LOGIN' })
 
       fireEvent.change(usernameField, { target: { value: username } })
-      fireEvent.click(signInButton)
+      fireEvent.click(loginButton)
 
       getByText(/Please enter password/i)
    })
 
    it('should submit sign-in on press enter', () => {
-      const { getByLabelText, getByPlaceholderText, getByRole } = render(
+      const { getByLabelText, getByTestId, getByRole } = render(
          <Router history={createMemoryHistory()}>
-            <SignInRoute authStore={authStore} />
+            <LoginRoute authStore={authStore} />
          </Router>
       )
       const username = 'test-user'
       const password = 'test-password'
 
-      const usernameField = getByPlaceholderText('Username')
-      const passwordField = getByPlaceholderText('Password')
-      const signInButton = getByRole('button', { name: 'Sign in' })
+      const usernameField = getByTestId('username')
+      const passwordField = getByTestId('password')
+      const logInButton = getByRole('button', { name: 'LOGIN' })
 
       fireEvent.change(usernameField, { target: { value: username } })
       fireEvent.change(passwordField, { target: { value: password } })
-      fireEvent.keyPress(signInButton, { key: 'Enter', code: 'Enter' })
+      fireEvent.keyPress(logInButton, { key: 'Enter', code: 'Enter' })
 
       waitFor(() => getByLabelText('audio-loading'))
    })
 
-   it('should render signInRoute loading state', async () => {
-      const { getByLabelText, getByPlaceholderText, getByRole } = render(
+   it('should render signInRoute loading state', async() => {
+      const { getByLabelText, getByTestId, getByRole } = render(
          <Router history={createMemoryHistory()}>
-            <SignInRoute authStore={authStore} />
+            <LoginRoute authStore={authStore} />
          </Router>
       )
       const username = 'test-user'
       const password = 'test-password'
 
-      const usernameField = getByPlaceholderText('Username')
-      const passwordField = getByPlaceholderText('Password')
-      const signInButton = getByRole('button', { name: 'Sign in' })
+      const usernameField = getByTestId('username')
+      const passwordField = getByTestId('password')
+      const logInButton = getByRole('button', { name: 'LOGIN' })
 
       const mockLoadingPromise = new Promise(function(resolve, reject) {})
       const mockSignInAPI = jest.fn()
       mockSignInAPI.mockReturnValue(mockLoadingPromise)
-      authAPI.signInAPI = mockSignInAPI
+      authAPI.getUsersAPI = mockSignInAPI
 
       fireEvent.change(usernameField, { target: { value: username } })
       fireEvent.change(passwordField, { target: { value: password } })
-      fireEvent.click(signInButton)
+      fireEvent.click(logInButton)
 
       getByLabelText('audio-loading')
       getByRole('button', { disabled: true })
    })
-   it('should render signInRoute success state', async () => {
+   it('should render signInRoute success state', async() => {
       const history = createMemoryHistory()
-      const route = SIGN_IN_PATH
+      const route = LOGIN_PATH
       history.push(route)
 
       const {
-         getByPlaceholderText,
          getByRole,
          queryByRole,
          getByTestId
       } = render(
          <Provider authStore={authStore}>
             <Router history={history}>
-               <Route path={SIGN_IN_PATH}>
-                  <SignInRoute />
+               <Route path={LOGIN_PATH}>
+                  <LoginRoute />
                </Route>
-               <Route path={PRODUCTS_PATH}>
+               <Route path={GYAAN_PATH}>
                   <LocationDisplay />
                </Route>
             </Router>
@@ -130,54 +130,55 @@ describe('SignInRoute Tests', () => {
       const username = 'test-user'
       const password = 'test-password'
 
-      const usernameField = getByPlaceholderText('Username')
-      const passwordField = getByPlaceholderText('Password')
-      const signInButton = getByRole('button', { name: 'Sign in' })
+      const usernameField = getByTestId('username')
+      const passwordField = getByTestId('password')
+      const logInButton = getByRole('button', { name: 'LOGIN' })
+
 
       const mockSuccessPromise = new Promise(function(resolve, reject) {
-         resolve(getUserSignInResponse)
+         resolve(getUserLogInResponse)
       })
       const mockSignInAPI = jest.fn()
       mockSignInAPI.mockReturnValue(mockSuccessPromise)
-      authAPI.signInAPI = mockSignInAPI
+      authAPI.getUsersAPI = mockSignInAPI
 
       fireEvent.change(usernameField, { target: { value: username } })
       fireEvent.change(passwordField, { target: { value: password } })
-      fireEvent.click(signInButton)
+      fireEvent.click(logInButton)
 
       waitFor(() => {
          expect(
-            queryByRole('button', { name: 'Sign in' })
+            queryByRole('button', { name: 'LOGIN' })
          ).not.toBeInTheDocument()
          expect(getByTestId('location-display')).toHaveTextContent(
-            PRODUCTS_PATH
+            GYAAN_PATH
          )
       })
    })
    it('should render signInRoute failure state', () => {
-      const { getByText, getByPlaceholderText, getByRole } = render(
+      const { getByText, getByTestId, getByRole } = render(
          <Router history={createMemoryHistory()}>
-            <SignInRoute authStore={authStore} />
+            <LoginRoute authStore={authStore} />
          </Router>
       )
 
       const username = 'test-user'
       const password = 'test-password'
 
-      const usernameField = getByPlaceholderText('Username')
-      const passwordField = getByPlaceholderText('Password')
-      const signInButton = getByRole('button', { name: 'Sign in' })
+      const usernameField = getByTestId('username')
+      const passwordField = getByTestId('password')
+      const logInButton = getByRole('button', { name: 'LOGIN' })
 
       const mockFailurePromise = new Promise(function(resolve, reject) {
          reject(new Error('error'))
       }).catch(() => {})
       const mockSignInAPI = jest.fn()
       mockSignInAPI.mockReturnValue(mockFailurePromise)
-      authAPI.signInAPI = mockSignInAPI
+      authAPI.getUsersAPI = mockSignInAPI
 
       fireEvent.change(usernameField, { target: { value: username } })
       fireEvent.change(passwordField, { target: { value: password } })
-      fireEvent.click(signInButton)
+      fireEvent.click(logInButton)
 
       waitFor(() => {
          getByText('network error')

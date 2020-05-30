@@ -41,7 +41,7 @@ const StyledHeading = styled.p`
 const StyledBreak = styled.br``
 
 const StyledLabel = styled.label`
-   ${tw`text-xs w-full text-gray-500 m-0`};
+   ${tw`text-xs w-full text-gray-500 my-2`};
 `
 const StyledBottomContent = styled.p`
    ${tw`text-xs `};

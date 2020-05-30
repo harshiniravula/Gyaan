@@ -1,11 +1,19 @@
 import GetUserDomainData from '../../fixtures/GetUserDomainData.json';
+import GetPostsData from '../../fixtures/GetPostsData.json';
 class LogInService {
+    getPostsAPI(requestObject) {
+
+        return new Promise((resolve, reject) => {
+            resolve(GetPostsData);
+        });
 
 
-    getUsersAPI() {
+    }
+    getDomainsAPI(requestObject) {
         return new Promise((resolve, reject) => {
             resolve(GetUserDomainData);
         });
+
     }
 }
 

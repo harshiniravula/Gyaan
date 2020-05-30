@@ -53,6 +53,7 @@ class LoginPage extends React.Component {
                   {Strings.SignInUserNameLabel}
                   <StyledBreak />
                   <InputElement
+                     data-testid="username"
                      inputRef={this.userNameRef}
                      defaultValue={userName}
                      onChange={onChangeUserName}
@@ -66,6 +67,7 @@ class LoginPage extends React.Component {
                   {Strings.SignInPasswordLabel}
                   <StyledBreak />
                   <InputElement
+                       data-testid="password"
                      inputRef={this.passwordRef}
                      defaultValue={password}
                      onChange={onChangePassword}

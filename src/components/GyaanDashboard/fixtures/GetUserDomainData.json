@@ -1,79 +1,78 @@
 {
     "following_domains": [{
-            "id": 0,
-            "domain": "video editing"
+            "domain_id": 0,
+            "domain_name": "video editing"
         },
         {
-            "id": 1,
-            "domain": "3d animation"
+            "domain_id": 1,
+            "domain_name": "3d animation"
         },
         {
-            "id": 2,
-            "domain": "React"
+            "domain_id": 2,
+            "domain_name": "React"
+        },
+        {
+            "domain_id": 3,
+            "domain_name": "3d printing"
+        },
+        {
+            "domain_id": 4,
+            "domain_name": "ai/ml"
         }
     ],
-    "not_following_domains": [{
-            "id": 0,
-            "domain": "Javascript"
+    "suggested_domains": [{
+            "domain_id": 0,
+            "domain_name": "Javascript",
+            "isReguested": true
         },
         {
-            "id": 1,
-            "domain": "Jabango"
+            "domain_id": 1,
+            "domain_name": "Jabango",
+            "isReguested": false
         },
         {
-            "id": 2,
-            "domain": "React"
+            "domain_id": 2,
+            "domain_name": "React",
+            "isReguested": true
         }
     ],
-    "trending_domains": [{
-            "id": 0,
-            "domain": "video editing"
-        },
-        {
-            "id": 1,
-            "domain": "3d animation"
-        },
-        {
-            "id": 2,
-            "domain": "React"
-        }
-    ],
-    "reviewed_domains": {
+
+    "pending_posts": {
         "total_count": 10,
         "domains": [{
-                "id": 0,
-                "name": "React",
-                "reviewed_count": 5
+                "domain_id": 0,
+                "domain_name": "React",
+                "posts_count": 5
             },
             {
-                "id": 1,
-                "name": "video editing",
-                "reviewed_count": 3
+                "domain_id": 1,
+                "domain_name": "video editing",
+                "posts_count": 3
             },
             {
-                "id": 2,
-                "name": "Jabango",
-                "reviewed_count": 2
+                "domain_id": 2,
+                "domain_name": "Jabango",
+                "posts_count": 2
             }
         ]
     },
-    
-    "unreviewed_domains": {
+
+    "pending_for_review_posts": {
         "total_count": 7,
         "domains": [{
-                "id": 0,
-                "name": "React",
-                "reviewed_count": 2
+                "domain_id": 0,
+                "domain_name": "React",
+                "posts_count": 2
             },
             {
-                "id": 1,
-                "name": "Jabango",
-                "reviewed_count": 3
+                "domain_id": 1,
+                "domain_name": "Jabango",
+                "posts_count": 3
             },
             {
-                "id": 2,
-                "name": "Javascript",
-                "reviewed_count": 2
+                "domain_id": 2,
+                "domain_name": "Javascript",
+                "posts_count": 2
             }
         ]
     }

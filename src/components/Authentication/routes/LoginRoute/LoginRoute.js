@@ -6,6 +6,7 @@ import { Redirect, withRouter } from 'react-router-dom'
 import LoginPage from '../../components/LoginPage'
 import Strings from '../../i18n/Strings.json'
 import { SIGN_UP_PATH } from '../../constants/PathName'
+import { GYAAN_PATH } from '../../../GyaanDashboard/constants/PathName';
 
 @inject('authStore')
 @observer
@@ -60,13 +61,27 @@ class LoginRoute extends React.Component {
          event.target.disabled = true
          const { authStore } = this.props
          const { userSignIn } = authStore
-         userSignIn({thiss.userName}, this.onSuccess, this.onFailure)
+         userSignIn({
+               userName: this.userName,
+               password: this.password
+            },
+            this.onSuccess,
+            this.onFailure)
       }
    }
 
-   onSuccess = () => {}
+   onSuccess = () => {
+      const { history } = this.props
+      history.replace(GYAAN_PATH)
+   }
    onFailure = error => {
-      this.errorMessage = JSON.parse(error).originalError.message
+      if (typeof error === 'string') {
+         this.errorMessage = error;
+
+      }
+      else {
+         this.errorMessage = JSON.parse(error).originalError.message
+      }
    }
 
    render() {

@@ -6,7 +6,8 @@ import { Redirect, withRouter } from 'react-router-dom'
 import SignUpPage from '../../components/SignUpPage'
 import Strings from '../../i18n/Strings.json'
 import { LOGIN_PATH } from '../../constants/PathName'
-import { EmailIdPattern } from '../../constants/RegexConstants'
+import { EmailIdPattern } from '../../constants/RegexConstants';
+import { GYAAN_PATH } from '../../../GyaanDashboard/constants/PathName';
 
 @inject('authStore')
 @observer
@@ -17,6 +18,7 @@ class LoginRoute extends React.Component {
     @observable errorMessage
     @observable userNameError
     @observable passwordError
+    @observable confirmPasswordError
     signInRef = React.createRef()
     constructor(props) {
         super(props)
@@ -48,24 +50,27 @@ class LoginRoute extends React.Component {
     }
 
     makeErrorsNull = () => {
-        alert('make errors null')
         this.userNameError = null
         this.passwordError = null
         this.confirmPasswordError = null
     }
     onClickSignIn = event => {
         this.makeErrorsNull();
-        console.log(this.userName.match(EmailIdPattern))
-        if (!this.userName.match(EmailIdPattern)) {
+
+        if (this.userName === '') {
             this.userNameError = Strings.UserNameError
+            this.signInRef.current.userNameRef.current.focus()
+        }
+        else if (!this.userName.match(EmailIdPattern)) {
+            this.userNameError = Strings.InValidUserName
             this.signInRef.current.userNameRef.current.focus()
         }
         else if (this.password == '') {
             this.passwordError = Strings.PasswordError
             this.signInRef.current.passwordRef.current.focus()
         }
-        else if (this.confirmPassword == '') {
-            this.passwordError = Strings.PasswordError
+        else if (this.confirmPassword !== this.password) {
+            this.confirmPasswordError = Strings.InValidConfirmPassword
             this.signInRef.current.passwordRef.current.focus()
         }
         else {
@@ -75,17 +80,30 @@ class LoginRoute extends React.Component {
             this.errorMessage = ''
             event.target.disabled = true
             const { authStore } = this.props
-            const { userSignIn } = authStore
-            userSignIn({}, this.onSuccess, this.onFailure)
+            const { userSignUp } = authStore
+
+            userSignUp({
+                    userName: this.userName,
+                    password: this.password
+                },
+                this.onSuccess, this.onFailure)
         }
     }
 
     onSuccess = () => {
+        const { history } = this.props
+        history.replace(GYAAN_PATH)
 
     }
     onFailure = (error) => {
-        
-        this.errorMessage = JSON.parse(error).originalError.message;
+
+        if (typeof error === 'string') {
+            this.errorMessage = error;
+
+        }
+        else {
+            this.errorMessage = JSON.parse(error).originalError.message
+        }
     }
 
     render() {

@@ -7,10 +7,11 @@ import {
    API_FAILED,
    API_FETCHING,
    API_INITIAL
-} from '@ib/api-constants'
+}
+from '@ib/api-constants'
 
 import AuthService from '../../services/AuthService/AuthAPI'
-import getUserSignInResponse from '../../fixtures/getUserSignInResponse.json'
+import getUserLogInResponse from '../../fixtures/getUserLogInResponse.json'
 
 import AuthStore from '.'
 
@@ -48,13 +49,13 @@ describe('AuthStore Tests', () => {
       const mockLoadingPromise = new Promise(function(resolve, reject) {})
       const mockSignInAPI = jest.fn()
       mockSignInAPI.mockReturnValue(mockLoadingPromise)
-      authService.signInAPI = mockSignInAPI
+      authService.getUsersAPI = mockSignInAPI
 
       authStore.userSignIn(requestObject, onSuccess, onFailure)
       expect(authStore.getUserSignInAPIStatus).toBe(API_FETCHING)
    })
 
-   it('should test userSignInAPI success state', async () => {
+   it('should test userSignInAPI success state', async() => {
       const onSuccess = jest.fn()
       const onFailure = jest.fn()
 
@@ -63,10 +64,10 @@ describe('AuthStore Tests', () => {
          password: 'test-password'
       }
 
-      const mockSuccessPromise = Promise.resolve(getUserSignInResponse)
+      const mockSuccessPromise = Promise.resolve(getUserLogInResponse)
       const mockSignInAPI = jest.fn()
       mockSignInAPI.mockReturnValue(mockSuccessPromise)
-      authService.signInAPI = mockSignInAPI
+      authService.getUsersAPI = mockSignInAPI
 
       await authStore.userSignIn(requestObject, onSuccess, onFailure)
       expect(authStore.getUserSignInAPIStatus).toBe(API_SUCCESS)
@@ -74,7 +75,7 @@ describe('AuthStore Tests', () => {
       expect(onSuccess).toBeCalled()
    })
 
-   it('should test userSignInAPI failure state', async () => {
+   it('should test userSignInAPI failure state', async() => {
       const onSuccess = jest.fn()
       const onFailure = jest.fn()
       const requestObject = {
@@ -90,10 +91,57 @@ describe('AuthStore Tests', () => {
       expect(onFailure).toBeCalled()
    })
 
-   it('should test user sign-out', () => {
-      authStore.userSignOut()
-      expect(mockRemoveCookie).toBeCalled()
-      expect(authStore.getUserSignInAPIStatus).toBe(API_INITIAL)
-      expect(authStore.getUserSignInAPIError).toBe(null)
+   it('should test userSignUpAPI success state', async() => {
+      const onSuccess = jest.fn()
+      const onFailure = jest.fn()
+
+      const requestObject = {
+         username: 'test-user',
+         password: 'test-password'
+      }
+
+      const mockSuccessPromise = Promise.resolve(getUserLogInResponse)
+      const mockSignInAPI = jest.fn()
+      mockSignInAPI.mockReturnValue(mockSuccessPromise)
+      authService.postUsersAPI = mockSignInAPI;
+
+      await authStore.userSignUp(requestObject, onSuccess, onFailure)
+      expect(authStore.getUserSignInAPIStatus).toBe(API_SUCCESS)
+      expect(mockSetCookie).toBeCalled()
+      expect(onSuccess).toBeCalled()
+   })
+
+   it('should test userSignInAPI data posting state', () => {
+      const onSuccess = jest.fn()
+      const onFailure = jest.fn()
+
+      const requestObject = {
+         username: 'test-user',
+         password: 'test-password'
+      }
+
+      const mockLoadingPromise = new Promise(function(resolve, reject) {})
+      const mockSignInAPI = jest.fn()
+      mockSignInAPI.mockReturnValue(mockLoadingPromise)
+      authService.postUsersAPI = mockSignInAPI
+
+      authStore.userSignUp(requestObject, onSuccess, onFailure)
+      expect(authStore.getUserSignInAPIStatus).toBe(API_FETCHING)
+   })
+
+   it('should test userSignUpAPI failure state', async() => {
+      const onSuccess = jest.fn()
+      const onFailure = jest.fn()
+      const requestObject = {
+         username: 'test-user',
+         password: 'test-password'
+      }
+
+      jest
+         .spyOn(authService, 'postUsersAPI')
+         .mockImplementation(() => Promise.reject())
+      await authStore.userSignUp(requestObject, onSuccess, onFailure)
+      expect(authStore.getUserSignInAPIStatus).toBe(API_FAILED)
+      expect(onFailure).toBeCalled()
    })
 })
