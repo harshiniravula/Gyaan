@@ -1,7 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../../logo.svg'
-import { ALL_DOMAINS_PATH } from '../GyaanDashboard/constants/PathName';
+import {
+   GYAAN_PATH
+}
+from '../../GyaanDashboard/constants/PathName';
+
+import {
+   LOGIN_PATH,
+   SIGN_UP_PATH
+}
+from '../../Authentication/constants/PathName';
 
 function App() {
    return (
@@ -20,10 +29,9 @@ function App() {
                Learn React
             </a>
             <Link to='/page-1'>Page 1</Link>
-            <Link to='/gyaan/log-in/'>login page</Link>
-            <Link to='/gyaan/sign-up/'>login page</Link>
-            <Link to='/gyaan/allDomains'>gyaan allDomains</Link>
-            <Link to='/gyaan'>gyaan App</Link>
+            <Link to={LOGIN_PATH}>login page</Link>
+            <Link to={SIGN_UP_PATH}>sign page</Link>
+            <Link to={GYAAN_PATH}>gyaan App</Link>
          </header>
       </div>
    )
