@@ -3,8 +3,8 @@ import { observable, action } from 'mobx';
 import CommentModel from '../CommentModel';
 class BasicPostModel {
 
-    constructor(post, domainName) {
-
+    constructor(post, domainName, domainPic) {
+        this.domainPic = domainPic;
         this.postDomainName = domainName;
         this.postId = post.post_version_id;
         this.title = post.title;

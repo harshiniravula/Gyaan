@@ -21,7 +21,8 @@ class EachPost extends React.Component {
             commentsCount,
             postedAt,
             postedBy,
-            comments
+            comments,
+            domainPic
         } = this.props.postData;
         const {
             approvedComment,
@@ -37,7 +38,8 @@ class EachPost extends React.Component {
                 postedBy={postedBy}
                 reactionsCount={reactionsCount}
                 postTitle={title}
-                domainName={postDomainName}/>
+                domainName={postDomainName}
+                domainPic={domainPic}/>
 
 
 

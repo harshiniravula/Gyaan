@@ -10,12 +10,14 @@ import BasicPostModel from '../BasicPostModel';
 class DomainModel {
     @observable getPostsAPIStatus;
     @observable getPostsAPIError;
+    @observable getDomainDataAPIStatus;
+    @observable getDomainDataAPIError;
     @observable getdomainPosts;
     @observable domainExperts;
     @observable starsCount;
     @observable followersCount;
-    @observable randomCount;
-    @observable profilePic;
+    @observable domainPic;
+    @observable domainDescription;
     constructor(domainDetails, gyaanAPIService) {
         this.gyaanAPIService = gyaanAPIService;
         this.domainId = domainDetails.domain_id;
@@ -27,19 +29,22 @@ class DomainModel {
     init() {
         this.getPostsAPIStatus = API_INITIAL;
         this.getPostsAPIError = null;
+        this.getDomainDataAPIStatus = API_INITIAL;
+        this.getDomainDataAPIError = null;
         this.getdomainPosts = [];
         this.domainExperts = [];
         this.starsCount = 0;
         this.followersCount = 0;
-        this.randomCount = 0;
-        this.profilePic = null;
+        this.postsCount = 0;
+        this.domainPic = null;
+        this.domainDescription = null;
 
     }
 
     @action.bound
     onClickDomain() {
         this.getDomainDetails({});
-        alert('onClickDomain');
+        this.getPosts({});
     }
 
     @action.bound
@@ -49,8 +54,7 @@ class DomainModel {
     }
 
     @action.bound
-    setGetPostsResponse(response) {
-        console.log(response);
+    setGetDomainDetailsResponse(response) {
         this.domainExperts = response.domain_experts.map(
             expert => {
                 return {
@@ -60,11 +64,11 @@ class DomainModel {
                 }
             });
         this.starsCount = response.stars_count;
-        this.FollowersCount = response.following_count;
-        this.randomCount = response.random_count;
-        this.getdomainPosts = response.posts.map(post => new BasicPostModel(post));
-        this.profilePic = response.profile_pic;
+        this.followersCount = response.followers_count;
+        this.postsCount = response.posts_count;
+        this.domainPic = response.domain_pic;
         this.domainExpertsCount = response.domain_experts_count;
+        this.domainDescription = response.domain_description;
 
     }
 
@@ -73,14 +77,33 @@ class DomainModel {
         this.getPostsAPIError = error;
     }
 
-
     @action.bound
-    getDomainDetails(requestObject) {
-        alert('domain model');
+    setGetDomainDetailsAPIStatus(apiStatus) {
+        this.getDomainDataAPIStatus = apiStatus;
+    }
+    @action.bound
+    setGetPostsResponse(response) {
+        this.getdomainPosts = response.map(post => new BasicPostModel(post, this.domainName, this.domainPic));
+    }
+    @action.bound
+    setGetDomainDetailsAPIError(error) {
+        this.getDomainDataAPIError = error;
+
+    }
+    @action.bound
+    getPosts(requestObject) {
         const usersPromise = this.gyaanAPIService.getFollowingDomainPostsAPI(requestObject);
         return bindPromiseWithOnSuccess(usersPromise)
             .to(this.setGetPostsAPIStatus, this.setGetPostsResponse)
             .catch(this.setGetPostsAPIError);
+    }
+
+    @action.bound
+    getDomainDetails(requestObject) {
+        const usersPromise = this.gyaanAPIService.getFollowingDomainDetailsAPI(requestObject);
+        return bindPromiseWithOnSuccess(usersPromise)
+            .to(this.setGetDomainDetailsAPIStatus, this.setGetDomainDetailsResponse)
+            .catch(this.setGetDomainDetailsAPIError);
     }
 
 }

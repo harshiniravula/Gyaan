@@ -34,7 +34,8 @@ class TitleSection extends React.Component {
             reactionsCount,
             commentsCount,
             isReacted,
-            postTitle
+            postTitle,
+            domainPic
         } = this.props;
         return (<StyledTitleSection>
         <Avatar src={postedBy.profilePic}
@@ -51,7 +52,8 @@ class TitleSection extends React.Component {
 
 
         <PostDomain
-        fontSize={strings.DomainTitleSize}
+        isTitle={false}
+        domainPic={domainPic}
         domainName={domainName}/>
 
         </StyledHeader>

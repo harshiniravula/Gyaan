@@ -26,7 +26,9 @@ class GyaanDashboard extends React.Component {
             getPostsAPIError,
             getPosts,
             getGyaanDomainsAPIStatus,
-            getGyaanDomainsAPIError
+            getGyaanDomainsAPIError,
+            onClickAllDomains
+
         } = this.props;
 
 
@@ -40,6 +42,7 @@ class GyaanDashboard extends React.Component {
             suggestedDomains={suggestedDomains}
             getGyaanDomainsAPIError={getGyaanDomainsAPIError}
             getGyaanDomainsAPIStatus = { getGyaanDomainsAPIStatus }
+            onClickAllDomains={onClickAllDomains}
             onClickFollowingDomain = { onClickFollowingDomain}/>
 
             <StyledRightSide>

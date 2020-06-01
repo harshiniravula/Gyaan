@@ -7,6 +7,7 @@ class Button extends React.Component {
       primary: {
          background: '#2b6cb0',
          color: 'white'
+
       },
       secondary: {
          background: '#f2f2f2',
@@ -15,14 +16,33 @@ class Button extends React.Component {
       tertiary: {
          background: '#48bb78',
          color: 'white'
+      },
+      warning: {
+         background: '#fed7d7',
+         color: 'red'
       }
    }
    static size = {
-      small: '20px',
-      medium: '50px',
-      large: '100px',
-
-      full: '100%'
+      small: {
+         width: '40px',
+         text: '14px'
+      },
+      medium: {
+         width: '50px',
+         text: '18px'
+      },
+      large: {
+         width: '65px',
+         text: '20px'
+      },
+      mini: {
+         width: '30px',
+         text: '10px'
+      },
+      full: {
+         width: '100%',
+         text: 'normal'
+      }
    }
 
    static shape = {

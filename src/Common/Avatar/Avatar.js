@@ -8,10 +8,10 @@ import strings from '../i18n/Strings.json';
 class Avatar extends React.Component {
 
     static imageSize = {
-        small: '40px',
-        medium: '70px',
-        large: '100px',
-        defaultSize: '120px'
+        small: '35px',
+        medium: '45px',
+        large: '70px',
+        defaultSize: '20px'
     }
 
     static borderType = {
@@ -23,12 +23,12 @@ class Avatar extends React.Component {
 
 
     render() {
-        const { borderType, size, src } = this.props;
-
+        const { borderType, size, src, alt, onClick } = this.props;
         return (
             <StyledAvatar
+            onClick={onClick}
             src={src}
-            alt={strings.altText}
+            alt={alt?alt:strings.altText}
             borderRadius={borderType}
             size={size}/>
         );

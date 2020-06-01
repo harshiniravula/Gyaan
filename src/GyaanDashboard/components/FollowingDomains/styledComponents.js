@@ -8,12 +8,14 @@ const StyledListTitle = styled.div `
 `;
 
 const StyledTitle = styled.p `
-    ${tw ``};
+    ${tw ` `};
+    cursor:pointer;
 
 `;
 const StyledListItem = styled.li `
     ${tw `text-sm`};
     list-style-type:none;
+    cursor:pointer;
 `;
 const StyledList = styled.ul `
     ${tw `text-sm`};

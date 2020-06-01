@@ -26,6 +26,10 @@ class GyaanDashboardRoute extends React.Component {
       const { history } = this.props;
       history.replace(`/gyaan/followingDomains/${id}`);
    }
+   onClickAllDomains = () => {
+      const { history } = this.props;
+      history.replace(`/gyaan`);
+   }
 
 
    render() {
@@ -56,6 +60,7 @@ class GyaanDashboardRoute extends React.Component {
                   getGyaanDomainsAPIError={getGyaanDomainsAPIError}
                   getGyaanDomainsAPIStatus={getGyaanDomainsAPIStatus}
                   getPosts={getAllDomainsPostsResponse}
+                  onClickAllDomains={this.onClickAllDomains}
                   />
          }
          </WithDomainsData>

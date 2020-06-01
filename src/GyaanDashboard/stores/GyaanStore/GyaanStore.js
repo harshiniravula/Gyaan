@@ -84,8 +84,6 @@ class GyaanStore {
     @action.bound
     onClickAllDomains() {
         this.getDomainPosts({});
-
-
     }
 
     @action.bound
@@ -95,10 +93,9 @@ class GyaanStore {
             response.forEach(
                 post => {
                     this.getAllDomainsPostsResponse.push(new BasicPostModel(post,
-                        post.domain.domain_name));
+                        post.domain.domain_name, post.domain.domain_pic));
                 })
         }
-
     }
     @action.bound
     setGetPostsAPIError(error) {

@@ -20,12 +20,12 @@ class GyaanSideBar extends React.Component {
             followingDomains,
             suggestedDomains,
             onClickFollowingDomain,
-            onCkickAllDomains
+            onClickAllDomains
         } = this.props;
         return (
             <StyledSideBarWrapper>
                 <IBHubsLogo size={Strings.ibHubsLogoSize}/>
-                <StyledAllDomains onClick={onCkickAllDomains}>{Strings.AllDomains}</StyledAllDomains>
+                <StyledAllDomains onClick={onClickAllDomains}>{Strings.AllDomains}</StyledAllDomains>
                 <FollowingDomains
                     onClickFollowingDomain={onClickFollowingDomain}
                     title={Strings.followingDomains}

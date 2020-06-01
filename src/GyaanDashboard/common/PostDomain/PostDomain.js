@@ -1,10 +1,8 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-
-import { Typo24SemiBold } from "../../../styleGuide/Typos";
+import Avatar from '../../../Common/Avatar';
 import {
     StyledPostDomain,
-    StyledDomainIcon,
     StyledDomainName
 }
 from './styledComponents';
@@ -14,12 +12,20 @@ class PostDomain extends React.Component {
 
         const {
             domainName,
-            fontSize
+            isTitle,
+            domainPic
         } = this.props;
-        const iconContent = domainName.slice(0, 2);
+        const size = isTitle ? 'medium' : 'small';
+
+
+        const iconAlt = domainName.slice(0, 2);
         return <StyledPostDomain>
-        <StyledDomainIcon textSize={fontSize}>{iconContent}</StyledDomainIcon>
-        <StyledDomainName textSize={fontSize}>{domainName}</StyledDomainName>
+        <Avatar
+        borderType={Avatar.borderType.rounded}
+        size={Avatar.imageSize[size]}
+        src={domainPic}
+        alt={iconAlt}/>
+        <StyledDomainName isTitle={isTitle}>{domainName}</StyledDomainName>
         </StyledPostDomain>
     }
 }

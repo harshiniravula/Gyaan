@@ -20,7 +20,7 @@ class PostsPage extends React.Component {
                 {
                 getPosts.map(
                 eachPost=>{
-                console.log(eachPost.postId);
+
                 return <EachPost id={eachPost.postId} key={eachPost.postId} postData={eachPost}/>
                 }
                 )
