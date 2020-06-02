@@ -14,7 +14,6 @@ import {
 from './styledComponents'
 @observer
 class DomainsList extends React.Component {
-   @observable isExpanded
    @observable text;
    @observable hasClickedSeeAll
    constructor(props) {
@@ -42,8 +41,7 @@ class DomainsList extends React.Component {
 
    toggleSeeAll = () => {
       this.hasClickedSeeAll = !this.hasClickedSeeAll;
-      alert(this.text);
-      this.text = (this.text === strings.seeAll ? strings.seeAll : strings.showLess);
+      this.text = (this.text === strings.seeAll ? strings.showLess : strings.seeAll);
    }
    onClickDomain = event => {
 
@@ -55,7 +53,7 @@ class DomainsList extends React.Component {
       const { title } = this.props
 
       return (
-         <WithToggle>
+         <WithToggle text={this.text} hasClickedSeeAll={this.hasClickedSeeAll}>
             {state => (
                <StyledWrapper>
                   <StyledListTitle
