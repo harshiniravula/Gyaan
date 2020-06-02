@@ -1,2 +1,2 @@
-import ApprovedComment from './ApprovedComment';
-export default ApprovedComment;
+import ApprovedComment from './ApprovedComment'
+export default ApprovedComment

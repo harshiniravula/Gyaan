@@ -6,7 +6,7 @@ import { Redirect, withRouter } from 'react-router-dom'
 import LoginPage from '../../components/LoginPage'
 import Strings from '../../i18n/Strings.json'
 import { SIGN_UP_PATH } from '../../constants/PathName'
-import { GYAAN_PATH } from '../../../GyaanDashboard/constants/PathName';
+import { GYAAN_PATH } from '../../../GyaanDashboard/constants/PathName'
 
 @inject('authStore')
 @observer
@@ -20,12 +20,12 @@ class LoginRoute extends React.Component {
    signInRef = React.createRef()
    constructor(props) {
       super(props)
-      this.userName = '';
-      this.isLoading = false;
-      this.password = '';
-      this.userNameError = null;
-      this.passwordError = null;
-      this.errorMessage = null;
+      this.userName = ''
+      this.isLoading = false
+      this.password = ''
+      this.userNameError = null
+      this.passwordError = null
+      this.errorMessage = null
    }
 
    componentWillUnmount() {
@@ -47,13 +47,11 @@ class LoginRoute extends React.Component {
          this.userNameError = Strings.UserNameError
          this.passwordError = null
          this.signInRef.current.userNameRef.current.focus()
-      }
-      else if (this.password == '') {
+      } else if (this.password == '') {
          this.userNameError = null
          this.passwordError = Strings.PasswordError
          this.signInRef.current.passwordRef.current.focus()
-      }
-      else {
+      } else {
          this.isLoading = true
          this.userNameError = null
          this.passwordError = null
@@ -61,12 +59,14 @@ class LoginRoute extends React.Component {
          event.target.disabled = true
          const { authStore } = this.props
          const { userSignIn } = authStore
-         userSignIn({
+         userSignIn(
+            {
                userName: this.userName,
                password: this.password
             },
             this.onSuccess,
-            this.onFailure)
+            this.onFailure
+         )
       }
    }
 
@@ -76,10 +76,8 @@ class LoginRoute extends React.Component {
    }
    onFailure = error => {
       if (typeof error === 'string') {
-         this.errorMessage = error;
-
-      }
-      else {
+         this.errorMessage = error
+      } else {
          this.errorMessage = JSON.parse(error).originalError.message
       }
    }

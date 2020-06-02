@@ -1,38 +1,33 @@
-import React from 'react';
-import {
-    StyledAvatar
-}
-from './styledComponents';
-import strings from '../i18n/Strings.json';
+import React from 'react'
+import { StyledAvatar } from './styledComponents'
+import strings from '../i18n/Strings.json'
 
 class Avatar extends React.Component {
+   static imageSize = {
+      small: '35px',
+      medium: '45px',
+      large: '70px',
+      defaultSize: '20px'
+   }
 
-    static imageSize = {
-        small: '35px',
-        medium: '45px',
-        large: '70px',
-        defaultSize: '20px'
-    }
+   static borderType = {
+      rounded: '50%',
+      curved: '5%',
+      default: '0%'
+   }
 
-    static borderType = {
-        rounded: '50%',
-        curved: '5%',
-        default: '0%'
-
-    }
-
-
-    render() {
-        const { borderType, size, src, alt, onClick } = this.props;
-        return (
-            <StyledAvatar
+   render() {
+      const { borderType, size, src, alt, onClick } = this.props
+      return (
+         <StyledAvatar
             onClick={onClick}
             src={src}
-            alt={alt?alt:strings.altText}
+            alt={alt ? alt : strings.altText}
             borderRadius={borderType}
-            size={size}/>
-        );
-    }
+            size={size}
+         />
+      )
+   }
 }
 
-export default Avatar;
+export default Avatar

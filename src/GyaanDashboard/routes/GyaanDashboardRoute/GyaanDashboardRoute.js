@@ -1,71 +1,62 @@
 ///*global await*/
 import React from 'react'
 import { observer, inject } from 'mobx-react'
-import { observable } from 'mobx';
-import { withRouter } from 'react-router-dom';
+import { observable } from 'mobx'
+import { withRouter } from 'react-router-dom'
 
-import { LOGIN_PATH } from '../../../Authentication/constants/PathName';
-import { ALL_DOMAINS_PATH } from '../../constants/PathName';
-import GyaanDashboard from '../../components/GyaanDashboard';
-import WithDomainsData from '../../common/hocs/WithDomainsData'
+import { LOGIN_PATH } from '../../../Authentication/constants/PathName'
+import { GYAAN_PATH, CREATE_POST_PATH } from '../../constants/PathName'
+import GyaanDashboard from '../../components/GyaanDashboard'
 
 @inject('gyaanStore')
 @observer
 class GyaanDashboardRoute extends React.Component {
    constructor(props) {
-      super(props);
-
+      super(props)
    }
 
    componentDidMount() {
-      const { getDomainPosts } = this.props.gyaanStore;
-      getDomainPosts({});
+      const { getDomainPosts, setSelectedDomainId } = this.props.gyaanStore;
+      setSelectedDomainId(null);
    }
 
-   onClickFollowingDomain = (id) => {
-      const { history } = this.props;
-      history.replace(`/gyaan/followingDomains/${id}`);
+   onClickFollowingDomain = id => {
+      const { history } = this.props
+      history.replace(`/gyaan/followingDomains/${id}`)
    }
    onClickAllDomains = () => {
-      const { history } = this.props;
-      history.replace(`/gyaan`);
+      const { history } = this.props
+      history.replace(GYAAN_PATH)
+   }
+   onClickWritePost = () => {
+      const { history } = this.props
+      history.replace(CREATE_POST_PATH)
    }
 
-
    render() {
-      const {
-         gyaanStore
-      } = this.props;
+      const { gyaanStore } = this.props
 
       const {
          getPostsResponse,
          getPostsAPIStatus,
          getPostsAPIError,
          getAllDomainsPostsResponse
-      } = gyaanStore;
+      } = gyaanStore
 
       return (
-         <WithDomainsData gyaanStore={gyaanStore}>
-         {(followingDomains,
-         suggestedDomains,
-         getGyaanDomainsAPIStatus,
-         getGyaanDomainsAPIError)=>
+
+
          <GyaanDashboard
-                  followingDomains={followingDomains}
-                  suggestedDomains={suggestedDomains}
                   onClickFollowingDomain={this.onClickFollowingDomain}
                   getPostsResponse={getPostsResponse}
                   getPostsAPIStatus={getPostsAPIStatus}
                   getPostsAPIError={getPostsAPIError}
-                  getGyaanDomainsAPIError={getGyaanDomainsAPIError}
-                  getGyaanDomainsAPIStatus={getGyaanDomainsAPIStatus}
                   getPosts={getAllDomainsPostsResponse}
                   onClickAllDomains={this.onClickAllDomains}
-                  />
-         }
-         </WithDomainsData>
-      )
+                  onClickWritePost={this.onClickWritePost}
+               />
 
+      )
    }
 }
 export default withRouter(GyaanDashboardRoute)

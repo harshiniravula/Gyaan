@@ -1,2 +1,2 @@
-import ReactionIcon from './ReactionIcon';
-export default ReactionIcon;
+import ReactionIcon from './ReactionIcon'
+export default ReactionIcon

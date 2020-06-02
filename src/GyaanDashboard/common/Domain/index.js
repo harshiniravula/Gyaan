@@ -1,2 +1,2 @@
-import Domain from './Domain';
-export default Domain;
+import Domain from './Domain'
+export default Domain

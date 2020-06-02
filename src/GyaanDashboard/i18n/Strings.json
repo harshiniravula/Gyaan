@@ -1,5 +1,5 @@
 {
-    "SeeAll": "See all",
+    "seeAll": "See all",
     "ibHubsLogoSize": "48px",
     "AllDomains": "ALL DOMAINS",
     "SuggestDomains": "SUGGEST DOMAINS",
@@ -20,5 +20,6 @@
     "FollowingDomainPage": "followingDomainPage",
     "altText": "img",
     "domainExperts": "DOMAIN EXPERTS",
-    "leave": "Leave"
+    "leave": "Leave",
+    "showLess": "show less"
 }

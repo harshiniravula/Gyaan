@@ -2,5 +2,8 @@
     "red": "red",
     "blue": "blue",
     "green": "green",
-    "orange": "orange"
+    "orange": "orange",
+    "black": "black",
+    "gray500": "#cbd5e0",
+    "white": "white"
 }

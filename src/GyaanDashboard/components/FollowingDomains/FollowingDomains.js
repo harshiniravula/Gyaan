@@ -1,101 +1,94 @@
-import React from 'react';
-import { observer } from 'mobx-react';
-import { observable, computed } from 'mobx';
+import React from 'react'
+import { observer } from 'mobx-react'
+import { observable, computed } from 'mobx'
 
-import WithToggle from '../../common/WithToggle';
-import Strings from '../../i18n/Strings.json';
+import WithToggle from '../../common/WithToggle'
+import strings from '../../i18n/Strings.json'
 import {
-    StyledListTitle,
-    StyledTitle,
-    StyledListItem,
-    StyledList
+   StyledListTitle,
+   StyledTitle,
+   StyledListItem,
+   StyledList,
+   StyledWrapper
 }
-from './styledComponents';
+from './styledComponents'
 @observer
 class DomainsList extends React.Component {
-    @observable isExpanded;
-    @observable onClickSeeAll;
-    @observable hasClickedSeeAll;
-    constructor(props) {
-        super(props);
-        this.hasClickedSeeAll = false;
-        this.limitOnShowingDomains = 2;
+   @observable isExpanded
+   @observable text;
+   @observable hasClickedSeeAll
+   constructor(props) {
+      super(props)
+      this.hasClickedSeeAll = false
+      this.limitOnShowingDomains = 2
+      this.text = strings.seeAll;
+   }
 
-    }
-    @computed
-    get listOfItems() {
+   @computed
+   get listOfItems() {
+      const { listOfItems } = this.props
+      if (listOfItems == undefined) {
+         return []
+      }
+      else if (this.hasClickedSeeAll) {
+         return listOfItems
+      }
+      else {
+         let showListOfItems = listOfItems.slice(0, this.limitOnShowingDomains)
+         return showListOfItems
+      }
 
-        const { listOfItems } = this.props;
-        if (listOfItems == undefined) {
-            return [];
-        }
+   }
 
-        else if (listOfItems.length > this.limitOnShowingDomains &&
-            !this.hasClickedSeeAll
-        ) {
-            let showListOfItems = listOfItems.slice(0, this.limitOnShowingDomains);
-            showListOfItems.push({ domainId: Strings.SeeAll, domainName: Strings.SeeAll });
+   toggleSeeAll = () => {
+      this.hasClickedSeeAll = !this.hasClickedSeeAll;
+      alert(this.text);
+      this.text = (this.text === strings.seeAll ? strings.seeAll : strings.showLess);
+   }
+   onClickDomain = event => {
 
-            return showListOfItems;
-        }
-        else {
-            return listOfItems;
-        }
+      const { onClickFollowingDomain } = this.props
+      onClickFollowingDomain(+event.target.id)
+   }
 
-    }
-    toggleSeeAll = (bool) => {
-        this.hasClickedSeeAll = bool;
+   render() {
+      const { title } = this.props
 
-    }
-    onClickDomain = (event) => {
-        const id = event.target.id;
-        if (id === Strings.SeeAll) {
-            this.toggleSeeAll(true);
-        }
-        else {
+      return (
+         <WithToggle>
+            {state => (
+               <StyledWrapper>
+                  <StyledListTitle
+                     isExpanded={!state.toggleStatus}
+                     onClick={state.onToggle}
+                  >
+                     <StyledTitle>{title}</StyledTitle>
+                  </StyledListTitle>
+                  {!state.toggleStatus ? (
+                     <StyledList>
+                        {this.listOfItems.map(eachDomain => {
+                           return (
+                              <StyledListItem
+                                 id={eachDomain.domainId}
+                                 key={eachDomain.domainId}
+                                 onClick={this.onClickDomain}
+                              >
+                                 {eachDomain.domainName}
+                              </StyledListItem>
+                           )
+                        })}
+                        {this.props.listOfItems.length>this.limitOnShowingDomains &&
+                        <StyledListItem onClick={this.toggleSeeAll}>{this.text}</StyledListItem>}
+                     </StyledList>
+                  ) : null}
+                  {
 
-            const {
-                onClickFollowingDomain
-            } = this.props;
-            onClickFollowingDomain(id);
-
-        }
-    }
-    toggleCollapseExpand = () => {
-        this.isExpanded = !this.isExpanded;
-        if (!this.isExpanded) {
-            this.hasClickedSeeAll = false;
-        }
-    }
-    render() {
-        const { title } = this.props;
-
-        return (
-            <WithToggle isClickedSeeAll={this.hasClickedSeeAll}
-                toggleSeeAll={this.toggleSeeAll}>
-        {(state)=>
-            <React.Fragment>
-            <StyledListTitle isExpanded={!state.toggleStatus} onClick={state.onToggle}>
-            <StyledTitle>{title}</StyledTitle>
-            </StyledListTitle>
-            {!state.toggleStatus?
-            <StyledList>
-            {this.listOfItems.map(eachDomain=>{
-                return(
-                    <StyledListItem id={eachDomain.domainId}
-                    key={eachDomain.domainId}
-                    onClick={this.onClickDomain}
-                    >{eachDomain.domainName}</StyledListItem>
-            )})}
-            </StyledList>:null
-            }
-            </React.Fragment>
-        }
-        </WithToggle>
-        );
-
-    }
+                  }
+               </StyledWrapper>
+            )}
+         </WithToggle>
+      )
+   }
 }
 
-
-export default DomainsList;
+export default DomainsList

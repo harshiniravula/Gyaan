@@ -1,2 +1,2 @@
-import GyaanSideBar from './GyaanSideBar';
-export default GyaanSideBar;
+import GyaanSideBar from './GyaanSideBar'
+export default GyaanSideBar

@@ -1,28 +1,26 @@
-import { observable, action } from 'mobx';
+import { observable, action } from 'mobx'
 
 class CommentModel {
-    constructor(comment) {
-        this.commentId = comment.comment_id;
+   constructor(comment) {
+      this.commentId = comment.comment_id
 
-        this.commenter = {
+      this.commenter = {
+         userId: comment.commenter.user_id,
 
-            userId: comment.commenter.user_id,
+         username: comment.commenter.username,
 
-            username: comment.commenter.username,
+         profilePic: comment.commenter.profile_pic
+      }
+      this.commentAt = comment.comment_at
 
-            profilePic: comment.commenter.profile_pic,
-        }
-        this.commentAt = comment.comment_at;
+      this.commentContent = comment.comment_content
 
-        this.commentContent = comment.comment_content;
+      this.isReacted = comment.is_reacted
 
-        this.isReacted = comment.is_reacted;
+      this.repliesCount = comment.replies_count
 
-        this.repliesCount = comment.replies_count
-
-        this.reactionsCount = comment.reactions_count
-
-    }
+      this.reactionsCount = comment.reactions_count
+   }
 }
 
-export default CommentModel;
+export default CommentModel

@@ -1,26 +1,31 @@
 import React from 'react'
 import { Input } from './styledComponents'
 import { computed } from 'mobx'
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react'
+import colors from '../../themes/Colors.json'
 @observer
 class InputElement extends React.Component {
-
    @computed
    get borderAndTextColors() {
-      const { hasError, isPositive } = this.props;
-      let color, borderColor;
+      const { hasError, isPositive, isTitle } = this.props;
+      let color, borderColor
       if (hasError) {
-         color = 'red';
-         borderColor = 'red'
+         color = colors.red
+         borderColor = colors.red
       }
       else if (isPositive) {
-         color = 'green';
-         borderColor = 'green';
+         color = colors.green
+         borderColor = colors.green
+      }
+      else if (isTitle) {
+         color = colors.blue
+         borderColor: colors.green
       }
       else {
-         color = 'black';
-         borderColor = '#cbd5e0';
+         color = colors.black
+         borderColor = colors.gray500
       }
+
       return {
          color: color,
          borderColor: borderColor
@@ -28,22 +33,22 @@ class InputElement extends React.Component {
    }
    @computed
    get size() {
-      const { size } = this.props;
-
+      small: '20%'
+      medium: '35%'
+      large: '50%'
    }
 
    render() {
-      const {
-         inputRef,
+      const { inputRef, size } = this.props
 
-      } = this.props;
-
-      return <Input
-      {...this.props}
-      borderAndTextColors={this.borderAndTextColors}
-
-      size={this.size}
-      ref={inputRef} />
+      return (
+         <Input
+            {...this.props}
+            borderAndTextColors={this.borderAndTextColors}
+            size={size}
+            ref={inputRef}
+         />
+      )
    }
 }
 export default InputElement

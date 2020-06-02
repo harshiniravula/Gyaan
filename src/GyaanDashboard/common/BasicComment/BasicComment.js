@@ -1,54 +1,33 @@
-import React from 'react';
+import React from 'react'
 
-import Avatar from '../../../Common/Avatar';
-import { Typo14Normal } from '../../../styleGuide/Typos';
-import strings from '../../i18n/Strings.json';
-import PostedAt from '../PostedAt';
+import Avatar from '../../../Common/Avatar'
+import { Typo14Normal } from '../../../styleGuide/Typos'
+import strings from '../../i18n/Strings.json'
+import PostedAt from '../PostedAt'
 
-import {
-    StyledBasicComment,
-    StyledRightPart
-}
-from './styledComponents';
+import { StyledBasicComment, StyledRightPart } from './styledComponents'
 class BasicComment extends React.Component {
+   render() {
+      const { commenter, commentContent, commentAt } = this.props
 
-    render() {
-        const {
-            commenter,
-            commentContent,
-            commentAt
-        } = this.props;
+      const { username, userId, profilePic } = commenter
 
-        const {
-            username,
-            userId,
-            profilePic
+      return (
+         <StyledBasicComment>
+            <Avatar
+               alt={strings.altText}
+               src={profilePic}
+               borderType={Avatar.borderType.rounded}
+               size={Avatar.imageSize.small}
+            />
 
-        } = commenter;
-
-
-
-        return (
-
-            <StyledBasicComment>
-                <Avatar alt={strings.altText} src={profilePic}
-                borderType={Avatar.borderType.rounded}
-                size={Avatar.imageSize.small}
-                />
-
-                <StyledRightPart>
-                    <PostedAt name={username}
-                            date={commentAt}
-                            isAuthor={false}/>
-                <Typo14Normal>{commentContent}</Typo14Normal>
-
-                </StyledRightPart>
-            </StyledBasicComment>
-
-        )
-    }
-
-
+            <StyledRightPart>
+               <PostedAt name={username} date={commentAt} isAuthor={false} />
+               <Typo14Normal>{commentContent}</Typo14Normal>
+            </StyledRightPart>
+         </StyledBasicComment>
+      )
+   }
 }
 
-export default BasicComment;
+export default BasicComment

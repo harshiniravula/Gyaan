@@ -6,7 +6,7 @@ import { createMemoryHistory } from 'history'
 import { Provider } from 'mobx-react'
 
 import { SIGN_UP_PATH, LOGIN_PATH } from '../../constants/PathName'
-import { GYAAN_PATH } from '../../../GyaanDashboard/constants/PathName';
+import { GYAAN_PATH } from '../../../GyaanDashboard/constants/PathName'
 
 import AuthAPI from '../../services/AuthService/AuthAPI'
 import AuthStore from '../../stores/AuthStore'
@@ -61,7 +61,6 @@ describe('SignUpRoute Tests', () => {
       getByText(/Invalid userName/i)
    })
 
-
    it('should render password empty error message', () => {
       const { getByText, getByTestId, getByRole } = render(
          <Router history={createMemoryHistory()}>
@@ -98,7 +97,7 @@ describe('SignUpRoute Tests', () => {
       waitFor(() => getByLabelText('audio-loading'))
    })
 
-   it('should render signInRoute loading state', async() => {
+   it('should render signInRoute loading state', async () => {
       const { getByLabelText, getByTestId, getByRole } = render(
          <Router history={createMemoryHistory()}>
             <SignUpRoute authStore={authStore} />
@@ -120,16 +119,16 @@ describe('SignUpRoute Tests', () => {
 
       fireEvent.change(usernameField, { target: { value: username } })
       fireEvent.change(passwordField, { target: { value: password } })
-      fireEvent.change(confirmPasswordField, { target: { value: confirmPassword } })
+      fireEvent.change(confirmPasswordField, {
+         target: { value: confirmPassword }
+      })
       fireEvent.click(SignUpButton)
 
       getByLabelText('audio-loading')
       getByRole('button', { disabled: true })
-
-
    })
 
-   it('handling invalid confirm password', async() => {
+   it('handling invalid confirm password', async () => {
       const { getByText, getByTestId, getByRole } = render(
          <Router history={createMemoryHistory()}>
             <SignUpRoute authStore={authStore} />
@@ -151,25 +150,20 @@ describe('SignUpRoute Tests', () => {
 
       fireEvent.change(usernameField, { target: { value: username } })
       fireEvent.change(passwordField, { target: { value: password } })
-      fireEvent.change(confirmPasswordField, { target: { value: confirmPassword } })
+      fireEvent.change(confirmPasswordField, {
+         target: { value: confirmPassword }
+      })
       fireEvent.click(SignUpButton)
 
       getByText(/Invalid confirm password/i)
-
-
-
    })
 
-   it('should render signInRoute success state', async() => {
+   it('should render signInRoute success state', async () => {
       const history = createMemoryHistory()
       const route = SIGN_UP_PATH
       history.push(route)
 
-      const {
-         getByRole,
-         queryByRole,
-         getByTestId
-      } = render(
+      const { getByRole, queryByRole, getByTestId } = render(
          <Provider authStore={authStore}>
             <Router history={history}>
                <Route path={SIGN_UP_PATH}>
@@ -200,16 +194,16 @@ describe('SignUpRoute Tests', () => {
 
       fireEvent.change(usernameField, { target: { value: username } })
       fireEvent.change(passwordField, { target: { value: password } })
-      fireEvent.change(confirmPasswordField, { target: { value: confirmPassword } })
+      fireEvent.change(confirmPasswordField, {
+         target: { value: confirmPassword }
+      })
       fireEvent.click(SignUpButton)
 
       waitFor(() => {
          expect(
             queryByRole('button', { name: 'SIGN UP' })
          ).not.toBeInTheDocument()
-         expect(getByTestId('location-display')).toHaveTextContent(
-            GYAAN_PATH
-         )
+         expect(getByTestId('location-display')).toHaveTextContent(GYAAN_PATH)
       })
    })
    it('should render signInRoute failure state', () => {
@@ -237,7 +231,9 @@ describe('SignUpRoute Tests', () => {
 
       fireEvent.change(usernameField, { target: { value: username } })
       fireEvent.change(passwordField, { target: { value: password } })
-      fireEvent.change(confirmPasswordField, { target: { value: confirmPassword } })
+      fireEvent.change(confirmPasswordField, {
+         target: { value: confirmPassword }
+      })
       fireEvent.click(SignUpButton)
 
       waitFor(() => {

@@ -18,8 +18,7 @@ import {
    StyledBottomContent,
    StyledBottomLink,
    StyledInputError
-}
-from './styledComponents.js'
+} from './styledComponents.js'
 
 @observer
 class SignUpPage extends React.Component {
@@ -49,7 +48,6 @@ class SignUpPage extends React.Component {
       return (
          <StyledSignInWrapper>
             <StyledSignInPage>
-
                <IBHubsLogo size={Strings.ibHubsLogoSizeInAuthentication} />
 
                <StyledHeading>{Strings.SignUpPageTitle}</StyledHeading>
@@ -58,7 +56,7 @@ class SignUpPage extends React.Component {
                   {Strings.SignInUserNameLabel}
                   <StyledBreak />
                   <InputElement
-                     data-testid="username"
+                     data-testid='username'
                      inputRef={this.userNameRef}
                      defaultValue={userName}
                      onChange={onChangeUserName}
@@ -72,7 +70,7 @@ class SignUpPage extends React.Component {
                   {Strings.SignInPasswordLabel}
                   <StyledBreak />
                   <InputElement
-                     data-testid="password"
+                     data-testid='password'
                      inputRef={this.passwordRef}
                      defaultValue={password}
                      onChange={onChangePassword}
@@ -88,7 +86,7 @@ class SignUpPage extends React.Component {
                   {Strings.ConfirmPassword}
                   <StyledBreak />
                   <InputElement
-                     data-testid="confirmPassword"
+                     data-testid='confirmPassword'
                      inputRef={this.confirmPasswordRef}
                      defaultValue={confirmPassword}
                      onChange={onChangeConfirmPassword}
@@ -128,8 +126,6 @@ class SignUpPage extends React.Component {
                      {' '}
                      {Strings.SignUp}
                   </StyledBottomLink>
-
-
                </StyledBottomContent>
                <StyledError>{serverError}</StyledError>
             </StyledSignInPage>

@@ -1,2 +1,2 @@
-import SuggestedDomains from './SuggestedDomains';
-export default SuggestedDomains;
+import SuggestedDomains from './SuggestedDomains'
+export default SuggestedDomains

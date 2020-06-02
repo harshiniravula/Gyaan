@@ -1,2 +1,2 @@
-import GyaanDashboard from './GyaanDashboard';
-export default GyaanDashboard;
+import GyaanDashboard from './GyaanDashboard'
+export default GyaanDashboard

@@ -1,16 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../../logo.svg'
-import {
-   GYAAN_PATH
-}
-from '../../GyaanDashboard/constants/PathName';
+import { GYAAN_PATH } from '../../GyaanDashboard/constants/PathName'
 
 import {
    LOGIN_PATH,
    SIGN_UP_PATH
-}
-from '../../Authentication/constants/PathName';
+} from '../../Authentication/constants/PathName'
 
 function App() {
    return (

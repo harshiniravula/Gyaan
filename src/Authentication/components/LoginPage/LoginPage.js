@@ -5,8 +5,8 @@ import ReactLoading from 'react-loading'
 
 import InputElement from '../../../Common/InputElement'
 import Button from '../../../Common/Button'
-import IBHubsLogo from '../../../Common/IBHubsLogo';
-import Strings from '../../i18n/Strings.json';
+import IBHubsLogo from '../../../Common/IBHubsLogo'
+import Strings from '../../i18n/Strings.json'
 
 import {
    StyledSignInPage,
@@ -18,8 +18,7 @@ import {
    StyledBottomContent,
    StyledBottomLink,
    StyledInputError
-}
-from './styledComponents.js'
+} from './styledComponents.js'
 
 @observer
 class LoginPage extends React.Component {
@@ -53,7 +52,7 @@ class LoginPage extends React.Component {
                   {Strings.SignInUserNameLabel}
                   <StyledBreak />
                   <InputElement
-                     data-testid="username"
+                     data-testid='username'
                      inputRef={this.userNameRef}
                      defaultValue={userName}
                      onChange={onChangeUserName}
@@ -67,7 +66,7 @@ class LoginPage extends React.Component {
                   {Strings.SignInPasswordLabel}
                   <StyledBreak />
                   <InputElement
-                       data-testid="password"
+                     data-testid='password'
                      inputRef={this.passwordRef}
                      defaultValue={password}
                      onChange={onChangePassword}
@@ -104,10 +103,8 @@ class LoginPage extends React.Component {
                   <StyledBottomLink onClick={onClickLink}>
                      {Strings.SignUp}
                   </StyledBottomLink>
-
-
                </StyledBottomContent>
-                <StyledError>{serverError}</StyledError>
+               <StyledError>{serverError}</StyledError>
             </StyledSignInPage>
          </StyledSignInWrapper>
       )

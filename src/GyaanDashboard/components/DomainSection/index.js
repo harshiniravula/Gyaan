@@ -1,2 +1,2 @@
-import DomainSection from './DomainSection';
+import DomainSection from './DomainSection'
 export default DomainSection

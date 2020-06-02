@@ -1,2 +1,2 @@
-import CommentIcon from './CommentIcon';
-export default CommentIcon;
+import CommentIcon from './CommentIcon'
+export default CommentIcon

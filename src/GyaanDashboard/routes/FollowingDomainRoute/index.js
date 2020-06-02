@@ -1,2 +1,2 @@
 import FollowingDomainsPostsRoute from './FollowingDomainsPostsRoute'
-export default FollowingDomainsPostsRoute;
+export default FollowingDomainsPostsRoute

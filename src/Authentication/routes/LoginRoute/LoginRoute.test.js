@@ -6,7 +6,7 @@ import { createMemoryHistory } from 'history'
 import { Provider } from 'mobx-react'
 
 import { SIGN_UP_PATH, LOGIN_PATH } from '../../constants/PathName'
-import { GYAAN_PATH } from '../../../GyaanDashboard/constants/PathName';
+import { GYAAN_PATH } from '../../../GyaanDashboard/constants/PathName'
 
 import AuthAPI from '../../services/AuthService/AuthAPI'
 import AuthStore from '../../stores/AuthStore'
@@ -80,7 +80,7 @@ describe('LoginRoute Tests', () => {
       waitFor(() => getByLabelText('audio-loading'))
    })
 
-   it('should render signInRoute loading state', async() => {
+   it('should render signInRoute loading state', async () => {
       const { getByLabelText, getByTestId, getByRole } = render(
          <Router history={createMemoryHistory()}>
             <LoginRoute authStore={authStore} />
@@ -105,16 +105,12 @@ describe('LoginRoute Tests', () => {
       getByLabelText('audio-loading')
       getByRole('button', { disabled: true })
    })
-   it('should render signInRoute success state', async() => {
+   it('should render signInRoute success state', async () => {
       const history = createMemoryHistory()
       const route = LOGIN_PATH
       history.push(route)
 
-      const {
-         getByRole,
-         queryByRole,
-         getByTestId
-      } = render(
+      const { getByRole, queryByRole, getByTestId } = render(
          <Provider authStore={authStore}>
             <Router history={history}>
                <Route path={LOGIN_PATH}>
@@ -134,7 +130,6 @@ describe('LoginRoute Tests', () => {
       const passwordField = getByTestId('password')
       const logInButton = getByRole('button', { name: 'LOGIN' })
 
-
       const mockSuccessPromise = new Promise(function(resolve, reject) {
          resolve(getUserLogInResponse)
       })
@@ -150,9 +145,7 @@ describe('LoginRoute Tests', () => {
          expect(
             queryByRole('button', { name: 'LOGIN' })
          ).not.toBeInTheDocument()
-         expect(getByTestId('location-display')).toHaveTextContent(
-            GYAAN_PATH
-         )
+         expect(getByTestId('location-display')).toHaveTextContent(GYAAN_PATH)
       })
    })
    it('should render signInRoute failure state', () => {

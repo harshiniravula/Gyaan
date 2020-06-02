@@ -1,2 +1,2 @@
-import GyaanStore from './GyaanStore';
-export default GyaanStore;
+import GyaanStore from './GyaanStore'
+export default GyaanStore

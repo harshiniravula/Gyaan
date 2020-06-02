@@ -1,2 +1,2 @@
-import DomainModel from './DomainModel';
-export default DomainModel;
+import DomainModel from './DomainModel'
+export default DomainModel

@@ -1,2 +1,2 @@
-import PostsPage from './PostsPage';
-export default PostsPage;
+import PostsPage from './PostsPage'
+export default PostsPage

@@ -10,7 +10,6 @@ import gyaanStores from './GyaanDashboard/stores'
 import FollowingDomainsPostsRoute from './GyaanDashboard/routes/FollowingDomainRoute'
 import { ProtectedRoute } from './Common/ProtectedRoute'
 import { Routes } from './GyaanDashboard/routes'
-
 import './App.css'
 
 const App = () => {
@@ -19,7 +18,6 @@ const App = () => {
          <Router basename={process.env.PUBLIC_URL}>
             <Switch>
                {AuthRoutes}
-
                {Routes.map(route => {
                   return (
                      <ProtectedRoute
@@ -30,6 +28,9 @@ const App = () => {
                      />
                   )
                })}
+               <Route exact path='/gyaan/followingDomains/:domainId'>
+                  <FollowingDomainsPostsRoute />
+               </Route>
 
                <Route exact path='/page-1'>
                   <Page1 />

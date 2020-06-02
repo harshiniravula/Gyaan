@@ -7,8 +7,7 @@ import {
    API_FAILED,
    API_FETCHING,
    API_INITIAL
-}
-from '@ib/api-constants'
+} from '@ib/api-constants'
 
 import AuthService from '../../services/AuthService/AuthAPI'
 import getUserLogInResponse from '../../fixtures/getUserLogInResponse.json'
@@ -55,7 +54,7 @@ describe('AuthStore Tests', () => {
       expect(authStore.getUserSignInAPIStatus).toBe(API_FETCHING)
    })
 
-   it('should test userSignInAPI success state', async() => {
+   it('should test userSignInAPI success state', async () => {
       const onSuccess = jest.fn()
       const onFailure = jest.fn()
 
@@ -75,7 +74,7 @@ describe('AuthStore Tests', () => {
       expect(onSuccess).toBeCalled()
    })
 
-   it('should test userSignInAPI failure state', async() => {
+   it('should test userSignInAPI failure state', async () => {
       const onSuccess = jest.fn()
       const onFailure = jest.fn()
       const requestObject = {
@@ -91,7 +90,7 @@ describe('AuthStore Tests', () => {
       expect(onFailure).toBeCalled()
    })
 
-   it('should test userSignUpAPI success state', async() => {
+   it('should test userSignUpAPI success state', async () => {
       const onSuccess = jest.fn()
       const onFailure = jest.fn()
 
@@ -103,7 +102,7 @@ describe('AuthStore Tests', () => {
       const mockSuccessPromise = Promise.resolve(getUserLogInResponse)
       const mockSignInAPI = jest.fn()
       mockSignInAPI.mockReturnValue(mockSuccessPromise)
-      authService.postUsersAPI = mockSignInAPI;
+      authService.postUsersAPI = mockSignInAPI
 
       await authStore.userSignUp(requestObject, onSuccess, onFailure)
       expect(authStore.getUserSignInAPIStatus).toBe(API_SUCCESS)
@@ -129,7 +128,7 @@ describe('AuthStore Tests', () => {
       expect(authStore.getUserSignInAPIStatus).toBe(API_FETCHING)
    })
 
-   it('should test userSignUpAPI failure state', async() => {
+   it('should test userSignUpAPI failure state', async () => {
       const onSuccess = jest.fn()
       const onFailure = jest.fn()
       const requestObject = {

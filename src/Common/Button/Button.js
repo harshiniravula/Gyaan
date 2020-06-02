@@ -2,12 +2,10 @@ import React from 'react'
 
 import { StyledBtn } from './styledComponents'
 class Button extends React.Component {
-
    static kind = {
       primary: {
          background: '#2b6cb0',
          color: 'white'
-
       },
       secondary: {
          background: '#f2f2f2',
@@ -32,11 +30,11 @@ class Button extends React.Component {
          text: '18px'
       },
       large: {
-         width: '65px',
+         width: '170px',
          text: '20px'
       },
       mini: {
-         width: '30px',
+         width: '40px',
          text: '10px'
       },
       full: {
@@ -46,21 +44,16 @@ class Button extends React.Component {
    }
 
    static shape = {
-      default: "0%",
+      default: '0%',
       pill: '20%',
       round: '50%'
-
    }
 
    render() {
-      const { kind, size, onClick, shape } = this.props;
+      const { kind, size, onClick, shape } = this.props
 
       return (
-         <StyledBtn
-            size={size}
-            onClick={onClick}
-            kind={kind}
-            shape={shape}>
+         <StyledBtn size={size} onClick={onClick} kind={kind} shape={shape}>
             {this.props.children}
          </StyledBtn>
       )

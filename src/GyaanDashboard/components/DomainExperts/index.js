@@ -1,2 +1,2 @@
-import DomainExperts from './DomainExperts';
-export default DomainExperts;
+import DomainExperts from './DomainExperts'
+export default DomainExperts

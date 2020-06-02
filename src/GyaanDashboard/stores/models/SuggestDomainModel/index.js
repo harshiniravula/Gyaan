@@ -1,2 +1,2 @@
-import SuggestDomainModel from './SuggestDomainModel';
-export default SuggestDomainModel;
+import SuggestDomainModel from './SuggestDomainModel'
+export default SuggestDomainModel

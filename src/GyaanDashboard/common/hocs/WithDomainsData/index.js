@@ -1,2 +1,2 @@
 import WithDomainsData from './WithDomainsData'
-export default WithDomainsData;
+export default WithDomainsData

@@ -1,2 +1,2 @@
-import BasicPostModel from './BasicPostModel';
-export default BasicPostModel;
+import BasicPostModel from './BasicPostModel'
+export default BasicPostModel

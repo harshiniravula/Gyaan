@@ -1,2 +1,2 @@
-import PostDomain from './PostDomain';
-export default PostDomain;
+import PostDomain from './PostDomain'
+export default PostDomain

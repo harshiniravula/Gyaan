@@ -1,2 +1,2 @@
-import PostedAt from './PostedAt';
-export default PostedAt;
+import PostedAt from './PostedAt'
+export default PostedAt

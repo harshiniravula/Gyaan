@@ -1,58 +1,71 @@
-import React from 'react';
-import LoadingWrapperWithFailure from '../../../Common/LoadingWrapperWithFailure';
-import IBHubsLogo from '../../../Common/IBHubsLogo';
-import Strings from '../../i18n/Strings.json';
-import FollowingDomains from '../FollowingDomains';
-import SuggestedDomains from '../SuggestedDomains';
-import { observer } from "mobx-react";
-
-import {
-    StyledSideBarWrapper,
-    StyledAllDomains,
-
-}
-from './styledComponents';
-
+import React from 'react'
+import LoadingWrapperWithFailure from '../../../Common/LoadingWrapperWithFailure'
+import IBHubsLogo from '../../../Common/IBHubsLogo'
+import Strings from '../../i18n/Strings.json'
+import FollowingDomains from '../FollowingDomains'
+import SuggestedDomains from '../SuggestedDomains'
+import { observer, inject } from 'mobx-react'
+import Requests from '../Requests'
+import { StyledSideBarWrapper, StyledAllDomains } from './styledComponents'
+@inject('gyaanStore')
 @observer
 class GyaanSideBar extends React.Component {
-    renderSideBar = observer(() => {
-        const {
-            followingDomains,
-            suggestedDomains,
-            onClickFollowingDomain,
-            onClickAllDomains
-        } = this.props;
-        return (
-            <StyledSideBarWrapper>
-                <IBHubsLogo size={Strings.ibHubsLogoSize}/>
-                <StyledAllDomains onClick={onClickAllDomains}>{Strings.AllDomains}</StyledAllDomains>
-                <FollowingDomains
-                    onClickFollowingDomain={onClickFollowingDomain}
-                    title={Strings.followingDomains}
-                    listOfItems={followingDomains} />
-                <SuggestedDomains
-                onClickSuggestedDomain
-                title={Strings.SuggestDomains}
-                    listOfItems={suggestedDomains} />
-            </StyledSideBarWrapper>
-        )
+   componentDidMount() {
+      this.doNetworkCalls();
+   }
+   doNetworkCalls = () => {
+      const { getGyaanDomainData } = this.props.gyaanStore;
+      getGyaanDomainData({});
+   }
+   onClickFollowingDomain = (id) => {
+      const { onClickFollowingDomain } = this.props;
+      onClickFollowingDomain(id);
+   }
 
-    })
-    render() {
-        const {
-
-            getGyaanDomainsAPIStatus,
-            getGyaanDomainsAPIError
-        } = this.props;
-        return (
-            <LoadingWrapperWithFailure
-                apiStatus={getGyaanDomainsAPIStatus}
-                apiError={getGyaanDomainsAPIError}
-
-                renderSuccessUI={this.renderSideBar}/>
-
-        );
-    }
+   renderSideBar = () => {
+      const {
+         followingDomains,
+      } = this.props.gyaanStore;
+      const {
+         onClickFollowingDomain,
+         domainRequestedUsersCount,
+         domainRequestedUsers,
+         onClickAllDomains
+      } = this.props;
+      return (
+         <StyledSideBarWrapper>
+            <IBHubsLogo size={Strings.ibHubsLogoSize} />
+            <StyledAllDomains onClick={onClickAllDomains}>
+               {Strings.AllDomains}
+            </StyledAllDomains>
+            <FollowingDomains
+               onClickFollowingDomain={this.onClickFollowingDomain}
+               title={Strings.followingDomains}
+               listOfItems={followingDomains}
+            />
+            {domainRequestedUsers ? (
+               <Requests
+                  domainRequestedUsersCount={domainRequestedUsersCount}
+                  domainRequestedUsers={domainRequestedUsers}
+               />
+            ) : null}
+         </StyledSideBarWrapper>
+      )
+   }
+   render() {
+      const {
+         getGyaanDomainsAPIStatus,
+         getGyaanDomainsAPIError
+      } = this.props.gyaanStore;
+      return (
+         <LoadingWrapperWithFailure
+            apiStatus={getGyaanDomainsAPIStatus}
+            apiError={getGyaanDomainsAPIError}
+            onRetryClick={this.doNetworkCalls}
+            renderSuccessUI={this.renderSideBar}
+         />
+      )
+   }
 }
 
-export default GyaanSideBar;
+export default GyaanSideBar

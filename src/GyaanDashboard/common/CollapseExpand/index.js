@@ -1,2 +1,2 @@
-import CollapseExpand from './CollapseExpand';
-export default CollapseExpand;
+import CollapseExpand from './CollapseExpand'
+export default CollapseExpand

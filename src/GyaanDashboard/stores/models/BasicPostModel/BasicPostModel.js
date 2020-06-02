@@ -1,39 +1,35 @@
-import { observable, action } from 'mobx';
+import { observable, action } from 'mobx'
 
-import CommentModel from '../CommentModel';
+import CommentModel from '../CommentModel'
 class BasicPostModel {
-
-    constructor(post, domainName, domainPic) {
-        this.domainPic = domainPic;
-        this.postDomainName = domainName;
-        this.postId = post.post_version_id;
-        this.title = post.title;
-        this.postedBy = {
-            userId: post.posted_by.user_id,
-            username: post.posted_by.username,
-            profilePic: post.posted_by.profile_pic
-        };
-        this.commentsCount = post.comments_count;
-        this.isReacted = post.is_reacted;
-        this.postedAt = post.posted_at;
-        this.postContent = post.post_content;
-        this.reactionsCount = post.reactions.reactions_count;
-        this.tags = post.tags.map(tag => {
-            return {
-                tagId: tag.tag_id,
-                tagName: tag.tag_name
-            }
-        })
-        this.comments = {
-            approvedComment: new CommentModel(post.solution),
-            unapprovedComments: post.comments.map(
-                comment => new CommentModel(comment))
-        };
-
-
-
-
-    }
+   constructor(post, domainName, domainPic) {
+      this.domainPic = domainPic
+      this.postDomainName = domainName
+      this.postId = post.post_version_id
+      this.title = post.title
+      this.postedBy = {
+         userId: post.posted_by.user_id,
+         username: post.posted_by.username,
+         profilePic: post.posted_by.profile_pic
+      }
+      this.commentsCount = post.comments_count
+      this.isReacted = post.is_reacted
+      this.postedAt = post.posted_at
+      this.postContent = post.post_content
+      this.reactionsCount = post.reactions.reactions_count
+      this.tags = post.tags.map(tag => {
+         return {
+            tagId: tag.tag_id,
+            tagName: tag.tag_name
+         }
+      })
+      this.comments = {
+         approvedComment: new CommentModel(post.solution),
+         unapprovedComments: post.comments.map(
+            comment => new CommentModel(comment)
+         )
+      }
+   }
 }
 // [{
 //     "post_id": 0,
@@ -54,7 +50,6 @@ class BasicPostModel {
 //         "reactions_count": 1
 //     },
 
-
 //     "solution": {
 
 //         "comment_id": 64,
@@ -67,8 +62,6 @@ class BasicPostModel {
 //         "comment_at": "string",
 //         "comment_content": "string wieguohhrt weroijhpklu gyyfwehjyuk fwgy9er46 e9h;u eoug4jpi ygyouln4 ",
 //         "is_reacted": true,
-
-
 
 //         "replies": [{
 
@@ -116,8 +109,6 @@ class BasicPostModel {
 //         "comment_content": "string wieguohhrt weroijhpklu gyyfwehjyuk fwgy9er46 e9h;u eoug4jpi ygyouln4 ",
 //         "is_reacted": true,
 
-
-
 //         "replies": [{
 
 //                 "comment_id": 6,
@@ -163,8 +154,6 @@ class BasicPostModel {
 //         "comment_content": "string wieguohhrt weroijhpklu gyyfwehjyuk fwgy9er46 e9h;u eoug4jpi ygyouln4 ",
 //         "is_reacted": true,
 
-
-
 //         "replies": [{
 
 //                 "comment_id": 6,
@@ -200,5 +189,4 @@ class BasicPostModel {
 //     }]
 // }]
 
-
-export default BasicPostModel;
+export default BasicPostModel

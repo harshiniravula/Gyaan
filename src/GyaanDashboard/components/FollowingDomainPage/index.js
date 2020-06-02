@@ -1,2 +1,2 @@
 import FollowingDomainPage from './FollowingDomainPage'
-export default FollowingDomainPage;
+export default FollowingDomainPage

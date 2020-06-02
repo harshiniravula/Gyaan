@@ -1,2 +1,2 @@
-import FollowingDomains from './FollowingDomains';
-export default FollowingDomains;
+import FollowingDomains from './FollowingDomains'
+export default FollowingDomains

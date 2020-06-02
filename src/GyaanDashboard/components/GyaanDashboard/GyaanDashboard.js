@@ -1,63 +1,43 @@
-import React from 'react';
-import { observer } from 'mobx-react';
+import React from 'react'
+import { observer } from 'mobx-react'
 
+import GyaanSideBar from '../GyaanSideBar'
+import Header from '../Header'
+import PostsPage from '../PostsPage'
 
-
-import GyaanSideBar from '../GyaanSideBar';
-import Header from '../Header';
-import PostsPage from '../PostsPage';
-
-import {
-    StyledGyaanDashboard,
-    StyledRightSide
-}
-from './styledComponents';
+import { StyledGyaanDashboard, StyledRightSide } from './styledComponents'
 
 @observer
 class GyaanDashboard extends React.Component {
+   render() {
+      const {
+         onClickFollowingDomain,
+         getPostsAPIStatus,
+         getPostsAPIError,
+         getPosts,
+         onClickAllDomains,
+         onClickWritePost
+      } = this.props
 
-    render() {
-
-        const {
-            followingDomains,
-            suggestedDomains,
-            onClickFollowingDomain,
-            getPostsAPIStatus,
-            getPostsAPIError,
-            getPosts,
-            getGyaanDomainsAPIStatus,
-            getGyaanDomainsAPIError,
-            onClickAllDomains
-
-        } = this.props;
-
-
-
-        return (
-            <StyledGyaanDashboard>
-
-
+      return (
+         <StyledGyaanDashboard>
             <GyaanSideBar
-            followingDomains={followingDomains}
-            suggestedDomains={suggestedDomains}
-            getGyaanDomainsAPIError={getGyaanDomainsAPIError}
-            getGyaanDomainsAPIStatus = { getGyaanDomainsAPIStatus }
-            onClickAllDomains={onClickAllDomains}
-            onClickFollowingDomain = { onClickFollowingDomain}/>
+               onClickAllDomains={onClickAllDomains}
+               onClickFollowingDomain={onClickFollowingDomain}
+            />
 
             <StyledRightSide>
-             <Header/>
+               <Header onClickWritePost={onClickWritePost} />
 
-            <PostsPage
-            getPostsAPIStatus={getPostsAPIStatus}
-            getPostsAPIError={getPostsAPIError}
-            getPosts={getPosts}/>
-
-            </StyledRightSide >
-
-            </StyledGyaanDashboard>
-        );
-    }
+               <PostsPage
+                  getPostsAPIStatus={getPostsAPIStatus}
+                  getPostsAPIError={getPostsAPIError}
+                  getPosts={getPosts}
+               />
+            </StyledRightSide>
+         </StyledGyaanDashboard>
+      )
+   }
 }
 
-export default GyaanDashboard;
+export default GyaanDashboard

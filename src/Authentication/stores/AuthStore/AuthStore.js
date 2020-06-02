@@ -1,25 +1,20 @@
 import { observable, action } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
-import {
-   setAccessToken,
-   clearUserSession
-}
-from '../../../utils/StorageUtils'
+import { setAccessToken, clearUserSession } from '../../../utils/StorageUtils'
 class AuthStore {
    @observable getUserSignInAPIStatus
    @observable getUserSignInAPIError
-   getRole;
+   getRole
    constructor(authAPIService) {
-      this.authAPIService = authAPIService;
+      this.authAPIService = authAPIService
 
-      this.init();
-
+      this.init()
    }
    @action
    init() {
       this.getUserSignInAPIStatus = API_INITIAL
-      this.getUserSignInAPIError = null;
+      this.getUserSignInAPIError = null
    }
    @action.bound
    clearStore() {
@@ -27,15 +22,14 @@ class AuthStore {
    }
    @action.bound
    setGetUserSignInAPIError(error) {
-      this.getUserSignInAPIError = error;
+      this.getUserSignInAPIError = error
    }
 
    @action.bound
    setUserSignInAPIResponse(response) {
-
-      const { access_token } = response.access_token;
-      setAccessToken(access_token);
-      this.getRole = response.role;
+      const { access_token } = response.access_token
+      setAccessToken(access_token)
+      this.getRole = response.role
    }
    @action.bound
    setGetUserSignInAPIStatus(apiStatus) {
@@ -49,18 +43,16 @@ class AuthStore {
 
    @action.bound
    userSignUp(requestObject, onSuccess, onFailure) {
-
       const usersPromise = this.authAPIService.postUsersAPI(requestObject)
       return bindPromiseWithOnSuccess(usersPromise)
          .to(this.setGetUserSignInAPIStatus, response => {
-            this.setUserSignInAPIResponse(response);
-            onSuccess();
+            this.setUserSignInAPIResponse(response)
+            onSuccess()
          })
          .catch(error => {
-            this.setGetUserSignInAPIError(error);
-            onFailure(error);
+            this.setGetUserSignInAPIError(error)
+            onFailure(error)
          })
-
    }
 
    @action.bound
@@ -68,12 +60,12 @@ class AuthStore {
       const usersPromise = this.authAPIService.getUsersAPI(requestObject)
       return bindPromiseWithOnSuccess(usersPromise)
          .to(this.setGetUserSignInAPIStatus, response => {
-            this.setUserSignInAPIResponse(response);
-            onSuccess();
+            this.setUserSignInAPIResponse(response)
+            onSuccess()
          })
          .catch(error => {
-            this.setGetUserSignInAPIError(error);
-            onFailure(error);
+            this.setGetUserSignInAPIError(error)
+            onFailure(error)
          })
    }
 }

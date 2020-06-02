@@ -1,11 +1,8 @@
-import React from 'react';
+import React from 'react'
 
 class ApprovedBy extends React.Component {
-    render() {
-        const {
-            approvedBy
-        } = th
-    }
-
+   render() {
+      const { approvedBy } = th
+   }
 }
-export default ApprovedBy;
+export default ApprovedBy

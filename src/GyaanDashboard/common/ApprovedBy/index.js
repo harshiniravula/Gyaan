@@ -1,2 +1,2 @@
-import ApprovedBy from './ApprovedBy';
+import ApprovedBy from './ApprovedBy'
 export default ApprovedBy

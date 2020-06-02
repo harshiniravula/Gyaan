@@ -1,2 +1,2 @@
-import WithToggle from './WithToggle';
-export default WithToggle;
+import WithToggle from './WithToggle'
+export default WithToggle

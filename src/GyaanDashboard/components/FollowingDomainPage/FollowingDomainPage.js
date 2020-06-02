@@ -1,47 +1,46 @@
-import React from 'react';
-import { observer } from 'mobx-react';
+import React from 'react'
+import { observer } from 'mobx-react'
 
-import GyaanSideBar from '../GyaanSideBar';
-import Header from '../Header';
-import PostsPage from '../PostsPage';
-import DomainSection from '../DomainSection';
+import GyaanSideBar from '../GyaanSideBar'
+import Header from '../Header'
+import PostsPage from '../PostsPage'
+import DomainSection from '../DomainSection'
 
 import {
-    StyledGyaanDashboard,
-    StyledRightSide,
-    StyledPostsSection
+   StyledGyaanDashboard,
+   StyledRightSide,
+   StyledPostsSection
 }
-from './styledComponents';
+from './styledComponents'
 
 @observer
 class GyaanDashboard extends React.Component {
-    render() {
+   render() {
+      const {
+         suggestedDomains,
+         onClickFollowingDomain,
+         domainData,
+         onClickAllDomains,
+         onClickWritePost
+      } = this.props;
 
-        const {
-            followingDomains,
-            suggestedDomains,
-            onClickFollowingDomain,
-            getGyaanDomainsAPIError,
-            getGyaanDomainsAPIStatus,
-            domainData,
-            onClickAllDomains
-        } = this.props;
-
-        //console.log(domainData, 'followingdomainpage')
-        return (
-            <StyledGyaanDashboard>
+      return (
+         <StyledGyaanDashboard>
             <GyaanSideBar
-            onClickAllDomains={onClickAllDomains}
-            followingDomains={followingDomains}
-            getGyaanDomainsAPIError={getGyaanDomainsAPIError}
-            getGyaanDomainsAPIStatus={getGyaanDomainsAPIStatus}
-            suggestedDomains={suggestedDomains}
-            onClickFollowingDomain={onClickFollowingDomain}/>
+              onClickAllDomains={onClickAllDomains}
+               onClickFollowingDomain={onClickFollowingDomain}
+               domainRequestedUsersCount={
+                  domainData ? domainData.domainRequestedUsersCount : null
+               }
+               domainRequestedUsers={
+                  domainData ? domainData.domainRequestedUsers : null
+               }
+            />
             <StyledRightSide>
-            <Header/>
-            {domainData!=undefined?
-                <StyledPostsSection>
-                    <DomainSection
+               <Header onClickWritePost={onClickWritePost} />
+               {domainData != undefined ? (
+                  <StyledPostsSection>
+                     <DomainSection
                         domainName={domainData.domainName}
                         domainId={domainData.domainId}
                         starsCount={domainData.starsCount}
@@ -50,22 +49,18 @@ class GyaanDashboard extends React.Component {
                         domainPic={domainData.domainPic}
                         domainDescription={domainData.domainDescription}
                         domainExperts={domainData.domainExperts}
-                        />
-                    <PostsPage
+                     />
+                     <PostsPage
                         getPostsAPIStatus={domainData.getPostsAPIStatus}
                         getPostsAPIError={domainData.getPostsAPIError}
                         getPosts={domainData.getdomainPosts}
-                        />
-                </StyledPostsSection>
-
-                :null}
-
-
+                     />
+                  </StyledPostsSection>
+               ) : null}
             </StyledRightSide>
-
-            </StyledGyaanDashboard>
-        );
-    }
+         </StyledGyaanDashboard>
+      )
+   }
 }
 
-export default GyaanDashboard;
+export default GyaanDashboard
