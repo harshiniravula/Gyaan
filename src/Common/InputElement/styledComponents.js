@@ -6,10 +6,10 @@ export const Input = styled.input`
    border-radius: 2px;
    border: 1px solid ${props => props.borderAndTextColors.borderColor};
    color: ${props => props.borderAndTextColors.color};
-
+   font-size: ${props => (props.size ? props.size.fontSize : '16px')};
    width: ${props => {
       if (props.size) {
-         return props.size
+         return props.size.width
       }
       return '100%'
    }};

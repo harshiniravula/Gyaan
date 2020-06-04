@@ -8,14 +8,15 @@ import { StyledPostsPage } from './styledComponents'
 @observer
 class PostsPage extends React.Component {
    renderPostsList = observer(() => {
-      const { getPosts } = this.props
+      const { getPosts, onClickPost } = this.props
 
       return (
          <StyledPostsPage>
             {getPosts.map(eachPost => {
                return (
                   <EachPost
-                     id={eachPost.postId}
+                     onClickPost={onClickPost}
+                     postId={eachPost.postId}
                      key={eachPost.postId}
                      postData={eachPost}
                   />

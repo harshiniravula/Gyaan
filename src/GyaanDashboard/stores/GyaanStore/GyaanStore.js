@@ -1,7 +1,6 @@
-import { observable, action, autorun } from 'mobx'
-import { API_INITIAL } from '@ib/api-constants'
+import { observable, action, computed, reaction } from 'mobx'
+import { API_INITIAL, API_SUCCESS } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
-import Strings from '../../i18n/Strings.json'
 import BasicPostModel from '../models/BasicPostModel'
 import DomainModel from '../models/DomainModel'
 import SuggestDomainModel from '../models/SuggestDomainModel'
@@ -17,15 +16,21 @@ class GyaanStore {
    @observable getPostsAPIError
    @observable getAllDomainsPostsResponse
    @observable offset
-   @observable selectedDomainId;
+   @observable selectedDomainId
+   @observable selectedPostId
+   @observable getSelectedPostAPIStatus
+   @observable getSelectedPostAPIError
    limit
-   constructor(gyaanAPIService, authStore) {
+   selectedPost
+   constructor(gyaanAPIService) {
       this.init()
       this.gyaanAPIService = gyaanAPIService
-      this.authStore = authStore
    }
    @action.bound
    init() {
+      this.selectedDomainId = undefined
+      this.getSelectedPostAPIStatus = API_INITIAL
+      this.getSelectedPostAPIError = null
       this.getGyaanDomainsAPIStatus = API_INITIAL
       this.getGyaanDomainsAPIError = null
       this.getPostsAPIStatus = API_INITIAL
@@ -37,6 +42,8 @@ class GyaanStore {
       this.getAllDomainsPostsResponse = []
       this.limit = 10
       this.offset = 0
+      this.selectedPostId = 0
+      this.selectedPost = {}
    }
    @action.bound
    clearStore() {
@@ -45,20 +52,17 @@ class GyaanStore {
 
    @action.bound
    setSelectedDomainId(id) {
-      this.selectedDomainId = id;
+      this.selectedDomainId = id
    }
 
-   disposer = autorun(
-      () => {
-         if (this.selectedDomainId === null) {
-            this.getDomainPosts({});
+   disposer = reaction(
+      () => this.selectedDomainId,
+      id => {
+         if (this.selectedDomainId !== null) {
+            this.followingDomains
+               .find(domain => domain.domainId === this.selectedDomainId)
+               .onClickDomain({})
          }
-         else {
-            this.followingDomains.find(domain =>
-               domain.domainId === this.selectedDomainId).onClickDomain({});
-
-         }
-
       }
    )
 
@@ -70,9 +74,6 @@ class GyaanStore {
       this.suggestedDomains = response.suggested_domains.map(eachDomain => {
          return new SuggestDomainModel(eachDomain, this.gyaanAPIService)
       })
-
-      this.pendingForReviewPosts = response.pending_for_review_posts
-      this.pendingPosts = response.pendingPosts
    }
 
    @action.bound
@@ -90,33 +91,74 @@ class GyaanStore {
 
    @action.bound
    setGetPostsResponse(response) {
+      this.getAllDomainsPostsResponse = []
       if (response) {
          response.forEach(post => {
             this.getAllDomainsPostsResponse.push(
                new BasicPostModel(
                   post,
+                  post.domain.domain_id,
                   post.domain.domain_name,
-                  post.domain.domain_pic
+                  this.gyaanAPIService
                )
             )
          })
       }
    }
+
+   @action.bound
+   setSelectedPostId(id, domainId) {
+      this.selectedDomainId = domainId
+      this.selectedPostId = id
+      this.getPostDetails()
+   }
+
    @action.bound
    setGetPostsAPIError(error) {
-      console.log(error)
       this.getPostsAPIError = error
+   }
+
+   @computed
+   get postsApiStatus() {
+      return this.getGyaanDomainsAPIStatus === API_SUCCESS ?
+         this.getPostsAPIStatus :
+         this.getGyaanDomainsAPIStatus
    }
 
    @action.bound
    setGetPostsAPIStatus(apiStatus) {
-      console.log(apiStatus);
       this.getPostsAPIStatus = apiStatus
    }
 
    @action.bound
    setGetGyaanDomainAPIStatus(apiStatus) {
       this.getGyaanDomainsAPIStatus = apiStatus
+   }
+
+   @action.bound
+   setGetPostDetailsAPIStatus(apiStatus) {
+      this.getSelectedPostAPIStatus = apiStatus
+   }
+   @action.bound
+   setGetPostDetailsAPIResponse(response) {
+      this.selectedPost = new BasicPostModel(
+         response,
+         response.domain.domain_id,
+         response.domain.domain_name,
+         this.gyaanAPIService);
+   }
+   @action.bound
+   setGetPostDetailsAPIError(error) {
+      this.getSelectedPostAPIError = error
+   }
+
+   @action.bound
+   getPostDetails() {
+      const usersPromise = this.gyaanAPIService.getSelectedPostAPI({})
+      console.log(usersPromise)
+      return bindPromiseWithOnSuccess(usersPromise)
+         .to(this.setGetPostDetailsAPIStatus, this.setGetPostDetailsAPIResponse)
+         .catch(this.setGetPostDetailsAPIError)
    }
 
    @action.bound

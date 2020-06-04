@@ -10,17 +10,16 @@ import {
    StyledListItem,
    StyledList,
    StyledWrapper
-}
-from './styledComponents'
+} from './styledComponents'
 @observer
 class DomainsList extends React.Component {
-   @observable text;
+   @observable text
    @observable hasClickedSeeAll
    constructor(props) {
       super(props)
       this.hasClickedSeeAll = false
       this.limitOnShowingDomains = 2
-      this.text = strings.seeAll;
+      this.text = strings.seeAll
    }
 
    @computed
@@ -28,29 +27,26 @@ class DomainsList extends React.Component {
       const { listOfItems } = this.props
       if (listOfItems == undefined) {
          return []
-      }
-      else if (this.hasClickedSeeAll) {
+      } else if (this.hasClickedSeeAll) {
          return listOfItems
-      }
-      else {
+      } else {
          let showListOfItems = listOfItems.slice(0, this.limitOnShowingDomains)
          return showListOfItems
       }
-
    }
 
    toggleSeeAll = () => {
-      this.hasClickedSeeAll = !this.hasClickedSeeAll;
-      this.text = (this.text === strings.seeAll ? strings.showLess : strings.seeAll);
+      this.hasClickedSeeAll = !this.hasClickedSeeAll
+      this.text =
+         this.text === strings.seeAll ? strings.showLess : strings.seeAll
    }
    onClickDomain = event => {
-
       const { onClickFollowingDomain } = this.props
       onClickFollowingDomain(+event.target.id)
    }
 
    render() {
-      const { title } = this.props
+      const { title, selectedDomainId } = this.props
 
       return (
          <WithToggle text={this.text} hasClickedSeeAll={this.hasClickedSeeAll}>
@@ -70,18 +66,23 @@ class DomainsList extends React.Component {
                                  id={eachDomain.domainId}
                                  key={eachDomain.domainId}
                                  onClick={this.onClickDomain}
+                                 isSelected={
+                                    selectedDomainId == eachDomain.domainId
+                                 }
                               >
                                  {eachDomain.domainName}
                               </StyledListItem>
                            )
                         })}
-                        {this.props.listOfItems.length>this.limitOnShowingDomains &&
-                        <StyledListItem onClick={this.toggleSeeAll}>{this.text}</StyledListItem>}
+                        {this.props.listOfItems.length >
+                           this.limitOnShowingDomains && (
+                           <StyledListItem onClick={this.toggleSeeAll}>
+                              {this.text}
+                           </StyledListItem>
+                        )}
                      </StyledList>
                   ) : null}
-                  {
-
-                  }
+                  {}
                </StyledWrapper>
             )}
          </WithToggle>

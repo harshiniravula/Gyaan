@@ -21,5 +21,8 @@
     "altText": "img",
     "domainExperts": "DOMAIN EXPERTS",
     "leave": "Leave",
-    "showLess": "show less"
+    "showLess": "show less",
+    "title": "Title",
+    "topicDescription": "Topic Description",
+    "submit": "submit"
 }

@@ -4,68 +4,63 @@ import IBHubsLogo from '../../../Common/IBHubsLogo'
 import Strings from '../../i18n/Strings.json'
 import FollowingDomains from '../FollowingDomains'
 import SuggestedDomains from '../SuggestedDomains'
-import { observer, inject } from 'mobx-react'
+import { observer } from 'mobx-react'
+import { withRouter } from 'react-router-dom'
 import Requests from '../Requests'
 import { StyledSideBarWrapper, StyledAllDomains } from './styledComponents'
-@inject('gyaanStore')
 @observer
 class GyaanSideBar extends React.Component {
-   componentDidMount() {
-      this.doNetworkCalls();
-   }
-   doNetworkCalls = () => {
-      const { getGyaanDomainData } = this.props.gyaanStore;
-      getGyaanDomainData({});
-   }
-   onClickFollowingDomain = (id) => {
-      const { onClickFollowingDomain } = this.props;
-      onClickFollowingDomain(id);
-   }
-
-   renderSideBar = () => {
+   renderSideBar = observer(() => {
       const {
-         followingDomains,
-      } = this.props.gyaanStore;
-      const {
+         selectedDomainRequestes,
+         onClickAllDomains,
          onClickFollowingDomain,
-         domainRequestedUsersCount,
-         domainRequestedUsers,
-         onClickAllDomains
-      } = this.props;
+         followingDomains,
+         selectedDomainId
+      } = this.props
       return (
          <StyledSideBarWrapper>
-            <IBHubsLogo size={Strings.ibHubsLogoSize} />
+            <IBHubsLogo
+               isSelected={selectedDomainId}
+               size={Strings.ibHubsLogoSize}
+            />
             <StyledAllDomains onClick={onClickAllDomains}>
                {Strings.AllDomains}
             </StyledAllDomains>
             <FollowingDomains
-               onClickFollowingDomain={this.onClickFollowingDomain}
+               selectedDomainId={selectedDomainId}
+               onClickFollowingDomain={onClickFollowingDomain}
                title={Strings.followingDomains}
                listOfItems={followingDomains}
             />
-            {domainRequestedUsers ? (
+            {selectedDomainRequestes ? (
                <Requests
-                  domainRequestedUsersCount={domainRequestedUsersCount}
-                  domainRequestedUsers={domainRequestedUsers}
+                  domainRequestedUsersCount={
+                     selectedDomainRequestes.domainRequestedUsersCount
+                  }
+                  domainRequestedUsers={
+                     selectedDomainRequestes.domainRequestedUsers
+                  }
                />
             ) : null}
          </StyledSideBarWrapper>
       )
-   }
+   })
    render() {
       const {
          getGyaanDomainsAPIStatus,
-         getGyaanDomainsAPIError
-      } = this.props.gyaanStore;
+         getGyaanDomainsAPIError,
+         doNetworkCalls
+      } = this.props
       return (
          <LoadingWrapperWithFailure
             apiStatus={getGyaanDomainsAPIStatus}
             apiError={getGyaanDomainsAPIError}
-            onRetryClick={this.doNetworkCalls}
+            onRetryClick={doNetworkCalls}
             renderSuccessUI={this.renderSideBar}
          />
       )
    }
 }
 
-export default GyaanSideBar
+export default withRouter(GyaanSideBar)

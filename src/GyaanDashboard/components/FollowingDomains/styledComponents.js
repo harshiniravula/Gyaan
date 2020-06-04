@@ -15,6 +15,8 @@ const StyledListItem = styled.li`
    ${tw`text-sm`};
    list-style-type: none;
    cursor: pointer;
+   background: ${props => (props.isSelected ? '#90cdf4' : 'white')};
+   color: ${props => (props.isSelected ? '#2b6cb0' : 'black')};
 `
 const StyledList = styled.ul`
    ${tw`text-sm`};

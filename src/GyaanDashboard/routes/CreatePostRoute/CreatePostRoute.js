@@ -3,7 +3,8 @@ import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 import { GYAAN_PATH } from '../../constants/PathName'
 import CreatePostPage from '../../components/CreatePostPage'
-import WithDomainsData from '../../common/hocs/WithDomainsData'
+import WithSideBarAndHeader from '../../components/Common/WithSideBarAndHeader'
+//import WithDomainsData from '../../common/hocs/WithDomainsData'
 
 @inject('gyaanStore')
 @observer
@@ -37,28 +38,15 @@ class CreatePostRoute extends React.Component {
       } = gyaanStore
 
       return (
-         <WithDomainsData gyaanStore={gyaanStore}>
-            {(
-               followingDomains,
-               suggestedDomains,
-               getGyaanDomainsAPIStatus,
-               getGyaanDomainsAPIError
-            ) => (
-               <CreatePostPage
-                  followingDomains={followingDomains}
-                  suggestedDomains={suggestedDomains}
-                  onClickFollowingDomain={this.onClickFollowingDomain}
-                  getPostsResponse={getPostsResponse}
-                  getPostsAPIStatus={getPostsAPIStatus}
-                  getPostsAPIError={getPostsAPIError}
-                  getGyaanDomainsAPIError={getGyaanDomainsAPIError}
-                  getGyaanDomainsAPIStatus={getGyaanDomainsAPIStatus}
-                  getPosts={getAllDomainsPostsResponse}
-                  onClickAllDomains={this.onClickAllDomains}
-               />
-            )}
-         </WithDomainsData>
+         <CreatePostPage
+            onClickFollowingDomain={this.onClickFollowingDomain}
+            getPostsResponse={getPostsResponse}
+            getPostsAPIStatus={getPostsAPIStatus}
+            getPostsAPIError={getPostsAPIError}
+            getPosts={getAllDomainsPostsResponse}
+            onClickAllDomains={this.onClickAllDomains}
+         />
       )
    }
 }
-export default withRouter(CreatePostRoute)
+export default withRouter(WithSideBarAndHeader(CreatePostRoute))

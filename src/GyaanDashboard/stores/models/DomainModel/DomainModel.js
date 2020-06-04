@@ -9,7 +9,7 @@ class DomainModel {
    @observable getPostsAPIError
    @observable getDomainDataAPIStatus
    @observable getDomainDataAPIError
-   @observable getdomainPosts
+   @observable getDomainPosts
    @observable domainExperts
    @observable starsCount
    @observable followersCount
@@ -30,7 +30,7 @@ class DomainModel {
       this.getPostsAPIError = null
       this.getDomainDataAPIStatus = API_INITIAL
       this.getDomainDataAPIError = null
-      this.getdomainPosts = []
+      this.getDomainPosts = []
       this.domainExperts = []
       this.starsCount = 0
       this.followersCount = 0
@@ -94,8 +94,14 @@ class DomainModel {
    }
    @action.bound
    setGetPostsResponse(response) {
-      this.getdomainPosts = response.map(
-         post => new BasicPostModel(post, this.domainName, this.domainPic)
+      this.getDomainPosts = response.map(
+         post =>
+            new BasicPostModel(
+               post,
+               this.domainId,
+               this.domainName,
+               this.gyaanAPIService
+            )
       )
    }
    @action.bound

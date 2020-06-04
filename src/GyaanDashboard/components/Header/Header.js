@@ -1,23 +1,25 @@
 import React from 'react'
 import InputElement from '../../../Common/InputElement'
 import Button from '../../../Common/Button'
-import Strings from '../../i18n/Strings.json'
+import strings from '../../i18n/Strings.json'
 import { observer } from 'mobx-react'
 import { StyledHeader } from './styledComponents'
+import Avatar from '../../../Common/Avatar'
 @observer
 class Header extends React.Component {
    render() {
       const { onClickWritePost } = this.props
       return (
          <StyledHeader>
-            <InputElement size={Strings.PostInputWidth} />
+            <InputElement size={InputElement.size.large} />
             <Button
                onClick={onClickWritePost}
                kind={Button.kind.primary}
                size={Button.size.large}
             >
-               {Strings.WritePost}
+               {strings.WritePost}
             </Button>
+            <Avatar src={`img`} alt={`img`} />
          </StyledHeader>
       )
    }

@@ -7,9 +7,15 @@ import Comment from '../Comment'
 import { StyledPost } from './styledComponents'
 
 class EachPost extends React.Component {
+   onClickPost = e => {
+      const { onClickPost, postId, postData } = this.props
+      const { postDomainId } = postData
+      onClickPost(postId, postDomainId)
+   }
    render() {
       const {
          title,
+         id,
          postDomainName,
          tags,
          reactionsCount,
@@ -22,7 +28,7 @@ class EachPost extends React.Component {
       } = this.props.postData
       const { approvedComment, unapprovedComments } = comments
       return (
-         <StyledPost>
+         <StyledPost id={id} onClick={this.onClickPost}>
             <TitleSection
                tags={tags}
                isReacted={isReacted}

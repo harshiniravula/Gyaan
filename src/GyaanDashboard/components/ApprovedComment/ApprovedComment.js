@@ -1,4 +1,5 @@
 import React from 'react'
+import GreenTick from '../../../Common/Icons/GreenTick'
 import Strings from '../../i18n/Strings.json'
 import BasicComment from '../../common/BasicComment'
 import ReactionIcon from '../../common/ReactionIcon'
@@ -7,7 +8,9 @@ import {
    StyledApprovedComment,
    StyledFooter,
    StyledApproved,
-   StyledRight
+   StyledRight,
+   StyledLeft,
+   StyledName
 } from './styledComponents'
 
 class ApprovedComment extends React.Component {
@@ -31,9 +34,11 @@ class ApprovedComment extends React.Component {
             />
 
             <StyledFooter>
-               <StyledApproved>
-                  {Strings.ApprovedBy} {username}
-               </StyledApproved>
+               <StyledLeft>
+                  <GreenTick />
+                  <StyledApproved>{Strings.ApprovedBy}</StyledApproved>
+                  <StyledName>{username}</StyledName>
+               </StyledLeft>
                <StyledRight>
                   <ReactionIcon
                      isReacted={isReacted}

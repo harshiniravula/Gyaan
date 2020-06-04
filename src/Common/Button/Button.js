@@ -1,23 +1,24 @@
 import React from 'react'
+import colors from '../../themes/Colors.json'
 
 import { StyledBtn } from './styledComponents'
 class Button extends React.Component {
    static kind = {
       primary: {
-         background: '#2b6cb0',
-         color: 'white'
+         background: colors.blue700,
+         color: colors.white
       },
       secondary: {
-         background: '#f2f2f2',
-         color: 'black'
+         background: colors.gray400,
+         color: colors.black
       },
       tertiary: {
-         background: '#48bb78',
-         color: 'white'
+         background: colors.green500,
+         color: colors.white
       },
       warning: {
-         background: '#fed7d7',
-         color: 'red'
+         background: colors.red200,
+         color: colors.red
       }
    }
    static size = {
@@ -26,11 +27,11 @@ class Button extends React.Component {
          text: '14px'
       },
       medium: {
-         width: '50px',
+         width: '70px',
          text: '18px'
       },
       large: {
-         width: '170px',
+         width: '120px',
          text: '20px'
       },
       mini: {

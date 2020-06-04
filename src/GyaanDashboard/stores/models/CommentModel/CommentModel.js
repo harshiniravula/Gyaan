@@ -20,6 +20,26 @@ class CommentModel {
       this.repliesCount = comment.replies_count
 
       this.reactionsCount = comment.reactions_count
+
+      this.replies = comment.replies ?
+         comment.replies.map(reply => {
+
+            return {
+               commentId: reply.comment_id,
+
+               commenter: {
+                  userId: reply.commenter.user_id,
+                  username: reply.commenter.username,
+                  profilePic: reply.commenter.profile_pic
+               },
+
+               commentAt: reply.comment_at,
+               commentContent: reply.comment_content,
+               isReacted: reply.is_reacted,
+               reactionsCount: reply.reactions_count
+            }
+         }) :
+         null
    }
 }
 

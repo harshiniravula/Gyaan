@@ -16,7 +16,8 @@ import {
    StyledFooter,
    StyledRight,
    StyledPostTitle
-} from './styledComponents'
+}
+from './styledComponents'
 
 class TitleSection extends React.Component {
    render() {
@@ -57,10 +58,10 @@ class TitleSection extends React.Component {
 
                <StyledFooter>
                   <StyledTags>
-                     {tags.map(tag => (
+                     {tags.map((tag,index) => (
                         <Tag
                            key={tag.tagId}
-                           color={'green'}
+                           color={[255-(index+1)*100,100,(index+1)*100]}
                            id={tag.id}
                            name={tag.tagName}
                         />

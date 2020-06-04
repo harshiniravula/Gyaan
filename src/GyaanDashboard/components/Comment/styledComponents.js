@@ -6,7 +6,7 @@ const StyledComment = styled.div`
 `
 
 const StyledFooter = styled.div`
-   ${tw`flex justify-end items-center`};
+   ${tw`flex my-2 justify-end items-center`};
 `
 
 export { StyledComment, StyledFooter }

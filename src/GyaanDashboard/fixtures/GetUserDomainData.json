@@ -1,6 +1,6 @@
 {
     "following_domains": [{
-            "domain_id": 0,
+            "domain_id": 5,
             "domain_name": "video editing"
         },
         {
@@ -40,7 +40,7 @@
     "pending_posts": {
         "total_count": 10,
         "domains": [{
-                "domain_id": 0,
+                "domain_id": 3,
                 "domain_name": "React",
                 "posts_count": 5
             },
@@ -60,7 +60,7 @@
     "pending_for_review_posts": {
         "total_count": 7,
         "domains": [{
-                "domain_id": 0,
+                "domain_id": 3,
                 "domain_name": "React",
                 "posts_count": 2
             },
