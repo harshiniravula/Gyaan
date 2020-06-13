@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { observer } from 'mobx-react'
 import Avatar from '../../../Common/Avatar'
 import Tag from '../../common/Tag'
 import PostDomain from '../../common/PostDomain'
@@ -15,11 +15,17 @@ import {
    StyledTags,
    StyledFooter,
    StyledRight,
-   StyledPostTitle
+   StyledPostTitle,
+   StyledPostContent
 }
-from './styledComponents'
-
+from './styledComponents';
+@observer
 class TitleSection extends React.Component {
+   onClickReaction = (e) => {
+      e.stopPropagation();
+      const { onClickReaction } = this.props;
+      onClickReaction();
+   }
    render() {
       const {
          domainName,
@@ -30,7 +36,9 @@ class TitleSection extends React.Component {
          commentsCount,
          isReacted,
          postTitle,
-         domainPic
+         domainPic,
+         postContent,
+         getCommentReactionAPIStatus
       } = this.props
       return (
          <StyledTitleSection>
@@ -55,6 +63,7 @@ class TitleSection extends React.Component {
                </StyledHeader>
 
                <StyledPostTitle>{postTitle}</StyledPostTitle>
+               <StyledPostContent>{postContent}</StyledPostContent>
 
                <StyledFooter>
                   <StyledTags>
@@ -70,6 +79,8 @@ class TitleSection extends React.Component {
 
                   <StyledRight>
                      <ReactionIcon
+                     status={getCommentReactionAPIStatus}
+                     onClick={this.onClickReaction}
                         isReacted={isReacted}
                         count={`${reactionsCount} ${strings.Reactions}`}
                      />

@@ -1,11 +1,12 @@
 import React from 'react'
-
+import { observer } from 'mobx-react'
 import TitleSection from '../TitleSection'
 import ApprovedComment from '../ApprovedComment'
 import Comment from '../Comment'
+import InputWithPostIcon from '../Common/InputWithPostIcon'
 
 import { StyledPost } from './styledComponents'
-
+@observer
 class EachPost extends React.Component {
    onClickPost = e => {
       const { onClickPost, postId, postData } = this.props
@@ -24,13 +25,18 @@ class EachPost extends React.Component {
          postedAt,
          postedBy,
          comments,
-         domainPic
+         domainPic,
+         getCommentReactionAPIStatus,
+         onClickReaction,
+         postContent
       } = this.props.postData
       const { approvedComment, unapprovedComments } = comments
       return (
          <StyledPost id={id} onClick={this.onClickPost}>
             <TitleSection
                tags={tags}
+               postContent={postContent}
+               status={getCommentReactionAPIStatus}
                isReacted={isReacted}
                commentsCount={commentsCount}
                postedAt={postedAt}
@@ -39,6 +45,7 @@ class EachPost extends React.Component {
                postTitle={title}
                domainName={postDomainName}
                domainPic={domainPic}
+               onClickReaction={onClickReaction}
             />
 
             <ApprovedComment
@@ -48,6 +55,7 @@ class EachPost extends React.Component {
             {unapprovedComments.map(comment => {
                return <Comment key={comment.commentId} commentData={comment} />
             })}
+            <InputWithPostIcon/>
          </StyledPost>
       )
    }

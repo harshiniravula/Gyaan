@@ -6,7 +6,7 @@ import WithSideBarAndHeader from '../../components/Common/WithSideBarAndHeader'
 @inject('gyaanStore')
 @observer
 class PostDisplayRoute extends React.Component {
-    async componentDidMount() {
+    componentDidMount() {
         const { match, gyaanStore } = this.props
         const selectedPostDomainId = +match.params.domainId
         const selectedPostId = +match.params.postId
@@ -18,14 +18,16 @@ class PostDisplayRoute extends React.Component {
             getSelectedPostAPIStatus,
             getSelectedPostAPIError,
             selectedPost,
-            getPostDetails
-        } = this.props.gyaanStore
+            getPostDetails,
+            followingDomains
+        } = this.props.gyaanStore;
 
         return <DetailedPostPage
                 getSelectedPostAPIStatus={getSelectedPostAPIStatus}
                 getSelectedPostAPIError={getSelectedPostAPIError}
                 selectedPost={selectedPost}
                 getPostDetails={getPostDetails}
+                followingDomains={followingDomains}
         />
     }
 }

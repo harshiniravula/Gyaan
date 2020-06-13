@@ -1,13 +1,14 @@
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import React from 'react'
+import { observer } from 'mobx-react'
 import { StyledReaction } from './styledComponents'
+@observer
 class Reaction extends React.Component {
    render() {
-      const { isReacted, count } = this.props
-      //console.log("color", color);
+      const { isReacted, count, onClick, ...other } = this.props
       return (
-         <StyledReaction>
-            {isReacted ? <AiFillHeart color={'red'} /> : <AiOutlineHeart />}
+         <StyledReaction onClick={onClick}>
+            {isReacted ? <AiFillHeart{...other} color={'red'} /> : <AiOutlineHeart {...other}/>}
 
             {count}
          </StyledReaction>

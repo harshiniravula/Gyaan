@@ -3,23 +3,24 @@ import { API_INITIAL, API_SUCCESS } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import BasicPostModel from '../models/BasicPostModel'
 import DomainModel from '../models/DomainModel'
-import SuggestDomainModel from '../models/SuggestDomainModel'
+import SuggesttedDomainModel from '../models/SuggesttedDomainModel'
 
 class GyaanStore {
    @observable getGyaanDomainsAPIStatus
    @observable getGyaanDomainsAPIError
    @observable followingDomains
    @observable suggestedDomains
-   @observable pendingForReviewPosts
-   @observable pendingPosts
    @observable getPostsAPIStatus
    @observable getPostsAPIError
-   @observable getAllDomainsPostsResponse
    @observable offset
    @observable selectedDomainId
    @observable selectedPostId
    @observable getSelectedPostAPIStatus
    @observable getSelectedPostAPIError
+
+
+   getAllDomainsPostsResponse
+   tags
    limit
    selectedPost
    constructor(gyaanAPIService) {
@@ -44,23 +45,21 @@ class GyaanStore {
       this.offset = 0
       this.selectedPostId = 0
       this.selectedPost = {}
+
    }
    @action.bound
    clearStore() {
       this.init()
    }
 
-   @action.bound
-   setSelectedDomainId(id) {
-      this.selectedDomainId = id
-   }
+
 
    disposer = reaction(
       () => this.selectedDomainId,
       id => {
-         if (this.selectedDomainId !== null) {
+         if (id !== null) {
             this.followingDomains
-               .find(domain => domain.domainId === this.selectedDomainId)
+               .find(domain => domain.domainId === id)
                .onClickDomain({})
          }
       }
@@ -72,7 +71,7 @@ class GyaanStore {
          return new DomainModel(eachDomain, this.gyaanAPIService)
       })
       this.suggestedDomains = response.suggested_domains.map(eachDomain => {
-         return new SuggestDomainModel(eachDomain, this.gyaanAPIService)
+         return new SuggesttedDomainModel(eachDomain, this.gyaanAPIService)
       })
    }
 
@@ -82,16 +81,12 @@ class GyaanStore {
    }
 
    @action.bound
-   onClickSuggestedDomain() {}
-
-   @action.bound
    onClickAllDomains() {
       this.getDomainPosts({})
    }
 
    @action.bound
    setGetPostsResponse(response) {
-      this.getAllDomainsPostsResponse = []
       if (response) {
          response.forEach(post => {
             this.getAllDomainsPostsResponse.push(
@@ -107,6 +102,11 @@ class GyaanStore {
    }
 
    @action.bound
+   clearPosts() {
+      this.getAllDomainsPostsResponse = [];
+   }
+
+   @action.bound
    setSelectedPostId(id, domainId) {
       this.selectedDomainId = domainId
       this.selectedPostId = id
@@ -115,7 +115,7 @@ class GyaanStore {
 
    @action.bound
    setGetPostsAPIError(error) {
-      this.getPostsAPIError = error
+      this.getPostsAPIError = error;
    }
 
    @computed
@@ -155,15 +155,14 @@ class GyaanStore {
    @action.bound
    getPostDetails() {
       const usersPromise = this.gyaanAPIService.getSelectedPostAPI({})
-      console.log(usersPromise)
       return bindPromiseWithOnSuccess(usersPromise)
          .to(this.setGetPostDetailsAPIStatus, this.setGetPostDetailsAPIResponse)
          .catch(this.setGetPostDetailsAPIError)
    }
 
    @action.bound
-   getDomainPosts(requestObject) {
-      const usersPromise = this.gyaanAPIService.getPostsAPI(requestObject)
+   getDomainPosts() {
+      const usersPromise = this.gyaanAPIService.getPostsAPI(this.limit, this.offset)
       return bindPromiseWithOnSuccess(usersPromise)
          .to(this.setGetPostsAPIStatus, this.setGetPostsResponse)
          .catch(this.setGetPostsAPIError)
@@ -176,6 +175,19 @@ class GyaanStore {
          .to(this.setGetGyaanDomainAPIStatus, this.setGetGyaanDomainResponse)
          .catch(this.setGetGyaanDomainAPIError)
    }
+
+
+   @action.bound
+   setSelectedDomainId(id) {
+      this.selectedDomainId = id
+   }
+
+   @action.bound
+   onClickLoadMore() {
+      this.offset = this.offset + this.limit;
+      this.getDomainPosts();
+   }
+
 }
 
 export default GyaanStore

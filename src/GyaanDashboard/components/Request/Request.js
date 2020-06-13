@@ -6,13 +6,17 @@ import Request from '../Request'
 import { StyledRequest, StyledName, StyledButtons } from './styledComponents'
 class Requests extends React.Component {
    render() {
-      const { request } = this.props
+      const {
+         username,
+         onAcceptRequest,
+         onRejectRequest
+      } = this.props.request;
       return (
          <StyledRequest>
-            <StyledName>{request.username}</StyledName>
+            <StyledName>{username}</StyledName>
             <StyledButtons>
-               <Close />
-               <BlueTick />
+               <Close onClick={onRejectRequest}/>
+               <BlueTick onClick={onAcceptRequest}/>
             </StyledButtons>
          </StyledRequest>
       )

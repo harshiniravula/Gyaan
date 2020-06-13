@@ -2,7 +2,7 @@
     "seeAll": "See all",
     "ibHubsLogoSize": "48px",
     "AllDomains": "ALL DOMAINS",
-    "SuggestDomains": "SUGGEST DOMAINS",
+    "suggestDomains": "SUGGEST DOMAINS",
     "followingDomains": "FOLLOWING DOMAINS",
     "PrimaryBtn": "primary",
     "PostBtnWidth": "100px",
@@ -24,5 +24,9 @@
     "showLess": "show less",
     "title": "Title",
     "topicDescription": "Topic Description",
-    "submit": "submit"
+    "submit": "submit",
+    "writeComment": "Write a comment...",
+    "cancel": "Cancel",
+    "follow": "Follow",
+    "loadMore":"Load More..."
 }

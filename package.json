@@ -5,8 +5,9 @@
    "dependencies": {
       "@emotion/core": "^10.0.28",
       "@emotion/styled": "^10.0.27",
-      "@ib/api": "1.0.8",
+      "@ib/api": "2.0.0",
       "@ib/api-constants": "1.0.8",
+      "@ib/api-utils": "2.0.0",
       "@ib/mobx-promise": "1.0.8",
       "@types/jest": "25.2.1",
       "@types/node": "13.11.0",

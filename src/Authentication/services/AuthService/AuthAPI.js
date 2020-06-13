@@ -1,5 +1,5 @@
 import { create } from 'apisauce'
-import { networkCallWithApisauce } from '../../../../utils/APIUtils'
+import { networkCallWithApisauce } from '../../../utils/APIUtils'
 import { apiMethods } from '../../constants/APIConstants'
 import endPoints from '../endPoints'
 
@@ -7,11 +7,12 @@ class AuthService {
    api
    constructor() {
       this.api = create({
-         baseURL: 'gyaan'
+         baseURL: 'https://2f876d98d912.ngrok.io/api/gyaan/'
       })
    }
 
    postUsersAPI(requestObject) {
+
       return networkCallWithApisauce(
          this.api,
          endPoints.signUp,
@@ -21,6 +22,7 @@ class AuthService {
    }
 
    getUsersAPI(requestObject) {
+
       return networkCallWithApisauce(
          this.api,
          endPoints.logIn,

@@ -1,6 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-
+import Button from '../../../Common/Button';
+import strings from '../../i18n/Strings.json';
 import LoadingWrapperWithFailure from '../../../Common/LoadingWrapperWithFailure'
 import EachPost from '../EachPost'
 import { StyledPostsPage } from './styledComponents'
@@ -8,7 +9,7 @@ import { StyledPostsPage } from './styledComponents'
 @observer
 class PostsPage extends React.Component {
    renderPostsList = observer(() => {
-      const { getPosts, onClickPost } = this.props
+      const { getPosts, onClickPost, onClickLoadMore } = this.props
 
       return (
          <StyledPostsPage>
@@ -22,6 +23,12 @@ class PostsPage extends React.Component {
                   />
                )
             })}
+
+            <Button 
+            onClick={onClickLoadMore}
+            kind={Button.kind.primary} 
+            size={Button.size.full} 
+            children={strings.loadMore}/>
          </StyledPostsPage>
       )
    })

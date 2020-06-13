@@ -7,22 +7,30 @@ import colors from '../../themes/Colors.json'
 class InputElement extends React.Component {
    @computed
    get borderAndTextColors() {
-      const { hasError, isPositive, isTitle, isText } = this.props
+      const { hasError, isPositive, isTitle, isText, isNormal } = this.props
       let color
       let borderColor
       if (hasError) {
          color = colors.red
          borderColor = colors.red
-      } else if (isPositive) {
+      }
+      else if (isPositive) {
          color = colors.green
          borderColor = colors.green
-      } else if (isTitle) {
+      }
+      else if (isTitle) {
          color = colors.black
          borderColor = colors.white
-      } else if (isText) {
+      }
+      else if (isText) {
          color = colors.gray500
          borderColor = colors.white
-      } else {
+      }
+      else if (isNormal) {
+         color = colors.black
+         borderColor = colors.white
+      }
+      else {
          color = colors.black
          borderColor = colors.gray500
       }
@@ -43,7 +51,11 @@ class InputElement extends React.Component {
       },
       large: {
          width: '50%',
-         fontSize: '20px'
+         fontSize: '16px'
+      },
+      normal: {
+         width: '100%',
+         fontSize: '14px'
       },
       full: {
          width: '100%',

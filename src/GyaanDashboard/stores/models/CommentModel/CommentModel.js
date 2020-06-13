@@ -1,7 +1,14 @@
 import { observable, action } from 'mobx'
 
+import { API_INITIAL, API_SUCCESS } from '@ib/api-constants'
+import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
+
 class CommentModel {
-   constructor(comment) {
+
+   @observable getCommentReactionAPIStatus
+   @observable isReacted;
+   constructor(comment, gyaanAPIService) {
+      this.gyaanAPIService = gyaanAPIService;
       this.commentId = comment.comment_id
 
       this.commenter = {
@@ -40,6 +47,39 @@ class CommentModel {
             }
          }) :
          null
+      this.init();
+   }
+   @action.bound
+   init() {
+      this.getCommentReactionAPIStatus = API_INITIAL
+      this.getCommentReactionAPIError = null;
+   }
+   @action.bound
+   setGetCommentReactionAPIStatus(apiStatus) {
+      this.getCommentReactionAPIStatus = apiStatus
+   }
+   @action.bound
+   setGetCommentReactionResponse(response) {
+      if (this.isReacted) {
+         this.reactionsCount = this.reactionsCount - 1;
+      }
+      else {
+         this.reactionsCount = this.reactionsCount + 1;
+      }
+      this.isReacted = !this.isReacted;
+   }
+   @action.bound
+   setGetCommentReactionAPIError(error) {
+      this.getCommentReactionAPIError = error;
+   }
+
+
+   @action.bound
+   onClickReaction() {
+      const usersPromise = this.gyaanAPIService.onClickReaction('comment', this.commentId)
+      return bindPromiseWithOnSuccess(usersPromise)
+         .to(this.setGetCommentReactionAPIStatus, this.setGetCommentReactionResponse)
+         .catch(this.setGetCommentReactionAPIError)
    }
 }
 

@@ -6,25 +6,21 @@ import DomainSection from '../DomainSection'
 import { StyledPostsSection } from './styledComponents'
 
 @observer
-class GyaanDashboard extends React.Component {
+class FollowingDomainPage extends React.Component {
    render() {
-      const { domainData, onClickPost } = this.props
+      const { domainData, onClickPost, onClickLeaveDomain } = this.props
 
       return (
          <React.Fragment>
             {domainData != undefined ? (
                <StyledPostsSection>
                   <DomainSection
-                     domainName={domainData.domainName}
-                     domainId={domainData.domainId}
-                     starsCount={domainData.starsCount}
-                     postsCount={domainData.postsCount}
-                     followersCount={domainData.followersCount}
-                     domainPic={domainData.domainPic}
-                     domainDescription={domainData.domainDescription}
+                     domainData={domainData}
+                     onClickLeaveDomain={onClickLeaveDomain}
                      domainExperts={domainData.domainExperts}
                   />
                   <PostsPage
+                     onClickLoadMore={domainData.onClickLoadMore}
                      onClickPost={onClickPost}
                      getPostsAPIStatus={domainData.getPostsAPIStatus}
                      getPostsAPIError={domainData.getPostsAPIError}
@@ -37,4 +33,4 @@ class GyaanDashboard extends React.Component {
    }
 }
 
-export default GyaanDashboard
+export default FollowingDomainPage

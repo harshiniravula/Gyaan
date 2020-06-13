@@ -6,7 +6,7 @@ import ReactLoading from 'react-loading'
 import InputElement from '../../../Common/InputElement'
 import Button from '../../../Common/Button'
 import IBHubsLogo from '../../../Common/IBHubsLogo'
-import Strings from '../../i18n/Strings.json'
+import strings from '../../i18n/Strings.json'
 
 import {
    StyledSignInPage,
@@ -18,7 +18,8 @@ import {
    StyledBottomContent,
    StyledBottomLink,
    StyledInputError
-} from './styledComponents.js'
+}
+from './styledComponents.js'
 
 @observer
 class LoginPage extends React.Component {
@@ -44,12 +45,12 @@ class LoginPage extends React.Component {
       return (
          <StyledSignInWrapper>
             <StyledSignInPage>
-               <IBHubsLogo size={Strings.ibHubsLogoSizeInAuthentication} />
+               <IBHubsLogo size={strings.ibHubsLogoSizeInAuthentication} />
 
-               <StyledHeading>{Strings.LoginPageTitle}</StyledHeading>
+               <StyledHeading>{strings.LoginPageTitle}</StyledHeading>
 
                <StyledLabel>
-                  {Strings.SignInUserNameLabel}
+                  {strings.SignInUserNameLabel}
                   <StyledBreak />
                   <InputElement
                      data-testid='username'
@@ -63,7 +64,7 @@ class LoginPage extends React.Component {
                   {userNameError && <StyledError>{userNameError}</StyledError>}
                </StyledLabel>
                <StyledLabel>
-                  {Strings.SignInPasswordLabel}
+                  {strings.SignInPasswordLabel}
                   <StyledBreak />
                   <InputElement
                      data-testid='password'
@@ -81,12 +82,13 @@ class LoginPage extends React.Component {
                   kind={Button.kind.primary}
                   size={Button.size.full}
                   shape={Button.shape.default}
-                  type='button'
+                  type='submit'
                   role='button'
                   data-testid='sign-in-button'
                   onClick={onClickSignIn}
+                  disabled={isLoading}
                >
-                  {isLoading ? (
+                  {isLoading ?
                      <ReactLoading
                         aria-label='audio-loading'
                         type={'spin'}
@@ -94,18 +96,20 @@ class LoginPage extends React.Component {
                         height={'24px'}
                         width={'24px'}
                      />
-                  ) : (
-                     'LOGIN'
-                  )}
+                  : strings.login
+                  }
                </Button>
+               
+
                <StyledBottomContent>
-                  {Strings.DontHaveAnAccount}
+                  {strings.DontHaveAnAccount}
                   <StyledBottomLink onClick={onClickLink}>
-                     {Strings.SignUp}
+                     {strings.SignUp}
                   </StyledBottomLink>
                </StyledBottomContent>
                <StyledError>{serverError}</StyledError>
             </StyledSignInPage>
+            
          </StyledSignInWrapper>
       )
    }

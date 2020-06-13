@@ -1,7 +1,7 @@
 import React from 'react'
 import LoadingWrapperWithFailure from '../../../Common/LoadingWrapperWithFailure'
 import IBHubsLogo from '../../../Common/IBHubsLogo'
-import Strings from '../../i18n/Strings.json'
+import strings from '../../i18n/Strings.json'
 import FollowingDomains from '../FollowingDomains'
 import SuggestedDomains from '../SuggestedDomains'
 import { observer } from 'mobx-react'
@@ -16,22 +16,29 @@ class GyaanSideBar extends React.Component {
          onClickAllDomains,
          onClickFollowingDomain,
          followingDomains,
-         selectedDomainId
+         selectedDomainId,
+         suggestedDomains,
+         onClickSuggestedDomain
       } = this.props
       return (
          <StyledSideBarWrapper>
             <IBHubsLogo
                isSelected={selectedDomainId}
-               size={Strings.ibHubsLogoSize}
+               size={strings.ibHubsLogoSize}
             />
-            <StyledAllDomains onClick={onClickAllDomains}>
-               {Strings.AllDomains}
+            <StyledAllDomains  isSelected={selectedDomainId} onClick={onClickAllDomains}>
+               {strings.AllDomains}
             </StyledAllDomains>
             <FollowingDomains
                selectedDomainId={selectedDomainId}
                onClickFollowingDomain={onClickFollowingDomain}
-               title={Strings.followingDomains}
+               title={strings.followingDomains}
                listOfItems={followingDomains}
+            />
+            <SuggestedDomains
+            title={strings.suggestDomains}
+            suggestedDomains={suggestedDomains}
+               onClickSuggestedDomain={onClickSuggestedDomain}
             />
             {selectedDomainRequestes ? (
                <Requests
@@ -47,6 +54,7 @@ class GyaanSideBar extends React.Component {
       )
    })
    render() {
+   
       const {
          getGyaanDomainsAPIStatus,
          getGyaanDomainsAPIError,

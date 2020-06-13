@@ -2,8 +2,8 @@ import styled from '@emotion/styled'
 import tw from 'tailwind.macro'
 
 const StyledSideBarWrapper = styled.div `
-   ${tw`flex flex-col border border-gray-300  bg-white p-2`};
-   width: 20%;
+   ${tw`flex flex-col  border border-gray-300  bg-white px-6`};
+   width: 18%;
    height: 100vh;
    position: fixed;
    left: 0;

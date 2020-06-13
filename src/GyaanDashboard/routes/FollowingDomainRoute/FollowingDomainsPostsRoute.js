@@ -3,6 +3,8 @@ import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { observable, computed } from 'mobx'
 import { withRouter } from 'react-router-dom'
+
+import { goToGyaanHome } from '../../utils/NavigationUtils/NavigationUtils'
 import WithSideBarAndHeader from '../../components/Common/WithSideBarAndHeader'
 import FollowingDomainPage from '../../components/FollowingDomainPage'
 
@@ -14,11 +16,19 @@ class FollowingDomainRoute extends React.Component {
       super(props)
       this.followingDomains = []
    }
+   onClickLeaveDomain = () => {
+      const { history } = this.props;
+      goToGyaanHome(history)
+   }
 
    componentDidMount() {
       const { match, gyaanStore } = this.props
       const domainId = +match.params.domainId
       gyaanStore.setSelectedDomainId(domainId)
+   }
+   componentWillUnmount() {
+      this.domainData.clearPosts();
+
    }
    @computed
    get domainData() {
@@ -32,6 +42,7 @@ class FollowingDomainRoute extends React.Component {
       const { onClickPost } = this.props
       return (
          <FollowingDomainPage
+            onClickLeaveDomain={this.onClickLeaveDomain}
             onClickFollowingDomain={this.onClickFollowingDomain}
             domainData={this.domainData}
             onClickPost={onClickPost}

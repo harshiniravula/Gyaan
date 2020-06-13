@@ -17,11 +17,10 @@ class Avatar extends React.Component {
    }
 
    render() {
-      const { borderType, size, src, alt, onClick } = this.props
+      const { borderType, size, alt, ...other } = this.props
       return (
          <StyledAvatar
-            onClick={onClick}
-            src={src}
+            {...other}
             alt={alt ? alt : strings.altText}
             borderRadius={borderType}
             size={size}

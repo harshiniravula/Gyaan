@@ -24,6 +24,10 @@ const StyledPostedAt = styled.p `
 const StyledContent = styled.p `
    ${tw`text-sm`};
 `
+
+const StyledReplies = styled.div `
+   ${tw `ml-6`};
+`;
 const StyledTags = styled.ul `
    ${tw`flex items-center justify-start`};
    list-style-type:none;
@@ -35,5 +39,6 @@ export {
    StyledRightPart,
    StyledPostedAt,
    StyledTags,
-   StyledContent
+   StyledContent,
+   StyledReplies
 }

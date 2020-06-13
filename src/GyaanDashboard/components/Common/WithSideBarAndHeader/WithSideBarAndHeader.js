@@ -1,11 +1,14 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
-import {
-   GYAAN_PATH,
-   CREATE_POST_PATH,
-   POST_PATH
-} from '../../../constants/PathName'
 import { computed } from 'mobx'
+
+import {
+   goToGyaanHome,
+   goToPostPage,
+   goToSpecificDomain,
+   goToSpecificPostInSpecificDomain
+}
+from '../../../utils/NavigationUtils/NavigationUtils.js'
 import Header from '../../Header'
 import GyaanSideBar from '../../GyaanSideBar'
 import { StyledGyaanDashboard, StyledRightSide } from './styledComponents'
@@ -25,19 +28,21 @@ function WithSideBarAndHeader(WrappedComponent) {
       }
       onClickWritePost = () => {
          const { history } = this.props
-         history.replace(CREATE_POST_PATH)
+         goToPostPage(history);
       }
       onClickFollowingDomain = id => {
-         const { history } = this.props
-         history.replace(`/gyaan/followingDomains/${id}`)
+         const { history } = this.props;
+         goToSpecificDomain(history, id)
+
       }
       onClickAllDomains = () => {
-         const { history } = this.props
-         history.replace(GYAAN_PATH)
+         const { history, gyaanStore } = this.props
+         goToGyaanHome(history)
       }
       onClickPost = (id, domainId) => {
-         const { history } = this.props
-         history.replace(`/gyaan/followingDomains/${domainId}/posts/${id}`)
+         const { history } = this.props;
+         goToSpecificPostInSpecificDomain(history, domainId, id);
+
       }
       @computed
       get selectedDomainRequestes() {
@@ -50,8 +55,7 @@ function WithSideBarAndHeader(WrappedComponent) {
 
             if (selectedDomain) {
                return {
-                  domainRequestedUsersCount:
-                     selectedDomain.domainRequestedUsersCount,
+                  domainRequestedUsersCount: selectedDomain.domainRequestedUsersCount,
                   domainRequestedUsers: selectedDomain.domainRequestedUsers
                }
             }
@@ -63,7 +67,9 @@ function WithSideBarAndHeader(WrappedComponent) {
             getGyaanDomainsAPIStatus,
             getGyaanDomainsAPIError,
             followingDomains,
-            selectedDomainId
+            selectedDomainId,
+            suggestedDomains,
+            onClickSuggestedDomain
          } = this.props.gyaanStore
          return (
             <StyledGyaanDashboard>
@@ -74,6 +80,8 @@ function WithSideBarAndHeader(WrappedComponent) {
                   getGyaanDomainsAPIStatus={getGyaanDomainsAPIStatus}
                   doNetworkCalls={this.doNetworkCalls}
                   onClickAllDomains={this.onClickAllDomains}
+                  suggestedDomains={suggestedDomains}
+                  onClickSuggestedDomain={onClickSuggestedDomain}
                   selectedDomainRequestes={this.selectedDomainRequestes}
                   onClickFollowingDomain={this.onClickFollowingDomain}
                />

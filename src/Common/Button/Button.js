@@ -3,24 +3,7 @@ import colors from '../../themes/Colors.json'
 
 import { StyledBtn } from './styledComponents'
 class Button extends React.Component {
-   static kind = {
-      primary: {
-         background: colors.blue700,
-         color: colors.white
-      },
-      secondary: {
-         background: colors.gray400,
-         color: colors.black
-      },
-      tertiary: {
-         background: colors.green500,
-         color: colors.white
-      },
-      warning: {
-         background: colors.red200,
-         color: colors.red
-      }
-   }
+
    static size = {
       small: {
          width: '40px',
@@ -50,12 +33,31 @@ class Button extends React.Component {
       round: '50%'
    }
 
+   static kind = {
+      primary: {
+         background: colors.blue700,
+         color: colors.white
+      },
+      secondary: {
+         background: colors.gray400,
+         color: colors.black
+      },
+      tertiary: {
+         background: colors.green500,
+         color: colors.white
+      },
+      warning: {
+         background: colors.red200,
+         color: colors.red
+      }
+   }
+
    render() {
-      const { kind, size, onClick, shape } = this.props
+      const { kind, size, shape, children, ...other } = this.props
 
       return (
-         <StyledBtn size={size} onClick={onClick} kind={kind} shape={shape}>
-            {this.props.children}
+         <StyledBtn size={size} {...other}   kind={kind} shape={shape}>
+            {children}
          </StyledBtn>
       )
    }

@@ -28,40 +28,42 @@ class LoginRoute extends React.Component {
       this.errorMessage = null
    }
 
-   componentWillUnmount() {
-      this.isLoading = false
-   }
    onChangeUserName = event => {
       this.userName = event.target.value
+      this.userNameError = null
    }
 
    onChangePassword = event => {
       this.password = event.target.value
+      this.passwordError = null
    }
    onClickLink = () => {
       const { history } = this.props
       history.replace(SIGN_UP_PATH)
    }
    onClickSignIn = event => {
+
+      event.preventDefault();
       if (this.userName == '') {
          this.userNameError = Strings.UserNameError
          this.passwordError = null
          this.signInRef.current.userNameRef.current.focus()
-      } else if (this.password == '') {
+      }
+      else if (this.password == '') {
          this.userNameError = null
          this.passwordError = Strings.PasswordError
          this.signInRef.current.passwordRef.current.focus()
-      } else {
+      }
+      else {
          this.isLoading = true
          this.userNameError = null
          this.passwordError = null
          this.errorMessage = ''
-         event.target.disabled = true
          const { authStore } = this.props
          const { userSignIn } = authStore
-         userSignIn(
-            {
-               userName: this.userName,
+
+         userSignIn({
+               username: this.userName,
                password: this.password
             },
             this.onSuccess,
@@ -72,18 +74,19 @@ class LoginRoute extends React.Component {
 
    onSuccess = () => {
       const { history } = this.props
-      history.replace(GYAAN_PATH)
+      history.replace(GYAAN_PATH);
+      this.isLoading = false;
    }
    onFailure = error => {
-      if (typeof error === 'string') {
-         this.errorMessage = error
-      } else {
-         this.errorMessage = JSON.parse(error).originalError.message
+      if (typeof error === 'object') {
+         this.errorMessage = JSON.parse(error).data.response;
       }
+      this.isLoading = false;
    }
 
    render() {
       return (
+         <React.Fragment>
          <LoginPage
             userName={this.userName}
             password={this.password}
@@ -98,6 +101,7 @@ class LoginRoute extends React.Component {
             serverError={this.errorMessage}
             onClickLink={this.onClickLink}
          />
+         <button onClick={this.onClickSignIn}>Sample Btn</button></React.Fragment>
       )
    }
 }

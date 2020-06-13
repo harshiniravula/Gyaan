@@ -101,6 +101,7 @@ class SignUpPage extends React.Component {
                </StyledLabel>
 
                <Button
+                  disabled={isLoading}
                   kind={Button.kind.primary}
                   size={Button.size.full}
                   type='button'

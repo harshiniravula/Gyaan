@@ -27,9 +27,8 @@ class AuthStore {
 
    @action.bound
    setUserSignInAPIResponse(response) {
-      const { access_token } = response.access_token
+      const { access_token } = response;
       setAccessToken(access_token)
-      this.getRole = response.role
    }
    @action.bound
    setGetUserSignInAPIStatus(apiStatus) {

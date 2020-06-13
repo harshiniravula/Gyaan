@@ -11,7 +11,8 @@
     "InValidUserName": "Invalid userName",
     "InValidPassword": "Password is too short",
     "InValidConfirmPassword": "Invalid confirm password",
-    "ConfirmPassword": "CONFIRM PASSWORD"
+    "ConfirmPassword": "CONFIRM PASSWORD",
+    "login": "LOGIN"
 
 
 }

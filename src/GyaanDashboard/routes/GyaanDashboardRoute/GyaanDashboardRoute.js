@@ -25,6 +25,10 @@ class GyaanDashboardRoute extends React.Component {
       getDomainPosts({})
       setSelectedDomainId(null)
    }
+   componentWillUnmount() {
+      const { clearPosts } = this.props.gyaanStore;
+      clearPosts();
+   }
 
    render() {
       const { gyaanStore, onClickPost } = this.props
@@ -33,11 +37,13 @@ class GyaanDashboardRoute extends React.Component {
          getPostsResponse,
          postsApiStatus,
          getPostsAPIError,
-         getAllDomainsPostsResponse
+         getAllDomainsPostsResponse,
+         onClickLoadMore
       } = gyaanStore
 
       return (
          <GyaanDashboard
+            onClickLoadMore={onClickLoadMore}
             onClickFollowingDomain={this.onClickFollowingDomain}
             getPostsResponse={getPostsResponse}
             getPostsAPIStatus={postsApiStatus}

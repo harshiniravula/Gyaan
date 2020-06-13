@@ -2,30 +2,45 @@ import { observable, action } from 'mobx'
 
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
-
 import BasicPostModel from '../BasicPostModel'
+import Request from '../Request'
+
 class DomainModel {
    @observable getPostsAPIStatus
    @observable getPostsAPIError
    @observable getDomainDataAPIStatus
    @observable getDomainDataAPIError
-   @observable getDomainPosts
-   @observable domainExperts
-   @observable starsCount
-   @observable followersCount
-   @observable domainPic
-   @observable domainDescription
+   @observable getLeaveDomainAPIStatus;
+   @observable getLeaveDomainAPIError;
+   @observable getTagsAPIError
+   @observable getTagsAPIStatus
+   getDomainPosts
+   domainExperts
+   starsCount
+   followersCount
+   domainPic
+   domainDescription
    @observable domainRequestedUsers
    @observable domainRequestedUsersCount
+   @observable createPostAPIStatus
+   @observable offset
+   limit
    constructor(domainDetails, gyaanAPIService) {
       this.gyaanAPIService = gyaanAPIService
       this.domainId = domainDetails.domain_id
       this.domainName = domainDetails.domain_name
-      this.init()
+      this.init();
    }
 
    @action.bound
    init() {
+      this.offset = 0;
+      this.limit = 5;
+      this.getTagsAPIError = null
+      this.getTagsAPIStatus = API_INITIAL
+      this.tags = [];
+      this.getLeaveDomainAPIStatus = API_INITIAL
+      this.getLeaveDomainAPIError = null
       this.getPostsAPIStatus = API_INITIAL
       this.getPostsAPIError = null
       this.getDomainDataAPIStatus = API_INITIAL
@@ -68,19 +83,15 @@ class DomainModel {
       this.domainExpertsCount = response.domain_experts_count
       this.domainDescription = response.domain_description
 
-      this.domainRequestedUsersCount =
-         response.domain_requested_users.total_requests
-      this.domainRequestedUsers = response.domain_requested_users
-         ? response.domain_requested_users.users.length
-            ? response.domain_requested_users.users.map(user => {
-                 return {
-                    userId: user.user_id,
-                    username: user.username,
-                    profilePic: user.profile_pic
-                 }
-              })
-            : []
-         : null
+
+      this.domainRequestedUsersCount = response.domain_requested_users ?
+         response.domain_requested_users.total_requests : null
+      this.domainRequestedUsers = response.domain_requested_users ?
+         response.domain_requested_users.users.length ?
+         response.domain_requested_users.users.map(user =>
+            new Request(user, this.gyaanAPIService)
+         ) : [] :
+         null
    }
 
    @action.bound
@@ -94,15 +105,17 @@ class DomainModel {
    }
    @action.bound
    setGetPostsResponse(response) {
-      this.getDomainPosts = response.map(
-         post =>
-            new BasicPostModel(
+      response.forEach(
+         post => {
+            this.getDomainPosts.push(new BasicPostModel(
                post,
                this.domainId,
                this.domainName,
                this.gyaanAPIService
-            )
+            ))
+         }
       )
+
    }
    @action.bound
    setGetDomainDetailsAPIError(error) {
@@ -111,7 +124,7 @@ class DomainModel {
    @action.bound
    getPosts(requestObject) {
       const usersPromise = this.gyaanAPIService.getFollowingDomainPostsAPI(
-         requestObject
+         this.domainId, this.limit, this.offset
       )
       return bindPromiseWithOnSuccess(usersPromise)
          .to(this.setGetPostsAPIStatus, this.setGetPostsResponse)
@@ -119,9 +132,20 @@ class DomainModel {
    }
 
    @action.bound
+   onClickLoadMore() {
+      this.offset = this.offset + this.limit;
+      this.getPosts();
+
+   }
+   @action.bound
+   clearPosts() {
+      this.getDomainPosts = [];
+   }
+
+   @action.bound
    getDomainDetails(requestObject) {
       const usersPromise = this.gyaanAPIService.getFollowingDomainDetailsAPI(
-         requestObject
+         this.domainId
       )
       return bindPromiseWithOnSuccess(usersPromise)
          .to(
@@ -129,6 +153,74 @@ class DomainModel {
             this.setGetDomainDetailsResponse
          )
          .catch(this.setGetDomainDetailsAPIError)
+   }
+
+   @action.bound
+   setGetLeaveDomainAPIStatus(apiStatus) {
+      this.getLeaveDomainAPIStatus = apiStatus;
+   }
+
+   @action.bound
+   setGetLeaveDomainAPIResponse(response) {}
+   @action.bound
+   setGetLeaveDomainAPIError(error) {
+      this.getLeaveDomainAPIError = error;
+   }
+
+   @action.bound
+   leaveDomain(onSuccess) {
+      const leavePromise = this.gyaanAPIService.leaveDomain(
+         this.domainId
+      )
+      return bindPromiseWithOnSuccess(leavePromise)
+         .to(
+            this.setGetLeaveDomainAPIStatus,
+            onSuccess
+         )
+         .catch(this.setGetLeaveDomainAPIError)
+   }
+   @action.bound
+   getTags() {
+      const domainTagsPromise = this.gyaanAPIService.getTags(this.domainId);
+      return bindPromiseWithOnSuccess(domainTagsPromise)
+         .to(this.setGetTagsAPIStatus, this.setGetTagsAPIResponse)
+         .catch(this.setGetTagsAPIError)
+   }
+
+
+   @action.bound
+   setGetTagsAPIStatus(apiStatus) {
+      this.getTagsAPIStatus = apiStatus;
+   }
+
+
+   @action.bound
+   setGetTagsAPIError(error) {
+      this.getTagsAPIError = error;
+   }
+
+   @action.bound
+   setGetTagsAPIResponse(response) {
+      this.tags = response.tags.map(tag => {
+         return {
+            tagId: tag.tag_id,
+            tagName: tag.tag_name
+         }
+      })
+   }
+
+
+   @action.bound
+   createPost(requestObject, domainId, onSuccess, onFailure) {
+      const usersPromise = this.gyaanAPIService.createPost(requestObject, domainId)
+      return bindPromiseWithOnSuccess(usersPromise)
+         .to(this.setCreatePostAPIStatus, onSuccess)
+         .catch(onFailure)
+   }
+
+   @action.bound
+   setCreatePostAPIStatus(apiStatus) {
+      this.createPostAPIStatus = apiStatus;
    }
 }
 

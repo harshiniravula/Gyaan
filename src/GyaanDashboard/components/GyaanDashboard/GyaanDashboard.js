@@ -15,14 +15,14 @@ class GyaanDashboard extends React.Component {
          getPostsAPIStatus,
          getPostsAPIError,
          getPosts,
-         onClickAllDomains,
-         onClickWritePost,
-         onClickPost
+         onClickPost,
+         onClickLoadMore
       } = this.props
 
       return (
          <StyledGyaanDashboard>
             <PostsPage
+               onClickLoadMore={onClickLoadMore}
                onClickPost={onClickPost}
                getPostsAPIStatus={getPostsAPIStatus}
                getPostsAPIError={getPostsAPIError}

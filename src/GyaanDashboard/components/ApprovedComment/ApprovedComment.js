@@ -1,9 +1,11 @@
 import React from 'react'
+import { observer } from 'mobx-react'
 import GreenTick from '../../../Common/Icons/GreenTick'
 import Strings from '../../i18n/Strings.json'
 import BasicComment from '../../common/BasicComment'
 import ReactionIcon from '../../common/ReactionIcon'
 import CommentIcon from '../../common/CommentIcon'
+
 import {
    StyledApprovedComment,
    StyledFooter,
@@ -11,22 +13,34 @@ import {
    StyledRight,
    StyledLeft,
    StyledName
-} from './styledComponents'
+}
+from './styledComponents'
 
+@observer
 class ApprovedComment extends React.Component {
+   onClickReaction = (e) => {
+      e.stopPropagation();
+      const { onClickReaction } = this.props.commentData;
+      onClickReaction();
+   }
    render() {
-      const { username } = this.props.postedBy
-      const {
-         commenter,
-         commentAt,
-         commentContent,
-         isReacted,
-         reactionsCount,
-         repliesCount
-      } = this.props.commentData
+      const { commentData, postedBy } = this.props
+      const { username } = postedBy
 
-      return (
-         <StyledApprovedComment>
+
+      if (commentData) {
+         const {
+            commenter,
+            commentAt,
+            commentContent,
+            isReacted,
+            reactionsCount,
+            repliesCount,
+            getCommentReactionAPIStatus
+         } = commentData
+
+         return (
+            <StyledApprovedComment>
             <BasicComment
                commenter={commenter}
                commentAt={commentAt}
@@ -41,6 +55,8 @@ class ApprovedComment extends React.Component {
                </StyledLeft>
                <StyledRight>
                   <ReactionIcon
+                     status={getCommentReactionAPIStatus}
+                     onClick={this.onClickReaction}
                      isReacted={isReacted}
                      count={`${reactionsCount} ${Strings.Reactions}`}
                   />
@@ -49,27 +65,11 @@ class ApprovedComment extends React.Component {
                </StyledRight>
             </StyledFooter>
          </StyledApprovedComment>
-      )
+         )
+      }
+      else {
+         return null;
+      }
    }
 }
 export default ApprovedComment
-
-// this.commentId = comment.comment_id;
-
-// commenter: {
-
-//     userId: comment.user_id;
-
-//     username: comment.userName;
-
-//     profilePic: comment.profile_pic;
-// }
-// this.commentAt = comment.comment_at;
-
-// this.commentContent = comment.comment_content;
-
-// this.isReacted = comment.is_reacted;
-
-// this.repliesCount = comment.replies_count
-
-// this.reactionsCount = comment.reactions_count

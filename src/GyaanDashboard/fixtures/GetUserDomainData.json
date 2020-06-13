@@ -23,17 +23,17 @@
     "suggested_domains": [{
             "domain_id": 0,
             "domain_name": "Javascript",
-            "isReguested": true
+            "is_requested": true
         },
         {
             "domain_id": 1,
             "domain_name": "Jabango",
-            "isReguested": false
+            "is_requested": false
         },
         {
             "domain_id": 2,
             "domain_name": "React",
-            "isReguested": true
+            "is_requested": true
         }
     ],
 

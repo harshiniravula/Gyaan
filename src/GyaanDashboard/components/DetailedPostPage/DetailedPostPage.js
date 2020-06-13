@@ -1,8 +1,11 @@
 import React from 'react'
 import { observer } from 'mobx-react';
-
+import InputWithPostIcon from '../Common/InputWithPostIcon'
 import LoadingWrapperWithFailure from '../../../Common/LoadingWrapperWithFailure';
 import Tag from '../../common/Tag';
+import ApprovedComment from '../ApprovedComment';
+import Comment from '../Comment'
+
 
 import {
     StyledPostTitle,
@@ -11,7 +14,8 @@ import {
     StyledRightPart,
     StyledPostedAt,
     StyledTags,
-    StyledContent
+    StyledContent,
+    StyledReplies
 }
 from './styledComponents';
 
@@ -22,8 +26,13 @@ class DetailedPostPage extends React.Component {
         const {
             title,
             postedAt,
-            tags
+            tags,
+            postContent,
+            postedBy,
+            comments
         } = selectedPost;
+        const { approvedComment, unapprovedComments } = comments;
+        console.log(selectedPost)
         return (
             <StyledWrapper>
 
@@ -43,7 +52,28 @@ class DetailedPostPage extends React.Component {
                     }
                     </StyledTags>
                     <StyledContent>
+                    {postContent}
                     </StyledContent>
+                    <ApprovedComment postedBy={postedBy} commentData={approvedComment}/>
+                    <StyledReplies>
+                    {
+                        approvedComment.replies.map(
+                        reply=>
+                         <Comment id={reply.commentId}
+                        commentData={reply}
+                        key={reply.commentId}/>
+                        )
+                    }
+                    </StyledReplies>
+                    {
+                      unapprovedComments.map(comment=>
+                        <Comment id={comment.commentId}
+                        commentData={comment}
+                        key={comment.commentId}/>
+                         )
+                    }
+                    <InputWithPostIcon />
+
                 </StyledPostContainer>
 
                 <StyledRightPart>

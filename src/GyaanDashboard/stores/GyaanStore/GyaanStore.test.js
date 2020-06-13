@@ -7,7 +7,8 @@ import {
    API_FAILED,
    API_FETCHING,
    API_INITIAL
-} from '@ib/api-constants'
+}
+from '@ib/api-constants'
 
 import GyaanService from '../../services/GyaanService/GyaanAPI'
 import GetUserDomainData from '../../fixtures/GetUserDomainData.json'
@@ -35,6 +36,8 @@ describe('GyaanStore Tests', () => {
    it('should test initialising gyaan store', () => {
       expect(gyaanStore.getGyaanDomainsAPIStatus).toBe(API_INITIAL)
       expect(gyaanStore.getGyaanDomainsAPIError).toBe(null)
+      expect(gyaanStore.getPostsAPIStatus).toBe(API_INITIAL)
+      expect(gyaanStore.getPostsAPIError).toBe(null)
    })
    it('should test getting gyaan Domain API data fetching state', () => {
       const requestObject = {}
@@ -44,10 +47,10 @@ describe('GyaanStore Tests', () => {
       gyaanService.getDomainsAPI = mockDomainsAPI
 
       gyaanStore.getGyaanDomainData(requestObject)
-      expect(gyaanStore.getGyaanDomainAPIStatus).toBe(API_FETCHING)
+      expect(gyaanStore.getGyaanDomainsAPIStatus).toBe(API_FETCHING)
    })
 
-   it('should test gyaan Domain API success state', async () => {
+   it('should test gyaan Domain API success state', async() => {
       const requestObject = {}
       const mockSuccessPromise = Promise.resolve(GetUserDomainData)
       const mockDomainsAPI = jest.fn()
@@ -55,15 +58,53 @@ describe('GyaanStore Tests', () => {
       gyaanService.getDomainsAPI = mockDomainsAPI
 
       await gyaanStore.getGyaanDomainData(requestObject)
-      expect(gyaanStore.getGyaanDomainAPIStatus).toBe(API_SUCCESS)
+      expect(gyaanStore.getGyaanDomainsAPIStatus).toBe(API_SUCCESS)
    })
 
-   it('should test get domains API failure state', async () => {
+   it('should test get domains API failure state', async() => {
       jest
          .spyOn(gyaanService, 'getDomainsAPI')
          .mockImplementation(() => Promise.reject())
 
       await gyaanStore.getGyaanDomainData()
-      expect(gyaanStore.getGyaanDomainAPIStatus).toBe(API_FAILED)
+      expect(gyaanStore.getGyaanDomainsAPIStatus).toBe(API_FAILED)
    })
+
+
+
+
+
+   it('should test getting gyaan all domains posts API data fetching state', () => {
+      const requestObject = {}
+      const mockLoadingPromise = new Promise(function(resolve, reject) {})
+      const mockDomainsAPI = jest.fn()
+      mockDomainsAPI.mockReturnValue(mockLoadingPromise)
+      gyaanService.getPostsAPI = mockDomainsAPI
+
+      gyaanStore.getDomainPosts(requestObject)
+      expect(gyaanStore.getPostsAPIStatus).toBe(API_FETCHING)
+   })
+
+   it('should test gyaan all domains posts  API success state', async() => {
+      const requestObject = {}
+      const mockSuccessPromise = Promise.resolve(GetPostsData)
+      const mockDomainsAPI = jest.fn()
+      mockDomainsAPI.mockReturnValue(mockSuccessPromise)
+      gyaanService.getPostsAPI = mockDomainsAPI
+
+
+      await gyaanStore.getDomainPosts(requestObject)
+      expect(gyaanStore.getPostsAPIStatus).toBe(API_SUCCESS)
+   })
+
+   it('should test gyaan all domains posts  API failure state', async() => {
+      jest
+         .spyOn(gyaanService, 'getPostsAPI')
+         .mockImplementation(() => Promise.reject())
+
+      await gyaanStore.getDomainPosts()
+      expect(gyaanStore.getPostsAPIStatus).toBe(API_FAILED)
+   })
+
+
 })

@@ -1,71 +1,55 @@
 import React from 'react'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react';
 import { observable, computed } from 'mobx'
-
 import WithToggle from '../../common/WithToggle'
-import Strings from '../../i18n/Strings.json'
+import strings from '../../i18n/Strings.json'
+import SuggestedDomain from '../SuggestedDomain';
 import {
    StyledListTitle,
    StyledTitle,
    StyledListItem,
-   StyledList
-} from './styledComponents'
+   StyledList,
+   StyledWrapper
+}
+from './styledComponents'
 @observer
 class SuggestedDomains extends React.Component {
-   @observable isExpanded
-   @observable onClickSeeAll
+   @observable text
    @observable hasClickedSeeAll
    constructor(props) {
       super(props)
       this.hasClickedSeeAll = false
       this.limitOnShowingDomains = 2
+      this.text = strings.seeAll
    }
    @computed
-   get listOfItems() {
-      const { listOfItems } = this.props
-      if (listOfItems == undefined) {
+   get suggestedDomains() {
+      const { suggestedDomains } = this.props
+      if (suggestedDomains == undefined) {
          return []
-      } else if (
-         listOfItems.length > this.limitOnShowingDomains &&
-         !this.hasClickedSeeAll
-      ) {
-         let showListOfItems = listOfItems.slice(0, this.limitOnShowingDomains)
-         showListOfItems.push({
-            domainId: Strings.SeeAll,
-            domainName: Strings.SeeAll
-         })
-
+      }
+      else if (this.hasClickedSeeAll) {
+         return suggestedDomains
+      }
+      else {
+         let showListOfItems =
+            suggestedDomains.slice(0, this.limitOnShowingDomains)
          return showListOfItems
-      } else {
-         return listOfItems
       }
    }
-   toggleSeeAll = bool => {
-      this.hasClickedSeeAll = bool
+
+   toggleSeeAll = () => {
+      this.hasClickedSeeAll = !this.hasClickedSeeAll
+      this.text =
+         this.text === strings.seeAll ?
+         strings.showLess : strings.seeAll
    }
-   onClickDomain = event => {
-      const id = event.target.id
-      if (id === Strings.SeeAll) {
-         this.toggleSeeAll(true)
-      } else {
-      }
-   }
-   toggleCollapseExpand = () => {
-      this.isExpanded = !this.isExpanded
-      if (!this.isExpanded) {
-         this.hasClickedSeeAll = false
-      }
-   }
-   render() {
-      const { title } = this.props
+
+   renderSuggestedDomains = (state) => {
+      const { title, suggestedDomains } = this.props;
 
       return (
-         <WithToggle
-            isClickedSeeAll={this.hasClickedSeeAll}
-            toggleSeeAll={this.toggleSeeAll}
-         >
-            {state => (
-               <React.Fragment>
+         <StyledWrapper>
                   <StyledListTitle
                      isExpanded={!state.toggleStatus}
                      onClick={state.onToggle}
@@ -74,24 +58,41 @@ class SuggestedDomains extends React.Component {
                   </StyledListTitle>
                   {!state.toggleStatus ? (
                      <StyledList>
-                        {this.listOfItems.map(eachDomain => {
-                           return (
-                              <StyledListItem
-                                 id={eachDomain.domainId}
-                                 key={eachDomain.domainId}
-                                 onClick={this.onClickDomain}
-                              >
-                                 {eachDomain.domainName}
-                              </StyledListItem>
-                           )
-                        })}
+                        {this.suggestedDomains.map(eachDomain =>
+                        <SuggestedDomain
+                        domainData={eachDomain}
+                        id={eachDomain.domainId}
+                        key={eachDomain.domainId}/>
+
+                        )}
+                        {suggestedDomains.length >
+                           this.limitOnShowingDomains && (
+                           <StyledListItem onClick={this.toggleSeeAll}>
+                              {this.text}
+                           </StyledListItem>
+                        )}
                      </StyledList>
                   ) : null}
-               </React.Fragment>
-            )}
+                  {}
+               </StyledWrapper>
+      )
+   }
+
+
+   render() {
+
+      return (
+
+         <WithToggle
+         text={this.text}
+         hasClickedSeeAll={this.hasClickedSeeAll}>
+            {state =>
+               this.renderSuggestedDomains(state)
+
+            }
          </WithToggle>
+
       )
    }
 }
-
-export default SuggestedDomains
+export default SuggestedDomains;
