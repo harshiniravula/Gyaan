@@ -35,10 +35,6 @@ class AuthStore {
       this.getUserSignInAPIStatus = apiStatus
    }
 
-   @action.bound
-   userSignOut() {
-      clearUserSession()
-   }
 
    @action.bound
    userSignUp(requestObject, onSuccess, onFailure) {

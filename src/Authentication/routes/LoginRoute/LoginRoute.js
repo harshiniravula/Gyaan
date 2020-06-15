@@ -27,6 +27,11 @@ class LoginRoute extends React.Component {
       this.passwordError = null
       this.errorMessage = null
    }
+   
+   componentWillUnmount(){
+      const {clearStore}=this.props.authStore;
+      clearStore();
+   }
 
    onChangeUserName = event => {
       this.userName = event.target.value
