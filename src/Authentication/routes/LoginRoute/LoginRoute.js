@@ -86,7 +86,7 @@ class LoginRoute extends React.Component {
 
    render() {
       return (
-         <React.Fragment>
+
          <LoginPage
             userName={this.userName}
             password={this.password}
@@ -101,7 +101,7 @@ class LoginRoute extends React.Component {
             serverError={this.errorMessage}
             onClickLink={this.onClickLink}
          />
-         <button onClick={this.onClickSignIn}>Sample Btn</button></React.Fragment>
+
       )
    }
 }

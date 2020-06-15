@@ -6,7 +6,6 @@ class BasicPostModel {
    @observable getCommentReactionAPIStatus
    @observable isReacted;
    constructor(post, postDomainId, domainName, gyaanAPIService) {
-      console.log(post.post_content)
       this.postContent = post.post_content
       this.gyaanAPIService = gyaanAPIService
       this.postDomainId = postDomainId
@@ -54,10 +53,10 @@ class BasicPostModel {
    setGetCommentReactionAPIStatus(apiStatus) {
       this.getCommentReactionAPIStatus = apiStatus
    }
-   
+
    @action.bound
    setGetCommentReactionResponse(response) {
-      
+
       if (this.isReacted) {
          this.reactionsCount = this.reactionsCount - 1;
       }

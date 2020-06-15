@@ -80,8 +80,8 @@ describe('LoginRoute Tests', () => {
       waitFor(() => getByLabelText('audio-loading'))
    })
 
-   it('should render signInRoute loading state', async () => {
-      const { getByLabelText, getByTestId, getByRole } = render(
+   it('should render signInRoute loading state', async() => {
+      const { getByLabelText, queryByRole, getByTestId, getByRole } = render(
          <Router history={createMemoryHistory()}>
             <LoginRoute authStore={authStore} />
          </Router>
@@ -103,9 +103,13 @@ describe('LoginRoute Tests', () => {
       fireEvent.click(logInButton)
 
       getByLabelText('audio-loading')
-      getByRole('button', { disabled: true })
+
+
+      expect(
+         getByRole('button', { disabled: true }))
+
    })
-   it('should render signInRoute success state', async () => {
+   it('should render signInRoute success state', async() => {
       const history = createMemoryHistory()
       const route = LOGIN_PATH
       history.push(route)

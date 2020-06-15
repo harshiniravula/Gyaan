@@ -17,7 +17,6 @@ class FollowingDomainPage extends React.Component {
                   <DomainSection
                      domainData={domainData}
                      onClickLeaveDomain={onClickLeaveDomain}
-                     domainExperts={domainData.domainExperts}
                   />
                   <PostsPage
                      onClickLoadMore={domainData.onClickLoadMore}

@@ -28,7 +28,9 @@ class GyaanService {
    }
    getFollowingDomainPostsAPI(requestObject) {
       return new Promise((resolve, reject) => {
-         resolve(GetDomainPostsData)
+         setTimeout(function() {
+            resolve(GetDomainPostsData)
+         }, 1000);
       })
    }
    getFollowingDomainDetailsAPI(requestObject) {
