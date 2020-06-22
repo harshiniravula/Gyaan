@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Provider } from 'mobx-react'
 
 import HomePage from './components/HomePage'
-import Page1 from './components/Page1'
+// import Page1 from './components/Page1'
 import { AuthRoutes } from './Authentication/routes'
 import authStore from './Authentication/stores'
 import gyaanStores from './GyaanDashboard/stores'
@@ -32,9 +32,9 @@ const App = () => {
                   <FollowingDomainsPostsRoute />
                </Route>
 
-               <Route exact path='/page-1'>
+               {/* <Route exact path='/page-1'>
                   <Page1 />
-               </Route>
+               </Route> */}
 
                <Route path='/'>
                   <HomePage />

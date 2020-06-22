@@ -7,10 +7,9 @@ import LoginPage from '../../components/LoginPage'
 import Strings from '../../i18n/Strings.json'
 import { SIGN_UP_PATH } from '../../constants/PathName'
 import { GYAAN_PATH } from '../../../GyaanDashboard/constants/PathName'
-
 @inject('authStore')
 @observer
-class LoginRoute extends React.Component {
+class LoginRoute extends React.Component{
    @observable userName
    @observable password
    @observable isLoading
