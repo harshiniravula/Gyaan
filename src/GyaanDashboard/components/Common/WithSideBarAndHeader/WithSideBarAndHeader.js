@@ -18,6 +18,7 @@ function WithSideBarAndHeader(WrappedComponent) {
    @observer
    class SideBarData extends React.Component {
       componentDidMount() {
+         console.log('***************',this.props);
          this.doNetworkCalls()
       }
       doNetworkCalls() {
@@ -72,7 +73,7 @@ function WithSideBarAndHeader(WrappedComponent) {
             onClickSuggestedDomain
          } = this.props.gyaanStore
          return (
-            <StyledGyaanDashboard>
+            <StyledGyaanDashboard data-testid='headerAndSidebar'>
                <GyaanSideBar
                   selectedDomainId={selectedDomainId}
                   followingDomains={followingDomains}
@@ -85,7 +86,7 @@ function WithSideBarAndHeader(WrappedComponent) {
                   selectedDomainRequestes={this.selectedDomainRequestes}
                   onClickFollowingDomain={this.onClickFollowingDomain}
                />
-               <StyledRightSide>
+               <StyledRightSide >
                   <Header onClickWritePost={this.onClickWritePost} />
                   {followingDomains.length ? (
                      <WrappedComponent

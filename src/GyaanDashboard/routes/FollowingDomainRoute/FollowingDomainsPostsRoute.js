@@ -1,7 +1,7 @@
 ///*global await*/
 import React from 'react'
 import { observer, inject } from 'mobx-react'
-import { observable, computed } from 'mobx'
+import { computed } from 'mobx'
 import { withRouter } from 'react-router-dom'
 import { API_INITIAL, API_FETCHING, API_SUCCESS } from '@ib/api-constants'
 import { getLoadingStatus } from '@ib/api-utils';
@@ -14,11 +14,7 @@ import FollowingDomainPage from '../../components/FollowingDomainPage'
 @inject('gyaanStore')
 @observer
 class FollowingDomainRoute extends React.Component {
-   @observable followingDomains
-   constructor(props) {
-      super(props)
-      this.followingDomains = []
-   }
+
    onClickLeaveDomain = () => {
       const { history } = this.props;
       goToGyaanHome(history)
@@ -27,13 +23,14 @@ class FollowingDomainRoute extends React.Component {
    componentDidMount() {
       const { match, gyaanStore } = this.props
       const domainId = +match.params.domainId
+
       gyaanStore.setSelectedDomainId(domainId)
-   }
 
-   componentWillUnmount() {
+   }
+   componentWillUnmunt() {
       this.domainData.clearPosts();
-
    }
+
    @computed
    get domainData() {
       const { followingDomains, selectedDomainId } = this.props.gyaanStore
@@ -58,6 +55,7 @@ class FollowingDomainRoute extends React.Component {
       return null;
 
    }
+
    renderFollowingDomainPage = observer(() => {
       const { onClickPost } = this.props
       return (
@@ -74,7 +72,6 @@ class FollowingDomainRoute extends React.Component {
 
 
    render() {
-
       return (
          <LoadingWrapperWithFailure
       apiStatus={this.apiStatus}

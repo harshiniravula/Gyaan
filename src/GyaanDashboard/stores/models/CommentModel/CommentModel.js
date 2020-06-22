@@ -60,6 +60,15 @@ class CommentModel {
    }
    @action.bound
    setGetCommentReactionResponse(response) {
+
+   }
+   @action.bound
+   setGetCommentReactionAPIError(error) {
+      this.getCommentReactionAPIError = error;
+      this.changeReaction();
+   }
+   @action.bound
+   changeReaction() {
       if (this.isReacted) {
          this.reactionsCount = this.reactionsCount - 1;
       }
@@ -68,14 +77,11 @@ class CommentModel {
       }
       this.isReacted = !this.isReacted;
    }
-   @action.bound
-   setGetCommentReactionAPIError(error) {
-      this.getCommentReactionAPIError = error;
-   }
 
 
    @action.bound
    onClickReaction() {
+      this.changeReaction();
       const usersPromise = this.gyaanAPIService.onClickReaction('comment', this.commentId)
       return bindPromiseWithOnSuccess(usersPromise)
          .to(this.setGetCommentReactionAPIStatus, this.setGetCommentReactionResponse)

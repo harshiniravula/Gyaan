@@ -53,7 +53,7 @@ class LoginPage extends React.Component {
                   {strings.SignInUserNameLabel}
                   <StyledBreak />
                   <InputElement
-                     data-testid='username'
+                     data-testid = 'username'
                      inputRef={this.userNameRef}
                      defaultValue={userName}
                      onChange={onChangeUserName}

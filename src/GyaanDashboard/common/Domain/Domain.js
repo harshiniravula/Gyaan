@@ -5,7 +5,6 @@ import { StyledListItem } from './styledComponents'
 class Domain extends React.Component {
    render() {
       const { domain, onClickDomain, id } = this.props
-      console.log(this.props)
       return (
          <StyledListItem id={id} onClick={onClickDomain}>
             {domain}

@@ -3,7 +3,8 @@ import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import CommentModel from '../CommentModel'
 class BasicPostModel {
-   @observable getCommentReactionAPIStatus
+   @observable getCommentReactionAPIStatus;
+   @observable getCommentReactionAPIError;
    @observable isReacted;
    constructor(post, postDomainId, domainName, gyaanAPIService) {
       this.postContent = post.post_content
@@ -44,10 +45,6 @@ class BasicPostModel {
       this.getCommentReactionAPIError = null;
    }
 
-   @action.bound
-   onClickPost() {
-      this.getPostDetails()
-   }
 
    @action.bound
    setGetCommentReactionAPIStatus(apiStatus) {
@@ -57,6 +54,15 @@ class BasicPostModel {
    @action.bound
    setGetCommentReactionResponse(response) {
 
+      
+   }
+   @action.bound
+   setGetCommentReactionAPIError(error) {
+      this.getCommentReactionAPIError = error;
+      this.changeReaction();
+   }
+   @action.bound
+   changeReaction(){
       if (this.isReacted) {
          this.reactionsCount = this.reactionsCount - 1;
       }
@@ -65,14 +71,11 @@ class BasicPostModel {
       }
       this.isReacted = !this.isReacted;
    }
-   @action.bound
-   setGetCommentReactionAPIError(error) {
-      this.getCommentReactionAPIError = error;
-   }
 
 
    @action.bound
    onClickReaction() {
+      this.changeReaction();
       const usersPromise = this.gyaanAPIService.onClickReaction('post', this.postId)
       return bindPromiseWithOnSuccess(usersPromise)
          .to(this.setGetCommentReactionAPIStatus, this.setGetCommentReactionResponse)

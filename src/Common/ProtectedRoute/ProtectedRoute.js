@@ -5,6 +5,7 @@ import { getAccessToken } from '../../utils/StorageUtils'
 export const ProtectedRoute = ({ component: Component, path, ...other }) => {
    return getAccessToken() ? (
       <Route
+         data-testid='component'
          {...other}
          exact
          path={path}

@@ -55,6 +55,7 @@ class ApprovedComment extends React.Component {
                </StyledLeft>
                <StyledRight>
                   <ReactionIcon
+                     data-testid={'reaction'}
                      status={getCommentReactionAPIStatus}
                      onClick={this.onClickReaction}
                      isReacted={isReacted}

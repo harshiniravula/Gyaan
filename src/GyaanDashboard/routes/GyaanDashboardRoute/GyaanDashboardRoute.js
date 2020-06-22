@@ -12,26 +12,20 @@ import WithSideBarAndHeader from '../../components/Common/WithSideBarAndHeader'
 @inject('gyaanStore')
 @observer
 class GyaanDashboardRoute extends React.Component {
-   constructor(props) {
-      super(props)
-   }
 
    componentDidMount() {
       const {
          getDomainPosts,
-         setSelectedDomainId,
-         followingDomains
+         setSelectedDomainId
       } = this.props.gyaanStore
+
       getDomainPosts({})
       setSelectedDomainId(null)
    }
-   componentWillUnmount() {
-      const { clearPosts } = this.props.gyaanStore;
-      clearPosts();
-   }
+
 
    render() {
-      const { gyaanStore, onClickPost } = this.props
+      const { gyaanStore, onClickPost } = this.props;
 
       const {
          getPostsResponse,
@@ -43,16 +37,15 @@ class GyaanDashboardRoute extends React.Component {
 
       return (
          <GyaanDashboard
+            
             onClickLoadMore={onClickLoadMore}
-            onClickFollowingDomain={this.onClickFollowingDomain}
             getPostsResponse={getPostsResponse}
             getPostsAPIStatus={postsApiStatus}
             getPostsAPIError={getPostsAPIError}
             getPosts={getAllDomainsPostsResponse}
             onClickPost={onClickPost}
-            onClickAllDomains={this.onClickAllDomains}
-            onClickWritePost={this.onClickWritePost}
          />
+
       )
    }
 }

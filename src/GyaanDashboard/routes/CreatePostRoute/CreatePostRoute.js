@@ -22,6 +22,7 @@ class CreatePostRoute extends React.Component {
       this.selectedDomainId = null;
       this.selectedTags = [];
    }
+
    onSelectTag = (e) => {
       if (e === null) {
          this.selectedTags = []

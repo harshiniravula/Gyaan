@@ -32,11 +32,10 @@ class DetailedPostPage extends React.Component {
             comments
         } = selectedPost;
         const { approvedComment, unapprovedComments } = comments;
-        console.log(selectedPost)
         return (
             <StyledWrapper>
 
-                <StyledPostContainer>
+                <StyledPostContainer data-testid={'detailedPostPage'}>
                     <StyledPostTitle>
                             {title}
                     </StyledPostTitle>

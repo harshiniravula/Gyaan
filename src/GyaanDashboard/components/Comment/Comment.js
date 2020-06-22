@@ -34,6 +34,7 @@ class Comment extends React.Component {
 
             <StyledFooter>
                <ReactionIcon
+                  data-testid={'reaction'}
                   status={getCommentReactionAPIStatus}
                   onClick={this.onClickReaction}
                   isReacted={isReacted}

@@ -7,12 +7,13 @@ import { StyledRequest, StyledName, StyledButtons } from './styledComponents'
 class Requests extends React.Component {
    render() {
       const {
+         userId,
          username,
          onAcceptRequest,
          onRejectRequest
       } = this.props.request;
       return (
-         <StyledRequest>
+         <StyledRequest data-testid={`request${userId}`}>
             <StyledName>{username}</StyledName>
             <StyledButtons>
                <Close onClick={onRejectRequest}/>

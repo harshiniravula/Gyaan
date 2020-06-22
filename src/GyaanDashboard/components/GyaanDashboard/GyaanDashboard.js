@@ -9,26 +9,26 @@ import { StyledGyaanDashboard, StyledRightSide } from './styledComponents'
 
 @observer
 class GyaanDashboard extends React.Component {
-   render() {
-      const {
-         onClickFollowingDomain,
-         getPostsAPIStatus,
-         getPostsAPIError,
-         getPosts,
-         onClickPost,
-         onClickLoadMore
-      } = this.props
+      render() {
+            const {
+               getPostsAPIStatus,
+               getPostsAPIError,
+               getPosts,
+               onClickPost,
+               onClickLoadMore,
+               ...other
+            } = this.props
+            return (
 
-      return (
-         <StyledGyaanDashboard>
-            <PostsPage
+                  <StyledGyaanDashboard data-testid='homePage' >
+         <PostsPage
+               {...other}
                onClickLoadMore={onClickLoadMore}
                onClickPost={onClickPost}
                getPostsAPIStatus={getPostsAPIStatus}
                getPostsAPIError={getPostsAPIError}
                getPosts={getPosts}
-            />
-         </StyledGyaanDashboard>
+            /> </StyledGyaanDashboard>
       )
    }
 }

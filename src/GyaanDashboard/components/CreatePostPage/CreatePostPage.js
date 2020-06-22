@@ -34,7 +34,7 @@ function customTheme(theme) {
 const customStyles = {
    container: provided => ({
       ...provided,
-      'min-width': 200,
+      'minWidth': 200,
    })
 };
 
@@ -78,8 +78,6 @@ class CreatePostPage extends React.Component {
 
    renderTags = observer(() => {
       const { onSelectTag } = this.props;
-
-
       return (
 
          <CreatableSelect
@@ -149,6 +147,7 @@ class CreatePostPage extends React.Component {
 
             <StyledFooter>
                <Button
+               data-testid='submitBtn'
                disabled={!(title&&(selectedDomainId!==null))}
                size={Button.size.medium}
                onClick={onClickSubmit}

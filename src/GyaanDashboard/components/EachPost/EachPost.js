@@ -4,8 +4,8 @@ import TitleSection from '../TitleSection'
 import ApprovedComment from '../ApprovedComment'
 import Comment from '../Comment'
 import InputWithPostIcon from '../Common/InputWithPostIcon'
+import Card from '../../../Common/Card'
 
-import { StyledPost } from './styledComponents'
 @observer
 class EachPost extends React.Component {
    onClickPost = e => {
@@ -32,7 +32,7 @@ class EachPost extends React.Component {
       } = this.props.postData
       const { approvedComment, unapprovedComments } = comments
       return (
-         <StyledPost id={id} onClick={this.onClickPost}>
+         <Card id={id} onClick={this.onClickPost} data-testid='post'>
             <TitleSection
                tags={tags}
                postContent={postContent}
@@ -53,10 +53,12 @@ class EachPost extends React.Component {
                postedBy={postedBy}
             />
             {unapprovedComments.map(comment => {
-               return <Comment key={comment.commentId} commentData={comment} />
+               return <Comment 
+                  key={comment.commentId} 
+                  commentData={comment} />
             })}
             <InputWithPostIcon/>
-         </StyledPost>
+         </Card>
       )
    }
 }

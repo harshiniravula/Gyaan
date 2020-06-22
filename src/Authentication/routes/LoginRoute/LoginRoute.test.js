@@ -13,7 +13,6 @@ import AuthStore from '../../stores/AuthStore'
 import getUserLogInResponse from '../../fixtures/getUserLogInResponse.json'
 
 import LoginRoute from '.'
-
 const LocationDisplay = withRouter(({ location }) => (
    <div data-testid='location-display'>{location.pathname}</div>
 ))
@@ -34,8 +33,8 @@ describe('LoginRoute Tests', () => {
    it('should render username empty error message', () => {
       const { getByText, getByRole } = render(
          <Router history={createMemoryHistory()}>
-            <LoginRoute authStore={authStore} />
-         </Router>
+                     <LoginRoute authStore={authStore} />
+                  </Router>
       )
       const loginButton = getByRole('button', { name: 'LOGIN' })
 

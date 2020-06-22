@@ -36,6 +36,7 @@ class DomainModel {
    init() {
       this.offset = 0;
       this.limit = 5;
+      this.createPostAPIStatus = API_INITIAL
       this.getTagsAPIError = null
       this.getTagsAPIStatus = API_INITIAL
       this.tags = [];
@@ -58,8 +59,9 @@ class DomainModel {
 
    @action.bound
    onClickDomain() {
-      this.getDomainDetails({})
       this.getPosts({})
+      this.getDomainDetails({})
+
    }
 
    @action.bound
@@ -101,6 +103,7 @@ class DomainModel {
 
    @action.bound
    setGetDomainDetailsAPIStatus(apiStatus) {
+
       this.getDomainDataAPIStatus = apiStatus
    }
    @action.bound
@@ -141,7 +144,6 @@ class DomainModel {
    clearPosts() {
       this.getDomainPosts = [];
    }
-
    @action.bound
    getDomainDetails(requestObject) {
       const usersPromise = this.gyaanAPIService.getFollowingDomainDetailsAPI(
@@ -160,8 +162,6 @@ class DomainModel {
       this.getLeaveDomainAPIStatus = apiStatus;
    }
 
-   @action.bound
-   setGetLeaveDomainAPIResponse(response) {}
    @action.bound
    setGetLeaveDomainAPIError(error) {
       this.getLeaveDomainAPIError = error;

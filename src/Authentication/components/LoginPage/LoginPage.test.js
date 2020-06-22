@@ -9,7 +9,7 @@ describe('SignInForm', () => {
    it('should render typed username', () => {
       const username = 'test-user'
       const { getByTestId } = render(<LoginPage userName={username} onChangeUsername={() => {}} />)
-      
+
       const usernameField = getByTestId('username')
       expect(usernameField.value).toBe(username)
    })

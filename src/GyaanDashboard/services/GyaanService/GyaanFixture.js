@@ -12,7 +12,6 @@ class GyaanService {
    }
    getTags() {
       return new Promise((resolve, reject) => {
-         console.log(GetTags);
          resolve(GetTags)
       })
    }
@@ -28,9 +27,8 @@ class GyaanService {
    }
    getFollowingDomainPostsAPI(requestObject) {
       return new Promise((resolve, reject) => {
-         setTimeout(function() {
-            resolve(GetDomainPostsData)
-         }, 1000);
+
+         resolve(GetDomainPostsData)
       })
    }
    getFollowingDomainDetailsAPI(requestObject) {

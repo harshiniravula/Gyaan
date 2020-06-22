@@ -5,11 +5,19 @@ import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
 class SuggesttedDomainModel {
    @observable isRequested;
+   @observable getFollowAPIStatus
+   @observable getFollowAPIError
    constructor(domainDetails, gyaanAPIService) {
       this.domainId = domainDetails.domain_id;
       this.domainName = domainDetails.domain_name;
       this.isRequested = domainDetails.is_requested;
       this.gyaanAPIService = gyaanAPIService;
+      this.init();
+   }
+   @action.bound
+   init() {
+      this.getFollowAPIStatus = API_INITIAL;
+      this.getFollowAPIError = null;
    }
    @action.bound
    setGetFollowAPIStatus(status) {

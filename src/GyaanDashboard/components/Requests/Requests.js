@@ -48,7 +48,7 @@ class Requests extends React.Component {
    }
 
    render() {
-      const { domainRequestedUsersCount, domainRequestedUsers } = this.props
+      const { domainRequestedUsersCount, domainRequestedUsers }= this.props
       if (domainRequestedUsers) {
          return (
             <WithToggle
@@ -59,7 +59,7 @@ class Requests extends React.Component {
             <StyledRequestsTitle
             isExpanded={!state.toggleStatus}
                      onClick={state.onToggle}>
-               <StyledTitle>
+               <StyledTitle data-testid='requests'>
                   Requests
                </StyledTitle>
                <StyledCount>
@@ -72,8 +72,6 @@ class Requests extends React.Component {
                   <Request
                      request={request}
                      key={request.userId}
-                     onClickCancel={this.onClickCancel}
-                     onClickFollow={this.onClickFollow}
                   />
                ))}
                {domainRequestedUsersCount>0?

@@ -17,8 +17,6 @@ class GyaanStore {
    @observable selectedPostId
    @observable getSelectedPostAPIStatus
    @observable getSelectedPostAPIError
-
-
    getAllDomainsPostsResponse
    tags
    limit
@@ -47,17 +45,13 @@ class GyaanStore {
       this.selectedPost = {}
 
    }
-   @action.bound
-   clearStore() {
-      this.init()
-   }
-
-
 
    disposer = reaction(
       () => this.selectedDomainId,
       id => {
          if (id !== null) {
+            this.clearPosts()
+
             this.followingDomains
                .find(domain => domain.domainId === id)
                .onClickDomain({})
@@ -153,7 +147,7 @@ class GyaanStore {
    }
 
    @action.bound
-   getPostDetails() {
+   getPostDetails(domainId, postId) {
       const usersPromise = this.gyaanAPIService.getSelectedPostAPI({})
       return bindPromiseWithOnSuccess(usersPromise)
          .to(this.setGetPostDetailsAPIStatus, this.setGetPostDetailsAPIResponse)

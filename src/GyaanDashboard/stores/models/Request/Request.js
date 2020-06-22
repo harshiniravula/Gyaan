@@ -7,11 +7,19 @@ class Request {
     userId;
     username;
     profilePic;
+    @observable getRequestAPIStatus
+    @observable getRequestAPIError
     constructor(user, gyaanAPIService) {
         this.userId = user.user_id,
             this.username = user.username,
             this.profilePic = user.profile_pic
         this.gyaanAPIService = gyaanAPIService
+        this.init();
+    }
+    @action.bound
+    init() {
+        this.getRequestAPIStatus = API_INITIAL;
+        this.getRequestAPIError = null;
     }
     @action.bound
     onAcceptRequest() {
@@ -31,6 +39,7 @@ class Request {
     }
     @action.bound
     setGetRequestAPIStatus(apiStatus) {
+        this.getRequestAPIStatus = apiStatus;
     }
     @action.bound
     setGetRequestAPIResponse(response) {
@@ -38,6 +47,7 @@ class Request {
     }
     @action.bound
     setGetRequestAPIError(error) {
+        this.getRequestAPIError = error;
 
     }
 

@@ -43,7 +43,7 @@ class DomainSection extends React.Component {
 
       } = this.props.domainData;
       return (
-         <StyledDomainSection>
+         <StyledDomainSection >
             <StyledHeader>
                <PostDomain
                   domainName={domainName}
@@ -68,6 +68,7 @@ class DomainSection extends React.Component {
                   <StyledCount color={colors.blue}>{starsCount}</StyledCount>
                </StyledLeft>
                <Button
+               data-testid='leaveButton'
                onClick={this.leaveDomain}
                kind={Button.kind.warning} size={Button.size.mini}>
                   {strings.leave}
