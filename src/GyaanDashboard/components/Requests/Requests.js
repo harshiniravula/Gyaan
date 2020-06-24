@@ -12,8 +12,7 @@ import {
    StyledTitle,
    StyledCount,
    StyledListItem
-}
-from './styledComponents'
+} from './styledComponents'
 @observer
 class Requests extends React.Component {
    @observable text
@@ -29,13 +28,13 @@ class Requests extends React.Component {
       const { domainRequestedUsers } = this.props
       if (domainRequestedUsers == undefined) {
          return []
-      }
-      else if (this.hasClickedSeeAll) {
+      } else if (this.hasClickedSeeAll) {
          return domainRequestedUsers
-      }
-      else {
-         let showListOfItems =
-            domainRequestedUsers.slice(0, this.limitOnShowingDomains)
+      } else {
+         let showListOfItems = domainRequestedUsers.slice(
+            0,
+            this.limitOnShowingDomains
+         )
          return showListOfItems
       }
    }
@@ -43,47 +42,43 @@ class Requests extends React.Component {
    toggleSeeAll = () => {
       this.hasClickedSeeAll = !this.hasClickedSeeAll
       this.text =
-         this.text === strings.seeAll ?
-         strings.showLess : strings.seeAll
+         this.text === strings.seeAll ? strings.showLess : strings.seeAll
    }
 
    render() {
-      const { domainRequestedUsersCount, domainRequestedUsers }= this.props
+      const { domainRequestedUsersCount, domainRequestedUsers } = this.props
       if (domainRequestedUsers) {
          return (
             <WithToggle
-         text={this.text}
-         hasClickedSeeAll={this.hasClickedSeeAll}>
-         {(state)=>
-            <StyledRequests >
-            <StyledRequestsTitle
-            isExpanded={!state.toggleStatus}
-                     onClick={state.onToggle}>
-               <StyledTitle data-testid='requests'>
-                  Requests
-               </StyledTitle>
-               <StyledCount>
-                  {domainRequestedUsersCount}
-               </StyledCount>
-            </StyledRequestsTitle>
-            {!state.toggleStatus  &&
-            domainRequestedUsersCount > 0 &&
-               this.listOfItems.map(request => (
-                  <Request
-                     request={request}
-                     key={request.userId}
-                  />
-               ))}
-               {domainRequestedUsersCount>0?
-                           this.limitOnShowingDomains && (
-                           <StyledListItem onClick={this.toggleSeeAll}>
-                              {this.text}
-                           </StyledListItem>
-                        ):null}
-         </StyledRequests>
-         }
-         </WithToggle>
-
+               text={this.text}
+               hasClickedSeeAll={this.hasClickedSeeAll}
+            >
+               {state => (
+                  <StyledRequests>
+                     <StyledRequestsTitle
+                        isExpanded={!state.toggleStatus}
+                        onClick={state.onToggle}
+                     >
+                        <StyledTitle data-testid='requests'>
+                           Requests
+                        </StyledTitle>
+                        <StyledCount>{domainRequestedUsersCount}</StyledCount>
+                     </StyledRequestsTitle>
+                     {!state.toggleStatus &&
+                        domainRequestedUsersCount > 0 &&
+                        this.listOfItems.map(request => (
+                           <Request request={request} key={request.userId} />
+                        ))}
+                     {domainRequestedUsersCount > 0
+                        ? this.limitOnShowingDomains && (
+                             <StyledListItem onClick={this.toggleSeeAll}>
+                                {this.text}
+                             </StyledListItem>
+                          )
+                        : null}
+                  </StyledRequests>
+               )}
+            </WithToggle>
          )
       }
       return null

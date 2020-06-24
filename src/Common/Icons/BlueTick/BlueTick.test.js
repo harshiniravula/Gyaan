@@ -6,15 +6,10 @@ import { render } from '@testing-library/react'
 import BlueTick from '.'
 
 describe('SignInForm', () => {
-
    it('should render typed password', () => {
       const password = 'test-password'
-      const { getByTestId } = render(
-         <BlueTick />
-      )
-      
+      const { getByTestId } = render(<BlueTick />)
+
       expect(getByTestId('image')).toBeInTheDocument()
    })
-
-   
 })

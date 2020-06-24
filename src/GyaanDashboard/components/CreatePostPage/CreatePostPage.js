@@ -2,7 +2,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { observable, computed } from 'mobx'
 import Select, { useState } from 'react-select'
-import CreatableSelect from 'react-select/creatable';
+import CreatableSelect from 'react-select/creatable'
 
 import makeAnimated from 'react-select/animated'
 import InputElement from '../../../Common/InputElement'
@@ -15,8 +15,7 @@ import {
    StyledTextArea,
    StyledFooter,
    StyledTags
-}
-from './styledComponents'
+} from './styledComponents'
 
 const animatedComponents = makeAnimated()
 
@@ -26,28 +25,24 @@ function customTheme(theme) {
       colors: {
          ...theme.colors,
          primary: 'green'
-
       }
-
    }
 }
 const customStyles = {
    container: provided => ({
       ...provided,
-      'minWidth': 200,
+      minWidth: 200
    })
-};
+}
 
 @observer
 class CreatePostPage extends React.Component {
-
    constructor(props) {
-      super(props);
-
+      super(props)
    }
    @computed
    get getTags() {
-      const { tags } = this.selectedDomain;
+      const { tags } = this.selectedDomain
       return tags.map(tag => {
          return {
             id: tag.tagId,
@@ -59,8 +54,12 @@ class CreatePostPage extends React.Component {
 
    @computed
    get selectedDomain() {
-      const { followingDomains, selectedDomainId } = this.props;
-      return followingDomains.find(domain => domain.domainId === selectedDomainId) || {};
+      const { followingDomains, selectedDomainId } = this.props
+      return (
+         followingDomains.find(
+            domain => domain.domainId === selectedDomainId
+         ) || {}
+      )
    }
 
    @computed
@@ -73,31 +72,26 @@ class CreatePostPage extends React.Component {
             label: domain.domainName
          }
       })
-
    }
 
    renderTags = observer(() => {
-      const { onSelectTag } = this.props;
+      const { onSelectTag } = this.props
       return (
-
          <CreatableSelect
-               styles={customStyles}
-               className="m-3"
-               onChange={onSelectTag}
-               theme={customTheme}
-               placeholder='select tag'
-               isSearchable
-               isMulti
-               options={this.getTags}
-               />
+            styles={customStyles}
+            className='m-3'
+            onChange={onSelectTag}
+            theme={customTheme}
+            placeholder='select tag'
+            isSearchable
+            isMulti
+            options={this.getTags}
+         />
       )
-
    })
 
    render() {
       const {
-
-
          title,
          content,
          onChangeTitle,
@@ -105,12 +99,8 @@ class CreatePostPage extends React.Component {
          selectedDomainId,
          onChangeDomainId,
          onClickSubmit
-      } = this.props;
-      const {
-         getTagsAPIError,
-         getTagsAPIStatus,
-         getTags
-      } = this.selectedDomain
+      } = this.props
+      const { getTagsAPIError, getTagsAPIStatus, getTags } = this.selectedDomain
       return (
          <StyledPostSection>
             <InputElement
@@ -122,36 +112,37 @@ class CreatePostPage extends React.Component {
                size={InputElement.size.full}
             />
             <StyledTags>
-            <Select
-               styles={customStyles}
-               className="m-3"
-               onChange={onChangeDomainId}
-               theme={customTheme}
-               placeholder='select domain'
-               isSearchable
-               options={this.followingDomain}
-            />
-             <LoadingWrapperWithFailure
-            apiStatus={getTagsAPIStatus}
-            apiError={getTagsAPIError}
-            onRetryClick={getTags}
-            renderSuccessUI={this.renderTags}
-         />
-
+               <Select
+                  styles={customStyles}
+                  className='m-3'
+                  onChange={onChangeDomainId}
+                  theme={customTheme}
+                  placeholder='select domain'
+                  isSearchable
+                  options={this.followingDomain}
+               />
+               <LoadingWrapperWithFailure
+                  apiStatus={getTagsAPIStatus}
+                  apiError={getTagsAPIError}
+                  onRetryClick={getTags}
+                  renderSuccessUI={this.renderTags}
+               />
             </StyledTags>
 
             <StyledTextArea
-            value={content}
-            onChange={onChangeContent}
-            placeholder={strings.topicDescription} />
+               value={content}
+               onChange={onChangeContent}
+               placeholder={strings.topicDescription}
+            />
 
             <StyledFooter>
                <Button
-               data-testid='submitBtn'
-               disabled={!(title&&(selectedDomainId!==null))}
-               size={Button.size.medium}
-               onClick={onClickSubmit}
-               kind={Button.kind.primary}>
+                  data-testid='submitBtn'
+                  disabled={!(title && selectedDomainId !== null)}
+                  size={Button.size.medium}
+                  onClick={onClickSubmit}
+                  kind={Button.kind.primary}
+               >
                   {strings.submit}
                </Button>
             </StyledFooter>

@@ -13,8 +13,7 @@ class FollowingDomainPage extends React.Component {
       return (
          <React.Fragment>
             {domainData != undefined ? (
-               <StyledPostsSection 
-                  data-testid='followingDomainPage'>
+               <StyledPostsSection data-testid='followingDomainPage'>
                   <DomainSection
                      domainData={domainData}
                      onClickLeaveDomain={onClickLeaveDomain}

@@ -17,14 +17,13 @@ import {
    StyledRight,
    StyledPostTitle,
    StyledPostContent
-}
-from './styledComponents';
+} from './styledComponents'
 @observer
 class TitleSection extends React.Component {
-   onClickReaction = (e) => {
-      e.stopPropagation();
-      const { onClickReaction } = this.props;
-      onClickReaction();
+   onClickReaction = e => {
+      e.stopPropagation()
+      const { onClickReaction } = this.props
+      onClickReaction()
    }
    render() {
       const {
@@ -67,10 +66,14 @@ class TitleSection extends React.Component {
 
                <StyledFooter>
                   <StyledTags>
-                     {tags.map((tag,index) => (
+                     {tags.map((tag, index) => (
                         <Tag
                            key={tag.tagId}
-                           color={[255-(index+1)*100,100,(index+1)*100]}
+                           color={[
+                              255 - (index + 1) * 100,
+                              100,
+                              (index + 1) * 100
+                           ]}
                            id={tag.id}
                            name={tag.tagName}
                         />
@@ -79,8 +82,8 @@ class TitleSection extends React.Component {
 
                   <StyledRight>
                      <ReactionIcon
-                     status={getCommentReactionAPIStatus}
-                     onClick={this.onClickReaction}
+                        status={getCommentReactionAPIStatus}
+                        onClick={this.onClickReaction}
                         isReacted={isReacted}
                         count={`${reactionsCount} ${strings.Reactions}`}
                      />

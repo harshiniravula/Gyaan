@@ -6,21 +6,20 @@ import { Router } from 'react-router-dom'
 import Request from '.'
 
 describe('Request', () => {
-
    it('should render Request', () => {
-      const onAcceptRequest = jest.fn();
-      const onRejectRequest = jest.fn();
+      const onAcceptRequest = jest.fn()
+      const onRejectRequest = jest.fn()
       const { getByTestId } = render(
-         <Request 
-         request={{
-         userId:2,
-         username: 'harshi',
-            onAcceptRequest,
-            onRejectRequest}}/>
+         <Request
+            request={{
+               userId: 2,
+               username: 'harshi',
+               onAcceptRequest,
+               onRejectRequest
+            }}
+         />
       )
 
       expect(getByTestId(`request${2}`)).toBeInTheDocument()
    })
-
-
 })

@@ -10,8 +10,7 @@ import {
    StyledListItem,
    StyledList,
    StyledWrapper
-}
-from './styledComponents'
+} from './styledComponents'
 @observer
 class DomainsList extends React.Component {
    @observable text
@@ -28,13 +27,10 @@ class DomainsList extends React.Component {
       const { listOfItems } = this.props
       if (listOfItems == undefined) {
          return []
-      }
-      else if (this.hasClickedSeeAll) {
+      } else if (this.hasClickedSeeAll) {
          return listOfItems
-      }
-      else {
-         let showListOfItems =
-            listOfItems.slice(0, this.limitOnShowingDomains)
+      } else {
+         let showListOfItems = listOfItems.slice(0, this.limitOnShowingDomains)
          return showListOfItems
       }
    }
@@ -42,8 +38,7 @@ class DomainsList extends React.Component {
    toggleSeeAll = () => {
       this.hasClickedSeeAll = !this.hasClickedSeeAll
       this.text =
-         this.text === strings.seeAll ?
-         strings.showLess : strings.seeAll
+         this.text === strings.seeAll ? strings.showLess : strings.seeAll
    }
    onClickDomain = event => {
       const { onClickFollowingDomain } = this.props
@@ -54,12 +49,9 @@ class DomainsList extends React.Component {
       const { title, selectedDomainId } = this.props
 
       return (
-         <WithToggle
-         text={this.text}
-         hasClickedSeeAll={this.hasClickedSeeAll}>
-            {
-               state => (
-                  <StyledWrapper>
+         <WithToggle text={this.text} hasClickedSeeAll={this.hasClickedSeeAll}>
+            {state => (
+               <StyledWrapper>
                   <StyledListTitle
                      isExpanded={!state.toggleStatus}
                      onClick={state.onToggle}
@@ -92,8 +84,7 @@ class DomainsList extends React.Component {
                   ) : null}
                   {}
                </StyledWrapper>
-               )
-            }
+            )}
          </WithToggle>
       )
    }

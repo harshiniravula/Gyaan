@@ -3,14 +3,12 @@ import React from 'react'
 import { render, waitFor, fireEvent } from '@testing-library/react'
 import { Route, MemoryRouter } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
-import { Provider } from 'mobx-react';
+import { Provider } from 'mobx-react'
 
 import GyaanAPI from '../../services/GyaanService/GyaanFixture'
 import GyaanStore from '../../stores/GyaanStore'
 
-
 import PostDisplayRoute from '.'
-
 
 describe('PostDisplayRoute Tests', () => {
    let gyaanAPI
@@ -25,8 +23,8 @@ describe('PostDisplayRoute Tests', () => {
       jest.resetAllMocks()
    })
 
-   it('should render Post Display Route', async() => {
-      const history = createMemoryHistory();
+   it('should render Post Display Route', async () => {
+      const history = createMemoryHistory()
       const {
          getByTestId,
          getByPlaceholderText,
@@ -35,26 +33,25 @@ describe('PostDisplayRoute Tests', () => {
          getByRole,
          getByText
       } = render(
-
-
          <Provider gyaanStore={gyaanStore}>
-            <MemoryRouter initialEntries={['/gyaan/followingDomains/1/posts/2']}>
-      <Route path='/gyaan/followingDomains/:domainId/posts/:postId' history={history}  gyaanStore={gyaanStore} >
-        <PostDisplayRoute 
-             />
-      </Route>
-    </MemoryRouter>
-    </Provider>
-
+            <MemoryRouter
+               initialEntries={['/gyaan/followingDomains/1/posts/2']}
+            >
+               <Route
+                  path='/gyaan/followingDomains/:domainId/posts/:postId'
+                  history={history}
+                  gyaanStore={gyaanStore}
+               >
+                  <PostDisplayRoute />
+               </Route>
+            </MemoryRouter>
+         </Provider>
       )
-      debug();
+      debug()
 
-      await gyaanStore.getGyaanDomainData();
-      expect(getByTestId('headerAndSidebar')).toBeInTheDocument();
+      await gyaanStore.getGyaanDomainData()
+      expect(getByTestId('headerAndSidebar')).toBeInTheDocument()
 
-      expect(getByTestId('detailedPostPage')).toBeInTheDocument();
-
-
+      expect(getByTestId('detailedPostPage')).toBeInTheDocument()
    })
-
 })

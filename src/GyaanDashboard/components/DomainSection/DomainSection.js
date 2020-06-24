@@ -1,7 +1,7 @@
 import React from 'react'
 import { AiOutlineFile, AiOutlineStar } from 'react-icons/ai'
 import { FaRegUserCircle } from 'react-icons/fa'
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react'
 
 import LoadingWrapperWithFailure from '../../../Common/LoadingWrapperWithFailure'
 import colors from '../../../themes/Colors.json'
@@ -19,16 +19,15 @@ import {
    StyledFooter,
    StyledLeft,
    StyledCount
-}
-from './styledComponents'
+} from './styledComponents'
 @observer
 class DomainSection extends React.Component {
    onSuccess = () => {
-      const { onClickLeaveDomain } = this.props;
-      onClickLeaveDomain();
+      const { onClickLeaveDomain } = this.props
+      onClickLeaveDomain()
    }
    leaveDomain = () => {
-      const { leaveDomain } = this.props.domainData;
+      const { leaveDomain } = this.props.domainData
       leaveDomain(this.onSuccess)
    }
    renderDomainData = observer(() => {
@@ -39,11 +38,10 @@ class DomainSection extends React.Component {
          followersCount,
          domainPic,
          domainDescription,
-         domainExperts,
-
-      } = this.props.domainData;
+         domainExperts
+      } = this.props.domainData
       return (
-         <StyledDomainSection >
+         <StyledDomainSection>
             <StyledHeader>
                <PostDomain
                   domainName={domainName}
@@ -68,29 +66,31 @@ class DomainSection extends React.Component {
                   <StyledCount color={colors.blue}>{starsCount}</StyledCount>
                </StyledLeft>
                <Button
-               data-testid='leaveButton'
-               onClick={this.leaveDomain}
-               kind={Button.kind.warning} size={Button.size.mini}>
+                  data-testid='leaveButton'
+                  onClick={this.leaveDomain}
+                  kind={Button.kind.warning}
+                  size={Button.size.mini}
+               >
                   {strings.leave}
                </Button>
             </StyledFooter>
             <StyledHr />
          </StyledDomainSection>
       )
-
    })
    render() {
       const {
          getDomainDataAPIStatus,
          getDomainDataAPIError,
          getDomainDetails
-      } = this.props.domainData;
+      } = this.props.domainData
       return (
          <LoadingWrapperWithFailure
-        apiStatus={getDomainDataAPIStatus}
-        apiError={getDomainDataAPIError}
-        onRetryClick={getDomainDetails}
-        renderSuccessUI={this.renderDomainData}/>
+            apiStatus={getDomainDataAPIStatus}
+            apiError={getDomainDataAPIError}
+            onRetryClick={getDomainDetails}
+            renderSuccessUI={this.renderDomainData}
+         />
       )
    }
 }

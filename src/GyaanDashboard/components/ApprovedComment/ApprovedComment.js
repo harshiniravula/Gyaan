@@ -13,20 +13,18 @@ import {
    StyledRight,
    StyledLeft,
    StyledName
-}
-from './styledComponents'
+} from './styledComponents'
 
 @observer
 class ApprovedComment extends React.Component {
-   onClickReaction = (e) => {
-      e.stopPropagation();
-      const { onClickReaction } = this.props.commentData;
-      onClickReaction();
+   onClickReaction = e => {
+      e.stopPropagation()
+      const { onClickReaction } = this.props.commentData
+      onClickReaction()
    }
    render() {
       const { commentData, postedBy } = this.props
       const { username } = postedBy
-
 
       if (commentData) {
          const {
@@ -41,35 +39,34 @@ class ApprovedComment extends React.Component {
 
          return (
             <StyledApprovedComment>
-            <BasicComment
-               commenter={commenter}
-               commentAt={commentAt}
-               commentContent={commentContent}
-            />
+               <BasicComment
+                  commenter={commenter}
+                  commentAt={commentAt}
+                  commentContent={commentContent}
+               />
 
-            <StyledFooter>
-               <StyledLeft>
-                  <GreenTick />
-                  <StyledApproved>{Strings.ApprovedBy}</StyledApproved>
-                  <StyledName>{username}</StyledName>
-               </StyledLeft>
-               <StyledRight>
-                  <ReactionIcon
-                     data-testid={'reaction'}
-                     status={getCommentReactionAPIStatus}
-                     onClick={this.onClickReaction}
-                     isReacted={isReacted}
-                     count={`${reactionsCount} ${Strings.Reactions}`}
-                  />
+               <StyledFooter>
+                  <StyledLeft>
+                     <GreenTick />
+                     <StyledApproved>{Strings.ApprovedBy}</StyledApproved>
+                     <StyledName>{username}</StyledName>
+                  </StyledLeft>
+                  <StyledRight>
+                     <ReactionIcon
+                        data-testid={'reaction'}
+                        status={getCommentReactionAPIStatus}
+                        onClick={this.onClickReaction}
+                        isReacted={isReacted}
+                        count={`${reactionsCount} ${Strings.Reactions}`}
+                     />
 
-                  <CommentIcon count={`${repliesCount} ${Strings.Replys}`} />
-               </StyledRight>
-            </StyledFooter>
-         </StyledApprovedComment>
+                     <CommentIcon count={`${repliesCount} ${Strings.Replys}`} />
+                  </StyledRight>
+               </StyledFooter>
+            </StyledApprovedComment>
          )
-      }
-      else {
-         return null;
+      } else {
+         return null
       }
    }
 }

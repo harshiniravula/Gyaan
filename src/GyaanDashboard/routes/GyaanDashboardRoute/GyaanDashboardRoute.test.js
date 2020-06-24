@@ -9,39 +9,37 @@ import GyaanStore from '../../stores/GyaanStore'
 
 import GyaanDashboardRoute from '.'
 
-
 describe('LoginRoute Tests', () => {
-    let gyaanAPI
-    let gyaanStore
+   let gyaanAPI
+   let gyaanStore
 
-    beforeEach(() => {
-        gyaanAPI = new GyaanAPI()
-        gyaanStore = new GyaanStore(gyaanAPI)
-    })
+   beforeEach(() => {
+      gyaanAPI = new GyaanAPI()
+      gyaanStore = new GyaanStore(gyaanAPI)
+   })
 
-    afterEach(() => {
-        jest.resetAllMocks()
-    })
+   afterEach(() => {
+      jest.resetAllMocks()
+   })
 
-    it('should render GyaanDashboardRoute ', async() => {
-        const onClickPost = jest.fn();
-        const { getByTestId } = render(
-
-            <Router history={createMemoryHistory()}>
-            <GyaanDashboardRoute onClickPost={onClickPost} gyaanStore={gyaanStore} />
+   it('should render GyaanDashboardRoute ', async () => {
+      const onClickPost = jest.fn()
+      const { getByTestId } = render(
+         <Router history={createMemoryHistory()}>
+            <GyaanDashboardRoute
+               onClickPost={onClickPost}
+               gyaanStore={gyaanStore}
+            />
          </Router>
-         
-        )
-        jest.spyOn(gyaanStore, 'getDomainPosts')
-        jest.spyOn(gyaanStore, 'setSelectedDomainId')
-        expect(getByTestId('headerAndSidebar')).toBeInTheDocument();
+      )
+      jest.spyOn(gyaanStore, 'getDomainPosts')
+      jest.spyOn(gyaanStore, 'setSelectedDomainId')
+      expect(getByTestId('headerAndSidebar')).toBeInTheDocument()
 
-        waitFor(() => {
-            expect(getByTestId('homePage')).toBeInTheDocument();
-            expect(gyaanStore.getDomainPosts).toBeCalled()
-            expect(gyaanStore.setSelectedDomainId).toBeCalled()
-
-
-        })
-    })
+      waitFor(() => {
+         expect(getByTestId('homePage')).toBeInTheDocument()
+         expect(gyaanStore.getDomainPosts).toBeCalled()
+         expect(gyaanStore.setSelectedDomainId).toBeCalled()
+      })
+   })
 })

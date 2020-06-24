@@ -7,8 +7,7 @@ import {
    API_FAILED,
    API_FETCHING,
    API_INITIAL
-}
-from '@ib/api-constants'
+} from '@ib/api-constants'
 import { waitFor } from '@testing-library/react'
 
 import GyaanService from '../../../services/GyaanService/GyaanAPI'
@@ -32,7 +31,8 @@ describe('CommentModel Tests', () => {
       gyaanService = new GyaanService()
       commentModel = new CommentModel(
          GetSelectedPostData.comments[0],
-         gyaanService)
+         gyaanService
+      )
    })
 
    it('should test initialising gyaan store', () => {
@@ -45,16 +45,16 @@ describe('CommentModel Tests', () => {
       const mockDomainsAPI = jest.fn()
       mockDomainsAPI.mockReturnValue(mockLoadingPromise)
       gyaanService.onClickReaction = mockDomainsAPI
-      commentModel.isReacted = true;
-      commentModel.reactionsCount = 10;
+      commentModel.isReacted = true
+      commentModel.reactionsCount = 10
 
       commentModel.onClickReaction(requestObject)
-      expect(commentModel.isReacted).toBe(false);
-      expect(commentModel.reactionsCount).toBe(9);
+      expect(commentModel.isReacted).toBe(false)
+      expect(commentModel.reactionsCount).toBe(9)
       expect(commentModel.getCommentReactionAPIStatus).toBe(API_FETCHING)
    })
 
-   it('should test gyaan Domain API success state', async() => {
+   it('should test gyaan Domain API success state', async () => {
       const requestObject = {}
       const mockSuccessPromise = Promise.resolve()
       const mockDomainsAPI = jest.fn()
@@ -64,22 +64,20 @@ describe('CommentModel Tests', () => {
       await commentModel.onClickReaction(requestObject)
       expect(commentModel.getCommentReactionAPIStatus).toBe(API_SUCCESS)
    })
-   it('should test get domains API failure state', async() => {
+   it('should test get domains API failure state', async () => {
       jest
          .spyOn(gyaanService, 'onClickReaction')
          .mockImplementation(() => Promise.reject())
-      commentModel.isReacted = true;
-      commentModel.reactionsCount = 10;
+      commentModel.isReacted = true
+      commentModel.reactionsCount = 10
 
       commentModel.onClickReaction()
-      expect(commentModel.isReacted).toBe(false);
-      expect(commentModel.reactionsCount).toBe(9);
+      expect(commentModel.isReacted).toBe(false)
+      expect(commentModel.reactionsCount).toBe(9)
       waitFor(() => {
          expect(commentModel.getCommentReactionAPIStatus).toBe(API_FAILED)
-         expect(commentModel.isReacted).toBe(true);
-         expect(commentModel.reactionsCount).toBe(10);
+         expect(commentModel.isReacted).toBe(true)
+         expect(commentModel.reactionsCount).toBe(10)
       })
    })
-
-
 })

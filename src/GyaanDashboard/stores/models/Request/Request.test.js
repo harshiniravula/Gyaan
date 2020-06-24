@@ -7,8 +7,7 @@ import {
    API_FAILED,
    API_FETCHING,
    API_INITIAL
-}
-from '@ib/api-constants'
+} from '@ib/api-constants'
 import { waitFor } from '@testing-library/react'
 
 import GyaanService from '../../../services/GyaanService/GyaanAPI'
@@ -32,7 +31,8 @@ describe('Request Tests', () => {
       gyaanService = new GyaanService()
       requestModel = new Request(
          GetDomainData.domain_requested_users.users[0],
-         gyaanService)
+         gyaanService
+      )
    })
 
    it('should test initialising gyaan store', () => {
@@ -41,28 +41,23 @@ describe('Request Tests', () => {
    })
    it('should test accepting or rejecting a request fetching state', () => {
       const requestObject = {
-
-         "request_id": 0,
-         "accept_status": "rejected"
-
+         request_id: 0,
+         accept_status: 'rejected'
       }
       const mockLoadingPromise = new Promise(function(resolve, reject) {})
       const mockDomainsAPI = jest.fn()
       mockDomainsAPI.mockReturnValue(mockLoadingPromise)
       gyaanService.acceptOrRejectRequest = mockDomainsAPI
 
-
       requestModel.acceptOrRejectRequest(requestObject)
 
       expect(requestModel.getRequestAPIStatus).toBe(API_FETCHING)
    })
 
-   it('should test accepting or rejecting  a request success state', async() => {
+   it('should test accepting or rejecting  a request success state', async () => {
       const requestObject = {
-
-         "request_id": 0,
-         "accept_status": "rejected"
-
+         request_id: 0,
+         accept_status: 'rejected'
       }
       const mockSuccessPromise = Promise.resolve()
       const mockDomainsAPI = jest.fn()
@@ -72,12 +67,10 @@ describe('Request Tests', () => {
       await requestModel.acceptOrRejectRequest(requestObject)
       expect(requestModel.getRequestAPIStatus).toBe(API_SUCCESS)
    })
-   it('should test accepting or rejecting a failure state', async() => {
+   it('should test accepting or rejecting a failure state', async () => {
       const requestObject = {
-
-         "request_id": 0,
-         "accept_status": "rejected"
-
+         request_id: 0,
+         accept_status: 'rejected'
       }
       jest
          .spyOn(gyaanService, 'acceptOrRejectRequest')
@@ -86,6 +79,4 @@ describe('Request Tests', () => {
       await requestModel.acceptOrRejectRequest(requestObject)
       expect(requestModel.getRequestAPIStatus).toBe(API_FAILED)
    })
-
-
 })

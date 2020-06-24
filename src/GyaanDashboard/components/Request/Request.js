@@ -11,13 +11,13 @@ class Requests extends React.Component {
          username,
          onAcceptRequest,
          onRejectRequest
-      } = this.props.request;
+      } = this.props.request
       return (
          <StyledRequest data-testid={`request${userId}`}>
             <StyledName>{username}</StyledName>
             <StyledButtons>
-               <Close onClick={onRejectRequest}/>
-               <BlueTick onClick={onAcceptRequest}/>
+               <Close onClick={onRejectRequest} />
+               <BlueTick onClick={onAcceptRequest} />
             </StyledButtons>
          </StyledRequest>
       )

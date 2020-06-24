@@ -1,78 +1,78 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
-import { observable } from 'mobx';
+import { observable } from 'mobx'
 
 import { goToGyaanHome } from '../../utils/NavigationUtils/NavigationUtils'
 import CreatePostPage from '../../components/CreatePostPage'
 import WithSideBarAndHeader from '../../components/Common/WithSideBarAndHeader'
 
-
 @inject('gyaanStore')
 @observer
 class CreatePostRoute extends React.Component {
-   @observable content;
-   @observable title;
-   @observable selectedDomainId;
-   @observable selectedTags;
+   @observable content
+   @observable title
+   @observable selectedDomainId
+   @observable selectedTags
    constructor(props) {
-      super(props);
-      this.title = '';
-      this.content = '';
-      this.selectedDomainId = null;
-      this.selectedTags = [];
+      super(props)
+      this.title = ''
+      this.content = ''
+      this.selectedDomainId = null
+      this.selectedTags = []
    }
 
-   onSelectTag = (e) => {
+   onSelectTag = e => {
       if (e === null) {
          this.selectedTags = []
-      }
-      else {
+      } else {
          e.forEach(tag => {
-            this.selectedTags.push(tag.id);
+            this.selectedTags.push(tag.id)
          })
       }
-
    }
-   onChangeTitle = (e) => {
-      this.title = e.target.value;
+   onChangeTitle = e => {
+      this.title = e.target.value
    }
-   onChangeContent = (e) => {
-      this.content = e.target.value;
+   onChangeContent = e => {
+      this.content = e.target.value
    }
-   onChangeDomainId = (e) => {
-      this.selectedDomainId = +e.id;
-      const { followingDomains } = this.props.gyaanStore;
-      followingDomains.find(domain => domain.domainId === this.selectedDomainId).getTags();
+   onChangeDomainId = e => {
+      this.selectedDomainId = +e.id
+      const { followingDomains } = this.props.gyaanStore
+      followingDomains
+         .find(domain => domain.domainId === this.selectedDomainId)
+         .getTags()
    }
 
    onClickSubmit = () => {
-      const { followingDomains } = this.props.gyaanStore;
-      const followingDomain = followingDomains.find(domain =>
-         domain.domainId === this.selectedDomainId)
-      const { createPost } = followingDomain;
-      createPost({
-         title: this.title,
-         content: this.content,
-         tags: this.selectedTags
-      }, this.selectedDomainId, this.onSuccess, this.onFailure);
-
+      const { followingDomains } = this.props.gyaanStore
+      const followingDomain = followingDomains.find(
+         domain => domain.domainId === this.selectedDomainId
+      )
+      const { createPost } = followingDomain
+      createPost(
+         {
+            title: this.title,
+            content: this.content,
+            tags: this.selectedTags
+         },
+         this.selectedDomainId,
+         this.onSuccess,
+         this.onFailure
+      )
    }
 
-   onSuccess = (response) => {
-      const { history } = this.props;
+   onSuccess = response => {
+      const { history } = this.props
       goToGyaanHome(history)
    }
-   onFailure = (error) => {
-
-   }
+   onFailure = error => {}
 
    render() {
       const { gyaanStore } = this.props
 
-      const {
-         followingDomains
-      } = gyaanStore
+      const { followingDomains } = gyaanStore
 
       return (
          <CreatePostPage

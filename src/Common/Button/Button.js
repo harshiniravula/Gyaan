@@ -3,7 +3,6 @@ import colors from '../../themes/Colors.json'
 
 import { StyledBtn } from './styledComponents'
 class Button extends React.Component {
-
    static size = {
       small: {
          width: '40px',
@@ -56,7 +55,7 @@ class Button extends React.Component {
       const { kind, size, shape, children, ...other } = this.props
 
       return (
-         <StyledBtn size={size} {...other}   kind={kind} shape={shape}>
+         <StyledBtn size={size} {...other} kind={kind} shape={shape}>
             {children}
          </StyledBtn>
       )

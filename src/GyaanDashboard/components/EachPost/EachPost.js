@@ -53,11 +53,9 @@ class EachPost extends React.Component {
                postedBy={postedBy}
             />
             {unapprovedComments.map(comment => {
-               return <Comment 
-                  key={comment.commentId} 
-                  commentData={comment} />
+               return <Comment key={comment.commentId} commentData={comment} />
             })}
-            <InputWithPostIcon/>
+            <InputWithPostIcon />
          </Card>
       )
    }

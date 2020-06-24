@@ -9,10 +9,10 @@ import {
    FOLLOWING_DOMAIN_PATH,
    CREATE_POST_PATH,
    POST_PATH
-}
-from '../constants/PathName'
+} from '../constants/PathName'
 
-export const Routes = [{
+export const Routes = [
+   {
       path: GYAAN_PATH,
       component: GyaanDashboardRoute
    },

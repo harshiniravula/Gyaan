@@ -7,8 +7,7 @@ import {
    API_FAILED,
    API_FETCHING,
    API_INITIAL
-}
-from '@ib/api-constants'
+} from '@ib/api-constants'
 import GyaanService from '../../../services/GyaanService/GyaanAPI'
 import GetUserDomainData from '../../../fixtures/GetUserDomainData.json'
 import GetPostsData from '../../../fixtures/GetPostsData.json'
@@ -33,15 +32,18 @@ describe('GyaanStore Tests', () => {
 
    beforeEach(() => {
       gyaanService = new GyaanService()
-      domainModel = new DomainModel(GetUserDomainData.following_domains[0], gyaanService)
+      domainModel = new DomainModel(
+         GetUserDomainData.following_domains[0],
+         gyaanService
+      )
    })
 
    it('should test initialising gyaan store', () => {
-      expect(domainModel.offset).toBe(0);
-      expect(domainModel.limit).toBe(5);
+      expect(domainModel.offset).toBe(0)
+      expect(domainModel.limit).toBe(5)
       expect(domainModel.getTagsAPIError).toBe(null)
       expect(domainModel.getTagsAPIStatus).toBe(API_INITIAL)
-      expect(domainModel.tags).toEqual([]);
+      expect(domainModel.tags).toEqual([])
       expect(domainModel.getLeaveDomainAPIStatus).toBe(API_INITIAL)
       expect(domainModel.getLeaveDomainAPIError).toBe(null)
       expect(domainModel.getPostsAPIStatus).toBe(API_INITIAL)
@@ -69,7 +71,7 @@ describe('GyaanStore Tests', () => {
       expect(domainModel.getDomainDataAPIStatus).toBe(API_FETCHING)
    })
 
-   it('should test gyaan following Domain posts API success state', async() => {
+   it('should test gyaan following Domain posts API success state', async () => {
       const requestObject = {}
       const mockSuccessPromise = Promise.resolve(GetDomainData)
       const mockDomainsAPI = jest.fn()
@@ -80,7 +82,7 @@ describe('GyaanStore Tests', () => {
       expect(domainModel.getDomainDataAPIStatus).toBe(API_SUCCESS)
    })
 
-   it('should test get following domain posts API failure state', async() => {
+   it('should test get following domain posts API failure state', async () => {
       jest
          .spyOn(gyaanService, 'getFollowingDomainDetailsAPI')
          .mockImplementation(() => Promise.reject())
@@ -100,7 +102,7 @@ describe('GyaanStore Tests', () => {
       expect(domainModel.getPostsAPIStatus).toBe(API_FETCHING)
    })
 
-   it('should test gyaan following Domains API success state', async() => {
+   it('should test gyaan following Domains API success state', async () => {
       const requestObject = {}
       const mockSuccessPromise = Promise.resolve(GetDomainPostsData)
       const mockDomainsAPI = jest.fn()
@@ -111,7 +113,7 @@ describe('GyaanStore Tests', () => {
       expect(domainModel.getPostsAPIStatus).toBe(API_SUCCESS)
    })
 
-   it('should test get following domains API failure state', async() => {
+   it('should test get following domains API failure state', async () => {
       jest
          .spyOn(gyaanService, 'getFollowingDomainPostsAPI')
          .mockImplementation(() => Promise.reject())
@@ -131,7 +133,7 @@ describe('GyaanStore Tests', () => {
       expect(domainModel.getTagsAPIStatus).toBe(API_FETCHING)
    })
 
-   it('should test gyaan domain tags API success state', async() => {
+   it('should test gyaan domain tags API success state', async () => {
       const requestObject = {}
       const mockSuccessPromise = Promise.resolve(GetTags)
       const mockDomainsAPI = jest.fn()
@@ -142,7 +144,7 @@ describe('GyaanStore Tests', () => {
       expect(domainModel.getTagsAPIStatus).toBe(API_SUCCESS)
    })
 
-   it('should test get domain tags API failure state', async() => {
+   it('should test get domain tags API failure state', async () => {
       jest
          .spyOn(gyaanService, 'getTags')
          .mockImplementation(() => Promise.reject())
@@ -156,9 +158,9 @@ describe('GyaanStore Tests', () => {
          title: 'sample title',
          post: 'sample post content'
       }
-      const domainId = 2;
-      const onSuccess = jest.fn();
-      const onFailure = jest.fn();
+      const domainId = 2
+      const onSuccess = jest.fn()
+      const onFailure = jest.fn()
       const mockLoadingPromise = new Promise(function(resolve, reject) {})
       const mockDomainsAPI = jest.fn()
       mockDomainsAPI.mockReturnValue(mockLoadingPromise)
@@ -170,43 +172,52 @@ describe('GyaanStore Tests', () => {
       expect(onFailure).not.toBeCalled()
    })
 
-   it('should test gyaan create post API success state', async() => {
+   it('should test gyaan create post API success state', async () => {
       const requestObject = {
          title: 'sample title',
          post: 'sample post content'
       }
-      const domainId = 2;
-      const onSuccess = jest.fn();
-      const onFailure = jest.fn();
+      const domainId = 2
+      const onSuccess = jest.fn()
+      const onFailure = jest.fn()
       const mockSuccessPromise = Promise.resolve()
       const mockDomainsAPI = jest.fn()
       mockDomainsAPI.mockReturnValue(mockSuccessPromise)
       gyaanService.createPost = mockDomainsAPI
 
-      await domainModel.createPost(requestObject, domainId, onSuccess, onFailure)
+      await domainModel.createPost(
+         requestObject,
+         domainId,
+         onSuccess,
+         onFailure
+      )
       expect(domainModel.createPostAPIStatus).toBe(API_SUCCESS)
       expect(onSuccess).toBeCalled()
       expect(onFailure).not.toBeCalled()
    })
 
-   it('should test get create post API failure state', async() => {
+   it('should test get create post API failure state', async () => {
       const requestObject = {
          title: 'sample title',
          post: 'sample post content'
       }
-      const domainId = 2;
-      const onSuccess = jest.fn();
-      const onFailure = jest.fn();
+      const domainId = 2
+      const onSuccess = jest.fn()
+      const onFailure = jest.fn()
       jest
          .spyOn(gyaanService, 'createPost')
          .mockImplementation(() => Promise.reject())
 
-      await domainModel.createPost(requestObject, domainId, onSuccess, onFailure)
+      await domainModel.createPost(
+         requestObject,
+         domainId,
+         onSuccess,
+         onFailure
+      )
       expect(domainModel.createPostAPIStatus).toBe(API_FAILED)
       expect(onSuccess).not.toBeCalled()
       expect(onFailure).toBeCalled()
    })
-
 
    it('should test leave domiain api state', () => {
       const onSuccess = jest.fn()
@@ -220,7 +231,7 @@ describe('GyaanStore Tests', () => {
       expect(onSuccess).not.toBeCalled()
    })
 
-   it('should test gyaan leave domiain api success state', async() => {
+   it('should test gyaan leave domiain api success state', async () => {
       const onSuccess = jest.fn()
       const mockSuccessPromise = Promise.resolve(GetTags)
       const mockDomainsAPI = jest.fn()
@@ -232,7 +243,7 @@ describe('GyaanStore Tests', () => {
       expect(onSuccess).toBeCalled()
    })
 
-   it('should test leave domiain api failure state', async() => {
+   it('should test leave domiain api failure state', async () => {
       jest
          .spyOn(gyaanService, 'leaveDomain')
          .mockImplementation(() => Promise.reject())
@@ -241,5 +252,4 @@ describe('GyaanStore Tests', () => {
       expect(domainModel.getLeaveDomainAPIStatus).toBe(API_FAILED)
       expect(onSuccess).not.toBeCalled()
    })
-
 })

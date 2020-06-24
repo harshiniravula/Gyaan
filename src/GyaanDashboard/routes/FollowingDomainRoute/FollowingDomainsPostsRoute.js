@@ -4,9 +4,9 @@ import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
 import { withRouter } from 'react-router-dom'
 import { API_INITIAL, API_FETCHING, API_SUCCESS } from '@ib/api-constants'
-import { getLoadingStatus } from '@ib/api-utils';
+import { getLoadingStatus } from '@ib/api-utils'
 
-import LoadingWrapperWithFailure from '../../../Common/LoadingWrapperWithFailure';
+import LoadingWrapperWithFailure from '../../../Common/LoadingWrapperWithFailure'
 import { goToGyaanHome } from '../../utils/NavigationUtils/NavigationUtils'
 import WithSideBarAndHeader from '../../components/Common/WithSideBarAndHeader'
 import FollowingDomainPage from '../../components/FollowingDomainPage'
@@ -14,9 +14,8 @@ import FollowingDomainPage from '../../components/FollowingDomainPage'
 @inject('gyaanStore')
 @observer
 class FollowingDomainRoute extends React.Component {
-
    onClickLeaveDomain = () => {
-      const { history } = this.props;
+      const { history } = this.props
       goToGyaanHome(history)
    }
 
@@ -25,10 +24,9 @@ class FollowingDomainRoute extends React.Component {
       const domainId = +match.params.domainId
 
       gyaanStore.setSelectedDomainId(domainId)
-
    }
    componentWillUnmunt() {
-      this.domainData.clearPosts();
+      this.domainData.clearPosts()
    }
 
    @computed
@@ -43,17 +41,14 @@ class FollowingDomainRoute extends React.Component {
    get apiStatus() {
       if (!this.domainData) {
          return API_FETCHING
-      }
-      else {
+      } else {
          const { getPostsAPIStatus, getDomainDataAPIStatus } = this.domainData
          return getLoadingStatus(getPostsAPIStatus, getDomainDataAPIStatus)
       }
-
    }
    @computed
    get apiError() {
-      return null;
-
+      return null
    }
 
    renderFollowingDomainPage = observer(() => {
@@ -70,17 +65,15 @@ class FollowingDomainRoute extends React.Component {
       )
    })
 
-
    render() {
       return (
          <LoadingWrapperWithFailure
-      apiStatus={this.apiStatus}
-      apiError={this.apiError}
-      onRetryClick={this.doNetworkCalls}
-      renderSuccessUI={this.renderFollowingDomainPage}
-      />
-      );
-
+            apiStatus={this.apiStatus}
+            apiError={this.apiError}
+            onRetryClick={this.doNetworkCalls}
+            renderSuccessUI={this.renderFollowingDomainPage}
+         />
+      )
    }
 }
 export default withRouter(WithSideBarAndHeader(FollowingDomainRoute))

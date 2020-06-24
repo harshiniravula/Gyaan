@@ -7,8 +7,7 @@ import {
    API_FAILED,
    API_FETCHING,
    API_INITIAL
-}
-from '@ib/api-constants'
+} from '@ib/api-constants'
 import { waitFor } from '@testing-library/react'
 
 import GyaanService from '../../../services/GyaanService/GyaanAPI'
@@ -32,7 +31,8 @@ describe('SuggesttedDomainModel Tests', () => {
       gyaanService = new GyaanService()
       suggestedDomainModel = new SuggesttedDomainModel(
          GetUserDomainData.suggested_domains[0],
-         gyaanService)
+         gyaanService
+      )
    })
 
    it('should test initialising gyaan store', () => {
@@ -40,20 +40,17 @@ describe('SuggesttedDomainModel Tests', () => {
       expect(suggestedDomainModel.getFollowAPIError).toBe(null)
    })
    it('should test accepting or rejecting a request fetching state', () => {
-
       const mockLoadingPromise = new Promise(function(resolve, reject) {})
       const mockDomainsAPI = jest.fn()
       mockDomainsAPI.mockReturnValue(mockLoadingPromise)
       gyaanService.followOrCancelDomainRequest = mockDomainsAPI
-
 
       suggestedDomainModel.onClickFollowOrCancel()
 
       expect(suggestedDomainModel.getFollowAPIStatus).toBe(API_FETCHING)
    })
 
-   it('should test accepting or rejecting  a request success state', async() => {
-
+   it('should test accepting or rejecting  a request success state', async () => {
       const mockSuccessPromise = Promise.resolve()
       const mockDomainsAPI = jest.fn()
       mockDomainsAPI.mockReturnValue(mockSuccessPromise)
@@ -62,8 +59,7 @@ describe('SuggesttedDomainModel Tests', () => {
       await suggestedDomainModel.onClickFollowOrCancel()
       expect(suggestedDomainModel.getFollowAPIStatus).toBe(API_SUCCESS)
    })
-   it('should test accepting or rejecting a failure state', async() => {
-
+   it('should test accepting or rejecting a failure state', async () => {
       jest
          .spyOn(gyaanService, 'followOrCancelDomainRequest')
          .mockImplementation(() => Promise.reject())
@@ -71,6 +67,4 @@ describe('SuggesttedDomainModel Tests', () => {
       await suggestedDomainModel.onClickFollowOrCancel()
       expect(suggestedDomainModel.getFollowAPIStatus).toBe(API_FAILED)
    })
-
-
 })

@@ -8,7 +8,11 @@ class Reaction extends React.Component {
       const { isReacted, count, onClick, ...other } = this.props
       return (
          <StyledReaction onClick={onClick}>
-            {isReacted ? <AiFillHeart{...other} color={'red'} /> : <AiOutlineHeart {...other}/>}
+            {isReacted ? (
+               <AiFillHeart {...other} color={'red'} />
+            ) : (
+               <AiOutlineHeart {...other} />
+            )}
 
             {count}
          </StyledReaction>

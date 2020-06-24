@@ -1,17 +1,16 @@
 import React from 'react'
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react'
 import { observable, computed } from 'mobx'
 import WithToggle from '../../common/WithToggle'
 import strings from '../../i18n/Strings.json'
-import SuggestedDomain from '../SuggestedDomain';
+import SuggestedDomain from '../SuggestedDomain'
 import {
    StyledListTitle,
    StyledTitle,
    StyledListItem,
    StyledList,
    StyledWrapper
-}
-from './styledComponents'
+} from './styledComponents'
 @observer
 class SuggestedDomains extends React.Component {
    @observable text
@@ -27,13 +26,13 @@ class SuggestedDomains extends React.Component {
       const { suggestedDomains } = this.props
       if (suggestedDomains == undefined) {
          return []
-      }
-      else if (this.hasClickedSeeAll) {
+      } else if (this.hasClickedSeeAll) {
          return suggestedDomains
-      }
-      else {
-         let showListOfItems =
-            suggestedDomains.slice(0, this.limitOnShowingDomains)
+      } else {
+         let showListOfItems = suggestedDomains.slice(
+            0,
+            this.limitOnShowingDomains
+         )
          return showListOfItems
       }
    }
@@ -41,58 +40,47 @@ class SuggestedDomains extends React.Component {
    toggleSeeAll = () => {
       this.hasClickedSeeAll = !this.hasClickedSeeAll
       this.text =
-         this.text === strings.seeAll ?
-         strings.showLess : strings.seeAll
+         this.text === strings.seeAll ? strings.showLess : strings.seeAll
    }
 
-   renderSuggestedDomains = (state) => {
-      const { title, suggestedDomains } = this.props;
+   renderSuggestedDomains = state => {
+      const { title, suggestedDomains } = this.props
 
       return (
          <StyledWrapper>
-                  <StyledListTitle
-                     isExpanded={!state.toggleStatus}
-                     onClick={state.onToggle}
-                  >
-                     <StyledTitle>{title}</StyledTitle>
-                  </StyledListTitle>
-                  {!state.toggleStatus ? (
-                     <StyledList>
-                        {this.suggestedDomains.map(eachDomain =>
-                        <SuggestedDomain
+            <StyledListTitle
+               isExpanded={!state.toggleStatus}
+               onClick={state.onToggle}
+            >
+               <StyledTitle>{title}</StyledTitle>
+            </StyledListTitle>
+            {!state.toggleStatus ? (
+               <StyledList>
+                  {this.suggestedDomains.map(eachDomain => (
+                     <SuggestedDomain
                         domainData={eachDomain}
                         id={eachDomain.domainId}
-                        key={eachDomain.domainId}/>
-
-                        )}
-                        {suggestedDomains.length >
-                           this.limitOnShowingDomains && (
-                           <StyledListItem onClick={this.toggleSeeAll}>
-                              {this.text}
-                           </StyledListItem>
-                        )}
-                     </StyledList>
-                  ) : null}
-                  {}
-               </StyledWrapper>
+                        key={eachDomain.domainId}
+                     />
+                  ))}
+                  {suggestedDomains.length > this.limitOnShowingDomains && (
+                     <StyledListItem onClick={this.toggleSeeAll}>
+                        {this.text}
+                     </StyledListItem>
+                  )}
+               </StyledList>
+            ) : null}
+            {}
+         </StyledWrapper>
       )
    }
 
-
    render() {
-
       return (
-
-         <WithToggle
-         text={this.text}
-         hasClickedSeeAll={this.hasClickedSeeAll}>
-            {state =>
-               this.renderSuggestedDomains(state)
-
-            }
+         <WithToggle text={this.text} hasClickedSeeAll={this.hasClickedSeeAll}>
+            {state => this.renderSuggestedDomains(state)}
          </WithToggle>
-
       )
    }
 }
-export default SuggestedDomains;
+export default SuggestedDomains

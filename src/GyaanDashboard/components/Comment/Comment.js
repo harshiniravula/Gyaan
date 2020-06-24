@@ -8,10 +8,10 @@ import { StyledComment, StyledFooter } from './styledComponents'
 
 @observer
 class Comment extends React.Component {
-   onClickReaction = (e) => {
-      e.stopPropagation();
-      const { onClickReaction } = this.props.commentData;
-      onClickReaction();
+   onClickReaction = e => {
+      e.stopPropagation()
+      const { onClickReaction } = this.props.commentData
+      onClickReaction()
    }
    render() {
       const {
