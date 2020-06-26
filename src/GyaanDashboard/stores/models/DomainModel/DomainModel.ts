@@ -7,23 +7,26 @@ import GyaanService from '../../../services/GyaanService/GyaanFixture'
 
 import BasicPostModel from '../BasicPostModel'
 import Request from '../Request'
-
 type CreatePost={
    
-      title:string,
-      content ?: string,
-      tags: any
-   
+   title:string,
+   content ?: string,
+   tags: Array<Tag>
+}
+
+interface Tag{
+   tagId:number
+   tagName:string
 }
 
 class DomainModel {
    @observable getPostsAPIStatus!:number
-   @observable getPostsAPIError:unknown
+   @observable getPostsAPIError!:Error|null
    @observable getDomainDataAPIStatus!:number
-   @observable getDomainDataAPIError:unknown
+   @observable getDomainDataAPIError!:Error|null
    @observable getLeaveDomainAPIStatus!:number
-   @observable getLeaveDomainAPIError:unknown
-   @observable getTagsAPIError:unknown
+   @observable getLeaveDomainAPIError!:Error|null
+   @observable getTagsAPIError!:Error|null
    @observable getTagsAPIStatus!:number
    getDomainPosts!:Array<BasicPostModel>
    domainExperts!:Array<any>
@@ -39,7 +42,7 @@ class DomainModel {
    domainId!:number
    domainName!:string
    gyaanAPIService:GyaanService
-   tags!:Array<object>
+   tags!:Array<Tag>
    postsCount!:number
    domainExpertsCount!:number
    constructor(domainDetails:any, gyaanAPIService:GyaanService) {
@@ -116,7 +119,7 @@ class DomainModel {
    }
 
    @action.bound
-   setGetPostsAPIError(error:unknown) {
+   setGetPostsAPIError(error) {
       this.getPostsAPIError = error
    }
 
@@ -138,7 +141,7 @@ class DomainModel {
       })
    }
    @action.bound
-   setGetDomainDetailsAPIError(error:unknown) {
+   setGetDomainDetailsAPIError(error) {
       this.getDomainDataAPIError = error
    }
    @action.bound
@@ -181,7 +184,7 @@ class DomainModel {
    }
 
    @action.bound
-   setGetLeaveDomainAPIError(error:unknown) {
+   setGetLeaveDomainAPIError(error) {
       this.getLeaveDomainAPIError = error
    }
 
@@ -206,7 +209,7 @@ class DomainModel {
    }
 
    @action.bound
-   setGetTagsAPIError(error:unknown) {
+   setGetTagsAPIError(error) {
       this.getTagsAPIError = error
    }
 

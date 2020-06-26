@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx'
 
-import { API_INITIAL, API_SUCCESS } from '@ib/api-constants'
+import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
 import GyaanService from '../../../services/GyaanService/GyaanFixture'
@@ -12,6 +12,7 @@ interface Commenter{
 }
 
 interface Replies{
+   [x: string]: any
    commentId: number,
    commenter:Commenter,
    commentAt: string,
@@ -20,7 +21,7 @@ interface Replies{
    reactionsCount: number
 }
 class CommentModel {
-   @observable getCommentReactionAPIError!:unknown
+   @observable getCommentReactionAPIError!:Error|null
    @observable getCommentReactionAPIStatus!:number
    @observable isReacted!:boolean
    gyaanAPIService!:GyaanService

@@ -8,7 +8,7 @@ import PostModel from '../../stores/models/BasicPostModel'
 import { StyledGyaanDashboard, StyledRightSide } from './styledComponents'
 type Props={
    getPostsAPIStatus:number,
-         getPostsAPIError:unknown,
+         getPostsAPIError:Error|null,
          getPosts:Array<PostModel>,
          onClickPost:()=>void,
          onClickLoadMore:()=>void

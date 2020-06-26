@@ -4,15 +4,15 @@ import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
 import GyaanService from '../../../services/GyaanService/GyaanFixture'
-
+import { BasicUserDetails} from '../../types'
 class Request {
    userId!:number
    username!:string
    profilePic!:string
    @observable getRequestAPIStatus!:number
-   @observable getRequestAPIError:any
+   @observable getRequestAPIError!:Error|null
    gyaanAPIService:GyaanService
-   constructor(user:any, gyaanAPIService:GyaanService) {
+   constructor(user:BasicUserDetails, gyaanAPIService:GyaanService) {
       (this.userId = user.user_id),
       (this.username = user.username),
       (this.profilePic = user.profile_pic)

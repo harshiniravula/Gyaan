@@ -16,7 +16,6 @@ type SideBarProps ={
    followingDomains,
    selectedDomainId,
    suggestedDomains,
-   onClickSuggestedDomain,
    getGyaanDomainsAPIStatus,
    getGyaanDomainsAPIError,
    doNetworkCalls
@@ -31,8 +30,7 @@ class GyaanSideBar extends React.Component <SideBarProps>{
          onClickFollowingDomain,
          followingDomains,
          selectedDomainId,
-         suggestedDomains,
-         onClickSuggestedDomain
+         suggestedDomains
       } = this.props
       return (
          <StyledSideBarWrapper>
@@ -55,7 +53,6 @@ class GyaanSideBar extends React.Component <SideBarProps>{
             <SuggestedDomains
                title={strings.suggestDomains}
                suggestedDomains={suggestedDomains}
-               onClickSuggestedDomain={onClickSuggestedDomain}
             />
             {selectedDomainRequestes ? (
                <Requests

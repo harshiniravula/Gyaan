@@ -13,12 +13,12 @@ class GyaanStore {
    @observable followingDomains!:any
    @observable suggestedDomains!:Array<SuggesttedDomainModel>
    @observable getPostsAPIStatus!:number
-   @observable getPostsAPIError!:unknown
+   @observable getPostsAPIError!:Error|null
    @observable offset!:number
    @observable selectedDomainId!:number|null
-   @observable selectedPostId!:number|null
+   @observable selectedPostId!:number
    @observable getSelectedPostAPIStatus!:number
-   @observable getSelectedPostAPIError!:unknown
+   @observable getSelectedPostAPIError!:Error|null
    getAllDomainsPostsResponse!:Array<BasicPostModel>
    tags
    limit
@@ -52,11 +52,11 @@ class GyaanStore {
          return this.selectedDomainId},
       id => {
          if (id) {
-            
             this.clearPosts()
-            this.followingDomains
+            let domainModel=this.followingDomains
                .find(domain => domain.domainId === id)
-               .onClickDomain()
+               if(domainModel){
+                  domainModel.onClickDomain()}
          }
       }
    )
@@ -151,7 +151,7 @@ class GyaanStore {
       )
    }
    @action.bound
-   setGetPostDetailsAPIError(error:unknown) {
+   setGetPostDetailsAPIError(error) {
       this.getSelectedPostAPIError = error
    }
 

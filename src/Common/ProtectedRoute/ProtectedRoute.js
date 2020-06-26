@@ -5,7 +5,6 @@ import { getAccessToken } from '../../utils/StorageUtils'
 export const ProtectedRoute = ({ component: Component, path, ...other }) => {
    return getAccessToken() ? (
       <Route
-         data-testid='component'
          {...other}
          exact
          path={path}
@@ -13,6 +12,6 @@ export const ProtectedRoute = ({ component: Component, path, ...other }) => {
          render={props => <Component {...props} {...other} />}
       />
    ) : (
-      <Redirect to={LOGIN_PATH} />
-   )
+         <Redirect to={LOGIN_PATH} />
+      )
 }

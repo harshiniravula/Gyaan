@@ -35,46 +35,6 @@
             "domain_name": "React",
             "is_requested": true
         }
-    ],
-
-    "pending_posts": {
-        "total_count": 10,
-        "domains": [{
-                "domain_id": 3,
-                "domain_name": "React",
-                "posts_count": 5
-            },
-            {
-                "domain_id": 1,
-                "domain_name": "video editing",
-                "posts_count": 3
-            },
-            {
-                "domain_id": 2,
-                "domain_name": "Jabango",
-                "posts_count": 2
-            }
-        ]
-    },
-
-    "pending_for_review_posts": {
-        "total_count": 7,
-        "domains": [{
-                "domain_id": 3,
-                "domain_name": "React",
-                "posts_count": 2
-            },
-            {
-                "domain_id": 1,
-                "domain_name": "Jabango",
-                "posts_count": 3
-            },
-            {
-                "domain_id": 2,
-                "domain_name": "Javascript",
-                "posts_count": 2
-            }
-        ]
-    }
+    ]
 
 }

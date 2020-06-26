@@ -1,4 +1,5 @@
 {
     "invalidBtnType": "Invalid button type",
-    "invalidBtnShape": "Invalid button shape"
+    "invalidBtnShape": "Invalid button shape",
+    "altText":"image"
 }

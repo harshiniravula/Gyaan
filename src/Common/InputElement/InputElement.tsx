@@ -20,6 +20,7 @@ interface Props{
    onChange?:(event:any)=>void,
    type?:string,
    placeholder?:string
+   value?:any
 }
 
 

@@ -11,8 +11,8 @@ import FailureView from './FailureView'
 type WrapperProps={
    apiStatus:number,
    renderSuccessUI:Function,
-   onRetryClick:()=>void,
-   apiError:object
+   onRetryClick?:()=>void,
+   apiError:any
 }
 
 @observer

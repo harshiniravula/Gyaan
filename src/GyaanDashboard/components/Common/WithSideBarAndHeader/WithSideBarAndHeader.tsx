@@ -1,7 +1,7 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
-import {History} from 'history'
+import {RouteComponentProps} from 'react-router-dom'
 
 import {
    goToGyaanHome,
@@ -10,21 +10,23 @@ import {
    goToSpecificPostInSpecificDomain
 } from '../../../utils/NavigationUtils/NavigationUtils'
 
-import  {GyaanStoreType} from '../../../stores/GyaanStore'
+import  GyaanStore from '../../../stores/GyaanStore'
 
 import Header from '../../Header'
 import GyaanSideBar from '../../GyaanSideBar'
 
 import { StyledGyaanDashboard, StyledRightSide } from './styledComponents'
 
-
-interface Props extends GyaanStoreType{
-   history:History
+interface InjectedProps extends RouteComponentProps {
+   gyaanStore: GyaanStore
 }
-function WithSideBarAndHeader(WrappedComponent) {
+
+function WithSideBarAndHeader<T>(
+    WrappedComponent: React.ComponentType<T>
+   ) {
    @inject('gyaanStore')
    @observer
-   class SideBarData extends React.Component<Props> {
+   class SideBarData extends React.Component<RouteComponentProps,T> {
       componentDidMount() {
          this.doNetworkCalls()
       }
@@ -34,25 +36,26 @@ function WithSideBarAndHeader(WrappedComponent) {
             getGyaanDomainData({})
          }
       }
+      getInjectedProps = (): InjectedProps => this.props as InjectedProps
       onClickWritePost = () => {
          const { history } = this.props
          goToPostPage(history)
       }
-      onClickFollowingDomain = id => {
+      onClickFollowingDomain = (id:number) => {
          const { history } = this.props
          goToSpecificDomain(history, id)
       }
       onClickAllDomains = () => {
-         const { history, gyaanStore } = this.props
+         const { history } = this.props
          goToGyaanHome(history)
       }
-      onClickPost = (id, domainId) => {
+      onClickPost = (id:number, domainId:number) => {
          const { history } = this.props
          goToSpecificPostInSpecificDomain(history, domainId, id)
       }
       @computed
       get selectedDomainRequestes() {
-         const { selectedDomainId, followingDomains } = this.props.gyaanStore
+         const {gyaanStore:{selectedDomainId, followingDomains} } = this.getInjectedProps()
 
          if (selectedDomainId != null) {
             const selectedDomain = followingDomains.find(

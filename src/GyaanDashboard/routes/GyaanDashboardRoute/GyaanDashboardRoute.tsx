@@ -1,31 +1,30 @@
-///*global await*/
 import React from 'react'
 import { observer, inject } from 'mobx-react'
-import { observable } from 'mobx'
-import { withRouter } from 'react-router-dom'
+import { withRouter,RouteComponentProps } from 'react-router-dom'
 
-import {GyaanStoreType} from '../../stores/GyaanStore'
-import { LOGIN_PATH } from '../../../Authentication/constants/PathName'
-import { GYAAN_PATH, CREATE_POST_PATH } from '../../constants/PathName'
+import GyaanStore from '../../stores/GyaanStore'
 import GyaanDashboard from '../../components/GyaanDashboard'
 import WithSideBarAndHeader from '../../components/Common/WithSideBarAndHeader'
 
-interface Props extends GyaanStoreType{
+
+interface InjectedProps extends RouteComponentProps{
+   gyaanStore:GyaanStore
    onClickPost:()=>void
 }
 
 @inject('gyaanStore')
 @observer
-class GyaanDashboardRoute extends React.Component<Props> {
+class GyaanDashboardRoute extends React.Component<RouteComponentProps> {
    componentDidMount() {
-      const { getDomainPosts, setSelectedDomainId } = this.props.gyaanStore
-
+      const { getDomainPosts, setSelectedDomainId } = this.getInjectedProps().gyaanStore
       getDomainPosts()
       setSelectedDomainId(null)
    }
+   getInjectedProps = (): InjectedProps => this.props  as InjectedProps
 
    render() {
-      const { gyaanStore, onClickPost } = this.props
+      const { gyaanStore } = this.getInjectedProps();
+      const {onClickPost}=this.props
 
       const {
          

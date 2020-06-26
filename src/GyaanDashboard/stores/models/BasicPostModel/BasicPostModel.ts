@@ -8,23 +8,23 @@ import GyaanService from '../../../services/GyaanService/GyaanFixture'
 import CommentModel from '../CommentModel'
 
 type Comments={
-   approvedComment:null|CommentModel,
+   approvedComment:CommentModel|null,
    unapprovedComments:Array<CommentModel>
 }
 
-type Tag={
+export type Tag={
    tagId:number,
    tagName:string
 }
 
-type PostedBy={
+export type PostedBy={
    userId: number,
    username: string,
    profilePic: string
 }
 class BasicPostModel {
    @observable getCommentReactionAPIStatus!:number
-   @observable getCommentReactionAPIError!:unknown
+   @observable getCommentReactionAPIError!:Error|null
    @observable isReacted!:boolean
    gyaanAPIService:GyaanService
    postContent!:string
@@ -34,12 +34,13 @@ class BasicPostModel {
    postDomainName!:string
    postedAt!:string
    reactionsCount!:number
-   isLatestVersionAvailable!:boolean
+   isLatestVersionAvailable?:boolean
    postedBy!:PostedBy
    commentsCount!:number
    tags!:Array<Tag>
    comments!:Comments
-   constructor(post, postDomainId, domainName, gyaanAPIService:GyaanService) {
+   constructor(post:any,
+       postDomainId:number, domainName:string, gyaanAPIService:GyaanService) {
       this.postContent = post.post_content
       this.gyaanAPIService = gyaanAPIService
       this.postDomainId = postDomainId
@@ -88,7 +89,7 @@ class BasicPostModel {
    @action.bound
    setGetCommentReactionResponse(response) {}
    @action.bound
-   setGetCommentReactionAPIError(error:unknown) {
+   setGetCommentReactionAPIError(error) {
       this.getCommentReactionAPIError = error
       this.changeReaction()
    }

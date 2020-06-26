@@ -5,14 +5,16 @@ import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
 import GyaanService from '../../../services/GyaanService/GyaanFixture'
 
+import { SuggestedDomainType } from "../../types"
+
 class SuggesttedDomainModel {
    @observable isRequested!:boolean
    @observable getFollowAPIStatus!:number
-   @observable getFollowAPIError:unknown
+   @observable getFollowAPIError!:Error|null
    domainId!:number
    domainName!:string
    gyaanAPIService!:GyaanService
-   constructor(domainDetails:any, gyaanAPIService:GyaanService) {
+   constructor(domainDetails:SuggestedDomainType, gyaanAPIService:GyaanService) {
       this.domainId = domainDetails.domain_id
       this.domainName = domainDetails.domain_name
       this.isRequested = domainDetails.is_requested
@@ -33,7 +35,7 @@ class SuggesttedDomainModel {
       this.isRequested = !this.isRequested
    }
    @action.bound
-   setGetFollowAPIError(error:unknown) {
+   setGetFollowAPIError(error) {
       this.getFollowAPIError = error
    }
 
