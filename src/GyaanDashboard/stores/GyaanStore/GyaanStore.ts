@@ -8,29 +8,29 @@ import DomainModel from '../models/DomainModel'
 import SuggesttedDomainModel from '../models/SuggesttedDomainModel'
 
 class GyaanStore {
-   @observable getGyaanDomainsAPIStatus!:number
-   @observable getGyaanDomainsAPIError:any
-   @observable followingDomains!:any
-   @observable suggestedDomains!:Array<SuggesttedDomainModel>
-   @observable getPostsAPIStatus!:number
-   @observable getPostsAPIError!:Error|null
-   @observable offset!:number
-   @observable selectedDomainId!:number|null
-   @observable selectedPostId!:number
-   @observable getSelectedPostAPIStatus!:number
-   @observable getSelectedPostAPIError!:Error|null
-   getAllDomainsPostsResponse!:Array<BasicPostModel>
+   @observable getGyaanDomainsAPIStatus!: number
+   @observable getGyaanDomainsAPIError: any
+   @observable followingDomains!: any
+   @observable suggestedDomains!: Array<SuggesttedDomainModel>
+   @observable getPostsAPIStatus!: number
+   @observable getPostsAPIError!: Error | null
+   @observable offset!: number
+   @observable selectedDomainId!: number | null
+   @observable selectedPostId!: number
+   @observable getSelectedPostAPIStatus!: number
+   @observable getSelectedPostAPIError!: Error | null
+   getAllDomainsPostsResponse!: Array<BasicPostModel>
    tags
    limit
    selectedPost
-   gyaanAPIService:GyaanService
-   constructor(gyaanAPIService:GyaanService) {
+   gyaanAPIService: GyaanService
+   constructor(gyaanAPIService: GyaanService) {
       this.init()
       this.gyaanAPIService = gyaanAPIService
    }
    @action.bound
    init() {
-      this.selectedDomainId=null
+      this.selectedDomainId = null
       this.getSelectedPostAPIStatus = API_INITIAL
       this.getSelectedPostAPIError = null
       this.getGyaanDomainsAPIStatus = API_INITIAL
@@ -48,15 +48,17 @@ class GyaanStore {
 
    disposer = reaction(
       () => {
-        
-         return this.selectedDomainId},
+         return this.selectedDomainId
+      },
       id => {
          if (id) {
             this.clearPosts()
-            let domainModel=this.followingDomains
-               .find(domain => domain.domainId === id)
-               if(domainModel){
-                  domainModel.onClickDomain()}
+            let domainModel = this.followingDomains.find(
+               domain => domain.domainId === id
+            )
+            if (domainModel) {
+               domainModel.onClickDomain()
+            }
          }
       }
    )
@@ -100,6 +102,7 @@ class GyaanStore {
                )
             )
          })
+         console.table(this.getAllDomainsPostsResponse)
       }
    }
 
@@ -112,7 +115,7 @@ class GyaanStore {
    setSelectedPostId(id, domainId) {
       this.selectedDomainId = domainId
       this.selectedPostId = id
-      this.getPostDetails(domainId,id)
+      this.getPostDetails(domainId, id)
    }
 
    @action.bound
@@ -133,16 +136,16 @@ class GyaanStore {
    }
 
    @action.bound
-   setGetGyaanDomainAPIStatus(apiStatus:number) {
+   setGetGyaanDomainAPIStatus(apiStatus: number) {
       this.getGyaanDomainsAPIStatus = apiStatus
    }
 
    @action.bound
-   setGetPostDetailsAPIStatus(apiStatus:number) {
+   setGetPostDetailsAPIStatus(apiStatus: number) {
       this.getSelectedPostAPIStatus = apiStatus
    }
    @action.bound
-   setGetPostDetailsAPIResponse(response:any) {
+   setGetPostDetailsAPIResponse(response: any) {
       this.selectedPost = new BasicPostModel(
          response,
          response.domain.domain_id,
@@ -156,8 +159,12 @@ class GyaanStore {
    }
 
    @action.bound
-   getPostDetails(domainId:number, postId:number) {
-      const usersPromise = this.gyaanAPIService.getSelectedPostAPI({},domainId,postId)
+   getPostDetails(domainId: number, postId: number) {
+      const usersPromise = this.gyaanAPIService.getSelectedPostAPI(
+         {},
+         domainId,
+         postId
+      )
       return bindPromiseWithOnSuccess(usersPromise)
          .to(this.setGetPostDetailsAPIStatus, this.setGetPostDetailsAPIResponse)
          .catch(this.setGetPostDetailsAPIError)
@@ -183,12 +190,9 @@ class GyaanStore {
    }
 
    @action.bound
-   setSelectedDomainId(id:number|null) {
+   setSelectedDomainId(id: number | null) {
       this.selectedDomainId = id
    }
-
-   
 }
 
 export default GyaanStore
-

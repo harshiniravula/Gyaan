@@ -1,7 +1,6 @@
 import * as React from "react"
 
 function SvgComponent(props) {
-    alert(1)
   return (
     <svg width={7} height={7} fill="none" viewBox="0 0 7 7" {...props}>
       <path

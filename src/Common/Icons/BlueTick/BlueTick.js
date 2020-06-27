@@ -1,17 +1,12 @@
-import React from 'react'
+import * as React from "react"
 
-import { StyledImg } from './styledComponents'
-
-class BlueTick extends React.Component {
-   render() {
-      const { ...other } = this.props
-      return (
-         <StyledImg
-            data-testid='image'
-            {...other}
-            src={`https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/8a67d4cb-fe4a-4a45-95ed-16d4c4822649.svg`}
-         />
-      )
-   }
+function SvgComponent(props) {
+  return (
+    <svg width={16} height={16} fill="none" viewBox="0 0 16 16" {...props}>
+      <rect width={16} height={16} fill="#0B69FF" rx={8} />
+      <path stroke="#fff" strokeWidth={1.5} d="M4 8.5L6.667 11 12 5" />
+    </svg>
+  )
 }
-export default BlueTick
+
+export default SvgComponent

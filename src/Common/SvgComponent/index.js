@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-type Props = any
-class SvgComponent extends Component <Props>{
+
+class SvgComponent extends Component {
    render() {
       const {
          renderComponent: RenderComponent,
