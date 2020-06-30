@@ -2,10 +2,11 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { observable, computed } from 'mobx'
 
-import SuggesttedDomainModel from "../../stores/models/SuggesttedDomainModel"
+import SuggestedDomainModel from "../../stores/models/SuggestedDomainModel"
 import WithToggle from '../../common/WithToggle'
 import strings from '../../i18n/Strings.json'
 import SuggestedDomain from '../SuggestedDomain'
+
 import {
    StyledListTitle,
    StyledTitle,
@@ -16,7 +17,7 @@ import {
 
 interface Props{
    title:string
-   suggestedDomains:Array<SuggesttedDomainModel>
+   suggestedDomains:Array<SuggestedDomainModel>
 }
 @observer
 class SuggestedDomains extends React.Component<Props> {

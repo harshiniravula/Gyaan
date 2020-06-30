@@ -5,13 +5,13 @@ import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import GyaanService from '../../services/GyaanService/GyaanFixture'
 import BasicPostModel from '../models/BasicPostModel'
 import DomainModel from '../models/DomainModel'
-import SuggesttedDomainModel from '../models/SuggesttedDomainModel'
+import SuggestedDomainModel from '../models/SuggestedDomainModel'
 
 class GyaanStore {
    @observable getGyaanDomainsAPIStatus!: number
    @observable getGyaanDomainsAPIError: any
    @observable followingDomains!: any
-   @observable suggestedDomains!: Array<SuggesttedDomainModel>
+   @observable suggestedDomains!: Array<SuggestedDomainModel>
    @observable getPostsAPIStatus!: number
    @observable getPostsAPIError!: Error | null
    @observable offset!: number
@@ -75,7 +75,7 @@ class GyaanStore {
          return new DomainModel(eachDomain, this.gyaanAPIService)
       })
       this.suggestedDomains = response.suggested_domains.map(eachDomain => {
-         return new SuggesttedDomainModel(eachDomain, this.gyaanAPIService)
+         return new SuggestedDomainModel(eachDomain, this.gyaanAPIService)
       })
    }
 
@@ -180,7 +180,7 @@ class GyaanStore {
          .to(this.setGetPostsAPIStatus, this.setGetPostsResponse)
          .catch(this.setGetPostsAPIError)
    }
-
+ 
    @action.bound
    getGyaanDomainData(requestObject) {
       const usersPromise = this.gyaanAPIService.getDomainsAPI(requestObject)

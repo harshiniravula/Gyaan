@@ -7,7 +7,7 @@ import GyaanService from '../../../services/GyaanService/GyaanFixture'
 
 import { SuggestedDomainType } from "../../types"
 
-class SuggesttedDomainModel {
+class SuggestedDomainModel {
    @observable isRequested!:boolean
    @observable getFollowAPIStatus!:number
    @observable getFollowAPIError!:Error|null
@@ -52,4 +52,4 @@ class SuggesttedDomainModel {
    }
 }
 
-export default SuggesttedDomainModel
+export default SuggestedDomainModel

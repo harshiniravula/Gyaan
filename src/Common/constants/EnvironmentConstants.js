@@ -4,7 +4,7 @@ const Config={}
 Object.keys(envVariables).forEach(variable=>{
     if(variable.includes('REACT_APP')){
         const envKey = 
-        variable.replace("REACT_APP","")
+        variable.replace("REACT_APP_","")
         Config[envKey]=envVariables[variable]
     }
 })

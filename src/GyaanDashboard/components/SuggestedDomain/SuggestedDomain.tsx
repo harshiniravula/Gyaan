@@ -1,11 +1,11 @@
 import React from 'react'
 import strings from '../../i18n/Strings.json'
 import { observer } from 'mobx-react'
-import SuggesttedDomainModel from "../../stores/models/SuggesttedDomainModel"
+import SuggestedDomainModel from "../../stores/models/SuggestedDomainModel"
 import { StyledDomain, StyledDomainName, StyledBtn } from './styledComponents'
 
 interface Props{
-   domainData:SuggesttedDomainModel
+   domainData:SuggestedDomainModel
 }
 @observer
 class SuggestedDomain extends React.Component<Props>{
