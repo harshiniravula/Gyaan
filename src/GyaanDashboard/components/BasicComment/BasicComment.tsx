@@ -1,9 +1,9 @@
 import React from 'react'
 
-import Avatar from '../../../Common/Avatar'
+import Avatar from "../../../Common/Avatar/Avatar"
 import { Typo14Normal } from '../../../styleGuide/Typos'
 import strings from '../../i18n/Strings.json'
-import PostedAt from '../PostedAt'
+import PostedAt from "../../common/PostedAt/PostedAt"
 
 import { StyledBasicComment, StyledRightPart } from './styledComponents'
 

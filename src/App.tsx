@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Provider } from 'mobx-react'
-
-import HomePage from './components/HomePage'
+//import HomePage from './components/HomePage'
+const HomePage = lazy(() => import('./components/HomePage'))
 // import Page1 from './components/Page1'
 import { AuthRoutes } from './Authentication/routes'
+
 import authStore from './Authentication/stores'
 import gyaanStores from './GyaanDashboard/stores'
-import FollowingDomainsPostsRoute from './GyaanDashboard/routes/FollowingDomainRoute'
 import { ProtectedRoute } from './Common/ProtectedRoute'
 import { Routes } from './GyaanDashboard/routes'
 import './App.css'
@@ -15,32 +15,31 @@ import './App.css'
 const App = () => {
    return (
       <Provider authStore={authStore} {...gyaanStores}>
-         <Router basename={process.env.PUBLIC_URL}>
-            <Switch>
-               {AuthRoutes}
-               {Routes.map(route => {
-                  return (
-                     <ProtectedRoute
-                        exact
-                        path={route.path}
-                        key={route.path}
-                        component={route.component}
-                     />
-                  )
-               })}
-               <Route exact path='/gyaan/followingDomains/:domainId'>
-                  <FollowingDomainsPostsRoute />
-               </Route>
+         <Suspense fallback={<div />}>
+            <Router basename={process.env.PUBLIC_URL}>
+               <Switch>
+                  {AuthRoutes}
+                  {Routes.map(route => {
+                     return (
+                        <ProtectedRoute
+                           exact
+                           path={route.path}
+                           key={route.path}
+                           component={route.component}
+                        />
+                     )
+                  })}
 
-               {/* <Route exact path='/page-1'>
+                  {/* <Route exact path='/page-1'>
                   <Page1 />
                </Route> */}
 
-               <Route path='/'>
-                  <HomePage />
-               </Route>
-            </Switch>
-         </Router>
+                  <Route path='/'>
+                     <HomePage />
+                  </Route>
+               </Switch>
+            </Router>
+         </Suspense>
       </Provider>
    )
 }

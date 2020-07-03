@@ -16,8 +16,14 @@ interface Props{
 }
 @observer
 class PostsPage extends React.Component<Props> {
+   onClickLoadMore=()=>{
+      const {onClickLoadMore}=this.props;
+      onClickLoadMore()
+      console.debug(onClickLoadMore)
+
+   }
    renderPostsList = observer(() => {
-      const { getPosts, onClickPost, onClickLoadMore } = this.props
+      const { getPosts, onClickPost } = this.props
 
       return (
          <StyledPostsPage>
@@ -33,7 +39,7 @@ class PostsPage extends React.Component<Props> {
             })}
 
             <Button
-               onClick={onClickLoadMore}
+               onClick={this.onClickLoadMore}
                kind={Button.kind.primary}
                size={Button.size.full}
                children={strings.loadMore}

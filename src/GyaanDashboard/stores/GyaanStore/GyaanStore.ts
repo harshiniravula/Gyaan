@@ -68,7 +68,7 @@ class GyaanStore {
       this.offset = this.offset + this.limit
       this.getDomainPosts()
    }
-
+   
    @action.bound
    setGetGyaanDomainResponse(response) {
       this.followingDomains = response.following_domains.map(eachDomain => {

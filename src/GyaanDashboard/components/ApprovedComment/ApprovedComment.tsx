@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import GreenTick from '../../../Common/Icons/GreenTick'
 import Comment from '../../stores/models/CommentModel'
 import Strings from '../../i18n/Strings.json'
-import BasicComment from '../../common/BasicComment'
+import BasicComment from '../BasicComment'
 import ReactionIcon from '../../common/ReactionIcon'
 import CommentIcon from '../../common/CommentIcon'
 
@@ -16,18 +16,18 @@ import {
    StyledName
 } from './styledComponents'
 
-interface Props{
-   commentData:Comment|null
-   postedBy:{username:string}
+interface Props {
+   commentData: Comment | null
+   postedBy: { username: string }
 }
 @observer
 class ApprovedComment extends React.Component<Props> {
    onClickReaction = e => {
       e.stopPropagation()
-      const {commentData}=this.props
-      if(commentData){
-      const { onClickReaction } = commentData
-      onClickReaction()
+      const { commentData } = this.props
+      if (commentData) {
+         const { onClickReaction } = commentData
+         onClickReaction()
       }
    }
    render() {

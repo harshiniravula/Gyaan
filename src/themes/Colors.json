@@ -1,13 +1,13 @@
 {
-    "red": "red",
-    "blue": "blue",
-    "green": "green",
-    "orange": "orange",
-    "black": "black",
-    "gray500": "#cbd5e0",
-    "white": "white",
-    "blue700": "#2b6cb0",
-    "gray400": "#cbd5e0",
-    "green500": "#48bb78",
-    "red200": "#fed7d7"
+   "red": "red",
+   "blue": "blue",
+   "green": "green",
+   "orange": "orange",
+   "black": "black",
+   "gray500": "#cbd5e0",
+   "white": "white",
+   "blue700": "#2b6cb0",
+   "gray400": "#cbd5e0",
+   "green500": "#48bb78",
+   "red200": "#fed7d7"
 }

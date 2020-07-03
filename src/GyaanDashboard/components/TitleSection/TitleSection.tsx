@@ -2,7 +2,10 @@ import React from 'react'
 import { observer } from 'mobx-react'
 
 import Avatar from '../../../Common/Avatar'
-import { Tag, PostedBy } from "../../stores/models/BasicPostModel/BasicPostModel"
+import {
+   Tag,
+   PostedBy
+} from '../../stores/models/BasicPostModel/BasicPostModel'
 import TagIcon from '../../common/Tag'
 import PostDomain from '../../common/PostDomain'
 import strings from '../../i18n/Strings.json'
@@ -21,19 +24,18 @@ import {
    StyledPostContent
 } from './styledComponents'
 
-
-interface Props{
-   domainName:string
-   tags:Array<Tag>
-   postedBy:PostedBy
-   postedAt:string
-   reactionsCount:number
-   commentsCount:number
-   isReacted:boolean
-   postTitle:string
-   postContent:string
-   getCommentReactionAPIStatus:number
-   onClickReaction:()=>void
+interface Props {
+   domainName: string
+   tags: Array<Tag>
+   postedBy: PostedBy
+   postedAt: string
+   reactionsCount: number
+   commentsCount: number
+   isReacted: boolean
+   postTitle: string
+   postContent: string
+   getCommentReactionAPIStatus: number
+   onClickReaction: () => void
 }
 @observer
 class TitleSection extends React.Component<Props> {
@@ -58,6 +60,7 @@ class TitleSection extends React.Component<Props> {
       return (
          <StyledTitleSection>
             <Avatar
+               alt={postedBy.username}
                src={postedBy.profilePic}
                borderType={Avatar.borderType.rounded}
                size={Avatar.imageSize.small}
@@ -70,10 +73,7 @@ class TitleSection extends React.Component<Props> {
                      isAuthor={true}
                   />
 
-                  <PostDomain
-                     isTitle={false}
-                     domainName={domainName}
-                  />
+                  <PostDomain isTitle={false} domainName={domainName} />
                </StyledHeader>
 
                <StyledPostTitle>{postTitle}</StyledPostTitle>

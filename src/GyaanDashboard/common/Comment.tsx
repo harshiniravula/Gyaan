@@ -1,14 +1,17 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import Strings from '../../i18n/Strings.json'
-import CommentModel from '../../stores/models/CommentModel'
-import BasicComment from '../../common/BasicComment'
-import ReactionIcon from '../../common/ReactionIcon'
-import CommentIcon from '../../common/CommentIcon'
-import { StyledComment, StyledFooter } from './styledComponents'
+import Strings from '../i18n/Strings.json'
+import CommentModel from '../stores/models/CommentModel'
+import BasicComment from '../components/BasicComment'
+import ReactionIcon from './ReactionIcon'
+import CommentIcon from './CommentIcon'
+import {
+   StyledComment,
+   StyledFooter
+} from '../components/Comment/styledComponents'
 
-interface Props{
-   commentData:CommentModel
+interface Props {
+   commentData: CommentModel
 }
 
 @observer
