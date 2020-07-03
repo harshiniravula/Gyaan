@@ -12,6 +12,6 @@ export const ProtectedRoute = ({ component: Component, path, ...other }) => {
          render={props => <Component {...props} {...other} />}
       />
    ) : (
-         <Redirect to={LOGIN_PATH} />
-      )
+      <Redirect to={LOGIN_PATH} />
+   )
 }

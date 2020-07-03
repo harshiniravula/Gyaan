@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react'
 import SvgComponent from '../../SvgComponent'
 import Close from './Close'
