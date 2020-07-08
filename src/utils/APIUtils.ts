@@ -1,5 +1,5 @@
 import getData from '@ib/api'
-import {ApisauceInstance} from '../../node_modules/apisauce/apisauce'
+import { ApisauceInstance } from '../../node_modules/apisauce/apisauce'
 import {
    apiMethods,
    statusCodes,
@@ -10,12 +10,12 @@ import {
 import { getAccessToken } from './StorageUtils'
 
 export const networkCallWithApisauce = async (
-   api:ApisauceInstance,
-   url:string,
-   requestObject:any,
+   api: ApisauceInstance,
+   url: string,
+   requestObject: any,
    type = apiMethods.post
 ) => {
-   let response:undefined|null = null
+   let response: undefined | null = null
    const accessToken = getAccessToken()
    if (accessToken) {
       api.setHeader('Authorization', `Bearer ${accessToken}`)
@@ -29,12 +29,12 @@ export const networkCallWithApisauce = async (
    return response
 }
 
-export const getUserDisplayableErrorMessage = (error:object) => {
+export const getUserDisplayableErrorMessage = (error: object) => {
    const formattedError = getFormattedError(error)
    return formattedError.description
 }
 
-export function isNetworkError(error:any) {
+export function isNetworkError(error: any) {
    const apiError = JSON.parse(error)
    const { networkError, timeoutError } = apiErrorProblems
    return apiError.problem === networkError || apiError.problem === timeoutError
