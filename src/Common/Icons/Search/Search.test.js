@@ -1,4 +1,3 @@
-
 import React from 'react'
 import { render } from '@testing-library/react'
 
@@ -7,15 +6,9 @@ import { render } from '@testing-library/react'
 import Search from '.'
 
 describe('Search icon', () => {
-
    it('should render Search icon', () => {
-
-      const { getByTestId } = render(
-         <Search />
-      )
+      const { getByTestId } = render(<Search />)
 
       expect(getByTestId('search')).toBeInTheDocument()
    })
-
-
 })

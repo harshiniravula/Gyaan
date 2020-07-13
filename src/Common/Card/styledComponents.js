@@ -1,13 +1,11 @@
 import styled from '@emotion/styled'
 import tw from 'tailwind.macro'
 
-export const StyledCard = styled.button `
+export const StyledCard = styled.div`
    ${tw`bg-white my-4 p-2`};
-   ${props=>{
+   ${props => {
       return {
-         cursor:props.isClickable?'pointer':'none',
+         cursor: props.isClickable ? 'pointer' : 'none'
       }
    }};
-  
-   
 `
